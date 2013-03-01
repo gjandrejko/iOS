@@ -10,6 +10,20 @@
 
 @implementation USGSMeasurement
 
+-(NSString*)measurementDescriptionString{
+    
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+
+    [dateFormatter setDateFormat:@"EEE MMM dd, hh:mm a"];
+    
+    return [dateFormatter stringFromDate:self.date];
+    
+}
+
+-(NSString*)measurementValueString{
+    
+    return [NSString stringWithFormat:@"%g %@",self.value,self.units];
+}
 
 
 @end

@@ -20,9 +20,11 @@
 {
     [super viewDidLoad];
 
-    self.tableView.backgroundView = nil;
-    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cellStripedDarkBackground"]];
-}
+    if (self.tableView.style == UITableViewStyleGrouped) {
+        self.tableView.backgroundView = nil;
+        self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cellStripedDarkBackground"]];
+    }
+   }
 
 - (void)didReceiveMemoryWarning
 {
@@ -50,7 +52,12 @@
     
     cell.measurementDescriptionLabel.text = [measurement measurementDescriptionString];
     cell.measurementValueLabel.text = [measurement measurementValueString];
-    cell.backgroundColor =  [UIColor colorWithPatternImage:[UIImage imageNamed:@"cellStripedBackground"]];
+    
+    if (self.tableView.style == UITableViewStyleGrouped) {
+        cell.backgroundColor =  [UIColor colorWithPatternImage:[UIImage imageNamed:@"cellStripedBackground"]];
+
+    }
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }

@@ -1,18 +1,18 @@
 //
-//  MultipleMeasurementsViewController.m
+//  NoaaMeasurementsViewController.m
 //  RiverWatcherAppV2
 //
 //  Created by George Andrejko on 3/1/13.
 //  Copyright (c) 2013 Root Hollow Apps. All rights reserved.
 //
 
-#import "MultipleMeasurementsViewController.h"
+#import "NoaaMeasurementsViewController.h"
 
-@interface MultipleMeasurementsViewController ()
+@interface NoaaMeasurementsViewController ()
 
 @end
 
-@implementation MultipleMeasurementsViewController
+@implementation NoaaMeasurementsViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

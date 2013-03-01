@@ -98,7 +98,14 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Main Menu" id="uIT-Xm-Om7"/>
+                    <navigationItem key="navigationItem" title="Main Menu" id="uIT-Xm-Om7">
+                        <barButtonItem key="leftBarButtonItem" image="14-gear.png" id="OL4-9V-Rvh">
+                            <color key="tintColor" red="0.098039215690000001" green="0.3803921569" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="90-lifebuoy.png" id="EIb-q4-31s">
+                            <color key="tintColor" red="0.098039215690000001" green="0.3803921569" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="QEu-2b-eSw" kind="push" identifier="MapSearchViewController" id="eCR-ie-Z4n"/>
                         <segue destination="mAK-Vk-vxc" kind="push" identifier="SiteNameSearchPFQueryTableViewController" id="iPP-zd-eCX"/>
@@ -387,6 +394,178 @@
             </objects>
             <point key="canvasLocation" x="2404" y="-423"/>
         </scene>
+        <!--Noaa Measurements View Controller-->
+        <scene sceneID="l4y-pZ-7kI">
+            <objects>
+                <viewController id="5hl-FP-rv9" customClass="NoaaMeasurementsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZQg-ob-ZgH">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="TD1-Gv-q6v">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MeasurementTableViewCell" rowHeight="38" id="bwg-uQ-qXk" customClass="MeasurementTableViewCell">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="38"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="37"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="measurementCellBackground.png" id="icl-Gb-LKs">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="l4e-vH-V4Q">
+                                                    <rect key="frame" x="181" y="10" width="119" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="18"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fr5-ty-3hP">
+                                                    <rect key="frame" x="20" y="10" width="153" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="5hl-FP-rv9" id="b7G-3x-If6"/>
+                                    <outlet property="delegate" destination="5hl-FP-rv9" id="5Uf-j2-ra1"/>
+                                </connections>
+                            </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="6zm-n7-9Bv">
+                                <rect key="frame" x="0.0" y="372" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="5eo-FP-qov"/>
+                                    <barButtonItem style="plain" id="hNn-2U-UYy">
+                                        <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="zQW-aQ-1yJ">
+                                            <rect key="frame" x="22" y="8" width="275" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <segments>
+                                                <segment title="Forecast"/>
+                                                <segment title="Observed"/>
+                                            </segments>
+                                            <color key="tintColor" red="0.098039215690000001" green="0.3803921569" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        </segmentedControl>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ow0-F5-vJ2"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="hgv-Cg-zcb"/>
+                    <connections>
+                        <outlet property="measurementTypeChanged" destination="zQW-aQ-1yJ" id="b1h-0A-FML"/>
+                        <outlet property="measurementTypeSegControl" destination="hNn-2U-UYy" id="Qt6-lP-DSi"/>
+                        <outlet property="tableView" destination="TD1-Gv-q6v" id="xge-2q-gQu"/>
+                        <outlet property="toolbar" destination="6zm-n7-9Bv" id="pxm-YL-Mda"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ytN-NT-Fn6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1841" y="260"/>
+        </scene>
+        <!--Measurements Table View Controller-->
+        <scene sceneID="r4a-eP-uhB">
+            <objects>
+                <viewController id="hcP-Ze-zLC" customClass="USGSMeasurementsTableViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="505-tG-j4n">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="nd6-0N-Y7u">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MeasurementTableViewCell" rowHeight="38" id="Yk0-yO-OOj" customClass="MeasurementTableViewCell">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="38"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="37"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="measurementCellBackground.png" id="l95-bu-pM8">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Hzy-q0-01H">
+                                                    <rect key="frame" x="20" y="10" width="184" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VIp-Zi-KgG">
+                                                    <rect key="frame" x="212" y="10" width="88" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="18"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" red="0.1333333333" green="0.64313725489999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="measurementDescriptionLabel" destination="Hzy-q0-01H" id="Qw3-RB-CVn"/>
+                                            <outlet property="measurementValueLabel" destination="VIp-Zi-KgG" id="X8O-Ci-ycB"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="hcP-Ze-zLC" id="atu-oP-vmc"/>
+                                    <outlet property="delegate" destination="hcP-Ze-zLC" id="Dxy-2J-Ha1"/>
+                                </connections>
+                            </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="e0V-ff-lWc">
+                                <rect key="frame" x="0.0" y="372" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="WdU-nB-td3"/>
+                                    <barButtonItem style="plain" id="iN6-gh-97M">
+                                        <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="S7R-7a-WSd">
+                                            <rect key="frame" x="13" y="8" width="295" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <segments>
+                                                <segment title="First"/>
+                                                <segment title="Second"/>
+                                            </segments>
+                                            <color key="tintColor" red="0.098039215690000001" green="0.3803921569" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="measurementTypeChanged:" destination="hcP-Ze-zLC" eventType="valueChanged" id="heb-x7-EJ5"/>
+                                            </connections>
+                                        </segmentedControl>
+                                        <color key="tintColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="xLE-WI-dqN"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="nYz-6v-maI"/>
+                    <connections>
+                        <outlet property="measurementTypeSegmetedControl" destination="S7R-7a-WSd" id="e4X-kG-T5R"/>
+                        <outlet property="tableView" destination="nd6-0N-Y7u" id="LFR-jG-Ja3"/>
+                        <outlet property="toolbar" destination="e0V-ff-lWc" id="O6p-X2-iR0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SY9-pq-ZWf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2193" y="260"/>
+        </scene>
         <!--Measurements View Controller - Flood Stages-->
         <scene sceneID="ks1-2h-PTd">
             <objects>
@@ -447,7 +626,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dGe-Gq-idn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2431" y="62"/>
+            <point key="canvasLocation" x="2594" y="0.0"/>
         </scene>
         <!--Gauge SiteI Phone Table View Controller - Summary-->
         <scene sceneID="a0e-E3-g7Q">
@@ -568,7 +747,9 @@
                         <outlet property="favoritesButton" destination="ERL-sd-tnr" id="3Qi-Y6-ehk"/>
                         <segue destination="hla-4h-Eth" kind="modal" identifier="GraphViewController" modalTransitionStyle="flipHorizontal" id="cpG-6p-My2"/>
                         <segue destination="PRn-Ai-uTS" kind="modal" identifier="LineGraphView" id="DSr-SF-vKj"/>
-                        <segue destination="RJR-f7-m6H" kind="push" identifier="MeasurementsTable" id="Awh-2B-LSL"/>
+                        <segue destination="RJR-f7-m6H" kind="push" identifier="FloodStagesTable" id="Awh-2B-LSL"/>
+                        <segue destination="hcP-Ze-zLC" kind="push" identifier="USGSMeasurementTables" id="Wzd-he-7Kc"/>
+                        <segue destination="5hl-FP-rv9" kind="push" id="mVz-Uq-xca"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rpQ-h1-Yw0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -801,11 +982,14 @@
         </scene>
     </scenes>
     <resources>
+        <image name="14-gear.png" width="19" height="19"/>
         <image name="193-location-arrow.png" width="24" height="24"/>
         <image name="259-list.png" width="20" height="14"/>
         <image name="28-star.png" width="26" height="26"/>
         <image name="298-circlex.png" width="22" height="22"/>
+        <image name="90-lifebuoy.png" width="24" height="24"/>
         <image name="map@2x.png" width="369" height="304"/>
+        <image name="measurementCellBackground.png" width="320" height="38"/>
     </resources>
     <classes>
         <class className="FavoriteTableViewCell" superclassName="UITableViewCell">
@@ -869,6 +1053,14 @@
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
+        <class className="NoaaMeasurementsViewController" superclassName="MeasurementsViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NoaaMeasurementsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="measurementTypeChanged" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="measurementTypeSegControl" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
         <class className="PFQueryTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PFQueryTableViewController.h"/>
         </class>
@@ -891,6 +1083,7 @@
         <class className="USGSLineGraphViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/USGSLineGraphViewController.h"/>
             <relationships>
+                <relationship kind="action" name="dismissView:"/>
                 <relationship kind="outlet" name="dayRangeLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="lineGraph" candidateClass="RHLineGraphView"/>
                 <relationship kind="outlet" name="sliderContainerView" candidateClass="UIView"/>

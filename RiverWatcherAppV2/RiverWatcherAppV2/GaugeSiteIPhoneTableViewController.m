@@ -17,6 +17,7 @@
 #import "FavoritesManager.h"
 #import "USGSLineGraphViewController.h"
 #import "MeasurementsViewController.h"
+#import "USGSMeasurementsTableViewController.h"
 
 #define SECTION_SIGNIFICANT_DATA @"Major Stages/Flows"
 #define SECTION_MOST_RECENT_MEASUREMENTS @"Latests"
@@ -676,10 +677,10 @@ typedef enum {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if (indexPath.section == SECTION_USGS || indexPath.section == SECTION_NOAA) {
+    if (indexPath.section == SECTION_NOAA) {
         
-        if (indexPath.row == ROW_TABLES || indexPath.row == ROW_FLOOD) {
-            [self performSegueWithIdentifier:@"MeasurementsTable" sender:indexPath];
+        if (indexPath.row == ROW_FLOOD) {
+            [self performSegueWithIdentifier:@"FloodStagesTable" sender:indexPath];
 
         }else if (indexPath.row == ROW_GRAPHS){
             [self performSegueWithIdentifier:@"LineGraphView" sender:indexPath];
@@ -690,6 +691,13 @@ typedef enum {
         GraphViewController* graphViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"GraphViewController"];
         [self presentViewController:graphViewController animated:YES completion:nil];
          */
+    }else if (indexPath.section == SECTION_USGS){
+        
+        if (indexPath.row == ROW_TABLES) {
+            [self performSegueWithIdentifier:@"USGSMeasurementTables" sender:indexPath];
+
+        }
+        
     }
     
 }
@@ -704,8 +712,8 @@ typedef enum {
         
         if (sender.row == ROW_TABLES) {
             
-            MeasurementsViewController* meausrementsViewController = segue.destinationViewController;
-            
+            USGSMeasurementsTableViewController* usgsMeasurementsViewController = segue.destinationViewController;
+            usgsMeasurementsViewController.usgsMeasurementData = self.usgsMeasurementData;
         }
         
     }else if (sender.section == SECTION_NOAA){

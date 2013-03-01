@@ -111,7 +111,16 @@
 		31AEAF7B16E1354200445336 /* 99-umbrella@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31AEAF7916E1354200445336 /* 99-umbrella@2x.png */; };
 		31AEAF7F16E1397F00445336 /* MeasurementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AEAF7E16E1397F00445336 /* MeasurementsViewController.m */; };
 		31AEAF8216E1414F00445336 /* MeasurementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AEAF8116E1414F00445336 /* MeasurementTableViewCell.m */; };
-		31AEAF8516E157B500445336 /* MultipleMeasurementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AEAF8416E157B500445336 /* MultipleMeasurementsViewController.m */; };
+		31AEAF8516E157B500445336 /* USGSMeasurementsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AEAF8416E157B500445336 /* USGSMeasurementsTableViewController.m */; };
+		31AEAF8816E1651A00445336 /* measurementCellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 31AEAF8616E1651A00445336 /* measurementCellBackground.png */; };
+		31AEAF8916E1651A00445336 /* measurementCellBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31AEAF8716E1651A00445336 /* measurementCellBackground@2x.png */; };
+		31AEAF9016E16E2C00445336 /* 90-lifebuoy.png in Resources */ = {isa = PBXBuildFile; fileRef = 31AEAF8E16E16E2C00445336 /* 90-lifebuoy.png */; };
+		31AEAF9116E16E2C00445336 /* 90-lifebuoy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31AEAF8F16E16E2C00445336 /* 90-lifebuoy@2x.png */; };
+		31AEAF9416E16E5800445336 /* 19-gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 31AEAF9216E16E5800445336 /* 19-gear.png */; };
+		31AEAF9516E16E5800445336 /* 19-gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31AEAF9316E16E5800445336 /* 19-gear@2x.png */; };
+		31AEAF9816E16EBC00445336 /* 14-gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 31AEAF9616E16EBC00445336 /* 14-gear.png */; };
+		31AEAF9916E16EBC00445336 /* 14-gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31AEAF9716E16EBC00445336 /* 14-gear@2x.png */; };
+		31AEAF9C16E1702000445336 /* NoaaMeasurementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AEAF9B16E1702000445336 /* NoaaMeasurementsViewController.m */; };
 		31E1A63716C6973C00628B7D /* IPadMaindStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E1A63616C6973C00628B7D /* IPadMaindStoryboard.storyboard */; };
 		31E1A63A16C6983400628B7D /* IpadMainMenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E1A63916C6983400628B7D /* IpadMainMenuTableViewController.m */; };
 		31E1A63D16C6B20700628B7D /* subtle_stripes_@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 31E1A63B16C6B20700628B7D /* subtle_stripes_@2X.png */; };
@@ -361,8 +370,18 @@
 		31AEAF7E16E1397F00445336 /* MeasurementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementsViewController.m; sourceTree = "<group>"; };
 		31AEAF8016E1414F00445336 /* MeasurementTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementTableViewCell.h; sourceTree = "<group>"; };
 		31AEAF8116E1414F00445336 /* MeasurementTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementTableViewCell.m; sourceTree = "<group>"; };
-		31AEAF8316E157B500445336 /* MultipleMeasurementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipleMeasurementsViewController.h; sourceTree = "<group>"; };
-		31AEAF8416E157B500445336 /* MultipleMeasurementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleMeasurementsViewController.m; sourceTree = "<group>"; };
+		31AEAF8316E157B500445336 /* USGSMeasurementsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USGSMeasurementsTableViewController.h; sourceTree = "<group>"; };
+		31AEAF8416E157B500445336 /* USGSMeasurementsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USGSMeasurementsTableViewController.m; sourceTree = "<group>"; };
+		31AEAF8616E1651A00445336 /* measurementCellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = measurementCellBackground.png; sourceTree = "<group>"; };
+		31AEAF8716E1651A00445336 /* measurementCellBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "measurementCellBackground@2x.png"; sourceTree = "<group>"; };
+		31AEAF8E16E16E2C00445336 /* 90-lifebuoy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "90-lifebuoy.png"; sourceTree = "<group>"; };
+		31AEAF8F16E16E2C00445336 /* 90-lifebuoy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "90-lifebuoy@2x.png"; sourceTree = "<group>"; };
+		31AEAF9216E16E5800445336 /* 19-gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "19-gear.png"; sourceTree = "<group>"; };
+		31AEAF9316E16E5800445336 /* 19-gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "19-gear@2x.png"; sourceTree = "<group>"; };
+		31AEAF9616E16EBC00445336 /* 14-gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "14-gear.png"; sourceTree = "<group>"; };
+		31AEAF9716E16EBC00445336 /* 14-gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "14-gear@2x.png"; sourceTree = "<group>"; };
+		31AEAF9A16E1701F00445336 /* NoaaMeasurementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoaaMeasurementsViewController.h; sourceTree = "<group>"; };
+		31AEAF9B16E1702000445336 /* NoaaMeasurementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoaaMeasurementsViewController.m; sourceTree = "<group>"; };
 		31E1A63616C6973C00628B7D /* IPadMaindStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IPadMaindStoryboard.storyboard; sourceTree = "<group>"; };
 		31E1A63816C6983400628B7D /* IpadMainMenuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IpadMainMenuTableViewController.h; sourceTree = "<group>"; };
 		31E1A63916C6983400628B7D /* IpadMainMenuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IpadMainMenuTableViewController.m; sourceTree = "<group>"; };
@@ -533,6 +552,14 @@
 		31041C7816C2DB0E00D92FE2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				31AEAF9616E16EBC00445336 /* 14-gear.png */,
+				31AEAF9716E16EBC00445336 /* 14-gear@2x.png */,
+				31AEAF9216E16E5800445336 /* 19-gear.png */,
+				31AEAF9316E16E5800445336 /* 19-gear@2x.png */,
+				31AEAF8E16E16E2C00445336 /* 90-lifebuoy.png */,
+				31AEAF8F16E16E2C00445336 /* 90-lifebuoy@2x.png */,
+				31AEAF8616E1651A00445336 /* measurementCellBackground.png */,
+				31AEAF8716E1651A00445336 /* measurementCellBackground@2x.png */,
 				31AEAF7816E1354200445336 /* 99-umbrella.png */,
 				31AEAF7916E1354200445336 /* 99-umbrella@2x.png */,
 				31AEAF7116E10D5800445336 /* 04-squiggle.png */,
@@ -742,8 +769,10 @@
 				31472F5116DAC12D00761303 /* NOAALineGraphController.m */,
 				31AEAF7D16E1397F00445336 /* MeasurementsViewController.h */,
 				31AEAF7E16E1397F00445336 /* MeasurementsViewController.m */,
-				31AEAF8316E157B500445336 /* MultipleMeasurementsViewController.h */,
-				31AEAF8416E157B500445336 /* MultipleMeasurementsViewController.m */,
+				31AEAF8316E157B500445336 /* USGSMeasurementsTableViewController.h */,
+				31AEAF8416E157B500445336 /* USGSMeasurementsTableViewController.m */,
+				31AEAF9A16E1701F00445336 /* NoaaMeasurementsViewController.h */,
+				31AEAF9B16E1702000445336 /* NoaaMeasurementsViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -937,6 +966,14 @@
 				31AEAF7416E10D5800445336 /* 04-squiggle@2x.png in Resources */,
 				31AEAF7A16E1354200445336 /* 99-umbrella.png in Resources */,
 				31AEAF7B16E1354200445336 /* 99-umbrella@2x.png in Resources */,
+				31AEAF8816E1651A00445336 /* measurementCellBackground.png in Resources */,
+				31AEAF8916E1651A00445336 /* measurementCellBackground@2x.png in Resources */,
+				31AEAF9016E16E2C00445336 /* 90-lifebuoy.png in Resources */,
+				31AEAF9116E16E2C00445336 /* 90-lifebuoy@2x.png in Resources */,
+				31AEAF9416E16E5800445336 /* 19-gear.png in Resources */,
+				31AEAF9516E16E5800445336 /* 19-gear@2x.png in Resources */,
+				31AEAF9816E16EBC00445336 /* 14-gear.png in Resources */,
+				31AEAF9916E16EBC00445336 /* 14-gear@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -984,7 +1021,8 @@
 				31AEAF7716E1280C00445336 /* UtilMethods.m in Sources */,
 				31AEAF7F16E1397F00445336 /* MeasurementsViewController.m in Sources */,
 				31AEAF8216E1414F00445336 /* MeasurementTableViewCell.m in Sources */,
-				31AEAF8516E157B500445336 /* MultipleMeasurementsViewController.m in Sources */,
+				31AEAF8516E157B500445336 /* USGSMeasurementsTableViewController.m in Sources */,
+				31AEAF9C16E1702000445336 /* NoaaMeasurementsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

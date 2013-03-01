@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 
 
+#import "MeasurementDescriptionProtocol.h"
 
-
-@interface USGSMeasurement : NSObject
+@interface USGSMeasurement : NSObject <MeasurementDescriptionProtocol>
 
 @property (strong,nonatomic) NSDate* date;
 @property (nonatomic) double value;
