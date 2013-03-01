@@ -32,6 +32,7 @@
 {
     [super viewDidLoad];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    self.usgsMeasurements = self.usgsMeasurementData.heightMeasurements;
 
     UIImageView* backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"graphBackground"]];
     backgroundImageView.frame = self.view.bounds;

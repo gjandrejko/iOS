@@ -7,10 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "NOAAMeasurement.h"
 @interface NOAAMeasurementData : NSObject
 @property (strong,nonatomic) NSMutableArray* significantData;
 @property (strong,nonatomic) NSMutableArray* noaaMeasurements;
 @property (readonly,nonatomic) NSArray* forecastMeasurements;
+@property (readonly,nonatomic) NSArray* observedMeasurements;
+
+@property (readonly,nonatomic) NOAAMeasurement* latestMeasurement;
 
 @end

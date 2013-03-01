@@ -104,6 +104,14 @@
 		319D149616C5C38A0074D8EA /* 25-weather.png in Resources */ = {isa = PBXBuildFile; fileRef = 319D149416C5C3880074D8EA /* 25-weather.png */; };
 		319D149716C5C38A0074D8EA /* 25-weather@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 319D149516C5C3880074D8EA /* 25-weather@2x.png */; };
 		319D149A16C5C6740074D8EA /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 319D149916C5C6740074D8EA /* LoadingView.m */; };
+		31AEAF7316E10D5800445336 /* 04-squiggle.png in Resources */ = {isa = PBXBuildFile; fileRef = 31AEAF7116E10D5800445336 /* 04-squiggle.png */; };
+		31AEAF7416E10D5800445336 /* 04-squiggle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31AEAF7216E10D5800445336 /* 04-squiggle@2x.png */; };
+		31AEAF7716E1280C00445336 /* UtilMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AEAF7616E1280B00445336 /* UtilMethods.m */; };
+		31AEAF7A16E1354200445336 /* 99-umbrella.png in Resources */ = {isa = PBXBuildFile; fileRef = 31AEAF7816E1354200445336 /* 99-umbrella.png */; };
+		31AEAF7B16E1354200445336 /* 99-umbrella@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31AEAF7916E1354200445336 /* 99-umbrella@2x.png */; };
+		31AEAF7F16E1397F00445336 /* MeasurementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AEAF7E16E1397F00445336 /* MeasurementsViewController.m */; };
+		31AEAF8216E1414F00445336 /* MeasurementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AEAF8116E1414F00445336 /* MeasurementTableViewCell.m */; };
+		31AEAF8516E157B500445336 /* MultipleMeasurementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AEAF8416E157B500445336 /* MultipleMeasurementsViewController.m */; };
 		31E1A63716C6973C00628B7D /* IPadMaindStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E1A63616C6973C00628B7D /* IPadMaindStoryboard.storyboard */; };
 		31E1A63A16C6983400628B7D /* IpadMainMenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E1A63916C6983400628B7D /* IpadMainMenuTableViewController.m */; };
 		31E1A63D16C6B20700628B7D /* subtle_stripes_@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 31E1A63B16C6B20700628B7D /* subtle_stripes_@2X.png */; };
@@ -342,6 +350,19 @@
 		319D149516C5C3880074D8EA /* 25-weather@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "25-weather@2x.png"; sourceTree = "<group>"; };
 		319D149816C5C6740074D8EA /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingView.h; sourceTree = "<group>"; };
 		319D149916C5C6740074D8EA /* LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingView.m; sourceTree = "<group>"; };
+		31AEAF7116E10D5800445336 /* 04-squiggle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "04-squiggle.png"; sourceTree = "<group>"; };
+		31AEAF7216E10D5800445336 /* 04-squiggle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "04-squiggle@2x.png"; sourceTree = "<group>"; };
+		31AEAF7516E1280B00445336 /* UtilMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilMethods.h; sourceTree = "<group>"; };
+		31AEAF7616E1280B00445336 /* UtilMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilMethods.m; sourceTree = "<group>"; };
+		31AEAF7816E1354200445336 /* 99-umbrella.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "99-umbrella.png"; sourceTree = "<group>"; };
+		31AEAF7916E1354200445336 /* 99-umbrella@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "99-umbrella@2x.png"; sourceTree = "<group>"; };
+		31AEAF7C16E1378F00445336 /* MeasurementDescriptionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementDescriptionProtocol.h; sourceTree = "<group>"; };
+		31AEAF7D16E1397F00445336 /* MeasurementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementsViewController.h; sourceTree = "<group>"; };
+		31AEAF7E16E1397F00445336 /* MeasurementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementsViewController.m; sourceTree = "<group>"; };
+		31AEAF8016E1414F00445336 /* MeasurementTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementTableViewCell.h; sourceTree = "<group>"; };
+		31AEAF8116E1414F00445336 /* MeasurementTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementTableViewCell.m; sourceTree = "<group>"; };
+		31AEAF8316E157B500445336 /* MultipleMeasurementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipleMeasurementsViewController.h; sourceTree = "<group>"; };
+		31AEAF8416E157B500445336 /* MultipleMeasurementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleMeasurementsViewController.m; sourceTree = "<group>"; };
 		31E1A63616C6973C00628B7D /* IPadMaindStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IPadMaindStoryboard.storyboard; sourceTree = "<group>"; };
 		31E1A63816C6983400628B7D /* IpadMainMenuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IpadMainMenuTableViewController.h; sourceTree = "<group>"; };
 		31E1A63916C6983400628B7D /* IpadMainMenuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IpadMainMenuTableViewController.m; sourceTree = "<group>"; };
@@ -472,6 +493,9 @@
 				31E1A63616C6973C00628B7D /* IPadMaindStoryboard.storyboard */,
 				31E1A63816C6983400628B7D /* IpadMainMenuTableViewController.h */,
 				31E1A63916C6983400628B7D /* IpadMainMenuTableViewController.m */,
+				31AEAF7516E1280B00445336 /* UtilMethods.h */,
+				31AEAF7616E1280B00445336 /* UtilMethods.m */,
+				31AEAF7C16E1378F00445336 /* MeasurementDescriptionProtocol.h */,
 			);
 			path = RiverWatcherAppV2;
 			sourceTree = "<group>";
@@ -509,6 +533,10 @@
 		31041C7816C2DB0E00D92FE2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				31AEAF7816E1354200445336 /* 99-umbrella.png */,
+				31AEAF7916E1354200445336 /* 99-umbrella@2x.png */,
+				31AEAF7116E10D5800445336 /* 04-squiggle.png */,
+				31AEAF7216E10D5800445336 /* 04-squiggle@2x.png */,
 				31472F4C16DAADAC00761303 /* sliderThumb.png */,
 				31472F4D16DAADAC00761303 /* sliderThumb@2x.png */,
 				31472F3E16DAA7A100761303 /* graphBackground.png */,
@@ -712,6 +740,10 @@
 				31472F3516D9713700761303 /* USGSLineGraphViewController.m */,
 				31472F5016DAC12D00761303 /* NOAALineGraphController.h */,
 				31472F5116DAC12D00761303 /* NOAALineGraphController.m */,
+				31AEAF7D16E1397F00445336 /* MeasurementsViewController.h */,
+				31AEAF7E16E1397F00445336 /* MeasurementsViewController.m */,
+				31AEAF8316E157B500445336 /* MultipleMeasurementsViewController.h */,
+				31AEAF8416E157B500445336 /* MultipleMeasurementsViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -750,6 +782,8 @@
 				31E1A66116C6D05700628B7D /* RiverWatcherDefaultCell.m */,
 				31E1A66F16C73BBF00628B7D /* FavoriteTableViewCell.h */,
 				31E1A67016C73BBF00628B7D /* FavoriteTableViewCell.m */,
+				31AEAF8016E1414F00445336 /* MeasurementTableViewCell.h */,
+				31AEAF8116E1414F00445336 /* MeasurementTableViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -899,6 +933,10 @@
 				31472F4F16DAADAC00761303 /* sliderThumb@2x.png in Resources */,
 				31472F5916DAC7DC00761303 /* 259-list.png in Resources */,
 				31472F5A16DAC7DC00761303 /* 259-list@2x.png in Resources */,
+				31AEAF7316E10D5800445336 /* 04-squiggle.png in Resources */,
+				31AEAF7416E10D5800445336 /* 04-squiggle@2x.png in Resources */,
+				31AEAF7A16E1354200445336 /* 99-umbrella.png in Resources */,
+				31AEAF7B16E1354200445336 /* 99-umbrella@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -943,6 +981,10 @@
 				31472F3316D96FFC00761303 /* RHLineGraphView.m in Sources */,
 				31472F3616D9713700761303 /* USGSLineGraphViewController.m in Sources */,
 				31472F5216DAC12D00761303 /* NOAALineGraphController.m in Sources */,
+				31AEAF7716E1280C00445336 /* UtilMethods.m in Sources */,
+				31AEAF7F16E1397F00445336 /* MeasurementsViewController.m in Sources */,
+				31AEAF8216E1414F00445336 /* MeasurementTableViewCell.m in Sources */,
+				31AEAF8516E157B500445336 /* MultipleMeasurementsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

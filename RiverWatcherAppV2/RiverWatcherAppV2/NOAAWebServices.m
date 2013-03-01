@@ -10,6 +10,9 @@
 #import "NOAAMeasurementData.h"
 #import "NOAASignificantItem.h"
 #import "NOAAMeasurement.h"
+#import "UtilMethods.h"
+
+#define NO_DATA_VALUE @"-999"
 
 typedef enum {
     NOAAWebServicesSectionUnknown = 0,
@@ -192,18 +195,26 @@ typedef enum {
         [self.noaaMeasurementData.noaaMeasurements addObject:self.currentMeasurement];
         
     }else if ([elementName isEqualToString:@"valid"] && (self.currentSection == NOAAWebServicesSectionComputedMeasurements || self.currentSection == NOAAWebServicesSectionObservedMeasurements)){
+#warning need to handle timezones
         NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
         self.currentMeasurement.date = [dateFormatter dateFromString:self.currentElement];
         
     }else if ([elementName isEqualToString:@"primary"] && (self.currentSection == NOAAWebServicesSectionComputedMeasurements || self.currentSection == NOAAWebServicesSectionObservedMeasurements)){
         
-        self.currentMeasurement.primaryValue = [self.currentElement doubleValue];
+        if (![self.currentElement isEqualToString:NO_DATA_VALUE]) {
+            self.currentMeasurement.primaryValue =  [NSNumber numberWithDouble:[self.currentElement doubleValue]];
+
+        }
+        
 
         
     }else if ([elementName isEqualToString:@"secondary"] && (self.currentSection == NOAAWebServicesSectionComputedMeasurements || self.currentSection == NOAAWebServicesSectionObservedMeasurements)){
         
-        self.currentMeasurement.secondaryValue = [self.currentElement doubleValue];
+        if (![self.currentElement isEqualToString:NO_DATA_VALUE]) {
+            self.currentMeasurement.secondaryValue =  [NSNumber numberWithDouble:[self.currentElement doubleValue]];
+            
+        }
 
         
     }else if (self.currentSection == NOAAWebServicesSectionSignificantFlows){

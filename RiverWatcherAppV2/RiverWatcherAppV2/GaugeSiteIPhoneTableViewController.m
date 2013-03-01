@@ -16,6 +16,8 @@
 #import "GraphViewController.h"
 #import "FavoritesManager.h"
 #import "USGSLineGraphViewController.h"
+#import "MeasurementsViewController.h"
+
 #define SECTION_SIGNIFICANT_DATA @"Major Stages/Flows"
 #define SECTION_MOST_RECENT_MEASUREMENTS @"Latests"
 
@@ -27,6 +29,17 @@
 #define ROW_TABLES 1
 #define ROW_FLOOD 2
 
+
+typedef enum {
+    WebServiceStateLoading,
+    WebServiceStateFailed,
+    WebServiceStateLoaded
+} WebServiceState;
+
+
+#define CELL_IDENTIFIER_LOADING @"LoadingCell"
+#define CELL_IDENTIFIER_ERROR @"ErrorCell"
+#define CELL_IDENTIFIER_NODATA @"NoDataCell"
 
 
 #define TITLE_TABLE_FLOOD_STAGES @"Flood Stages"
@@ -40,9 +53,9 @@
 #define TITLE_GRAPH_DISCHARGE  @"Discharge"
 #define TITLE_GRAPH_HEIGHT  @"Gauge Height"
 
-#define TITLE_RECENT_HEIGHT @"Gauge Height"
+#define TITLE_RECENT_HEIGHT @"Stage"
 #define TITLE_RECENT_TEMPERATURE @"Temperature"
-#define TITLE_RECENT_DISCHARGE @"Discharge"
+#define TITLE_RECENT_DISCHARGE @"Flow"
 
 #define KEY_CELL_TITLE @"CellTitle"
 
@@ -51,7 +64,6 @@
 @property (strong,nonatomic) NSString* name;
 @property (strong,nonatomic) NSNumber* order;
 @end
-
 
 @implementation TableSection
 
@@ -75,6 +87,9 @@
 @property (strong,nonatomic) NSMutableArray* tableCellDictionaries;
 @property (strong,nonatomic) LoadingView* loadingView;
 
+@property (nonatomic) WebServiceState usgsWebServiceState;
+@property (nonatomic) WebServiceState noaaWebServiceState;
+@property (nonatomic) WebServiceState latestWebServiceState;
 
 @property (strong,nonatomic) NSMutableArray* tableSections;
 @property (nonatomic) NSInteger numberOfWebservicesLoaded;
@@ -84,63 +99,73 @@
 @implementation GaugeSiteIPhoneTableViewController
 
 
--(void)setupGraphAndTableSections{
+-(void)setUsgsWebServiceState:(WebServiceState)usgsWebServiceState{
     
-    self.graphCellDictionaries = [NSMutableArray array];
-    self.tableCellDictionaries = [NSMutableArray array];
+    if (_usgsWebServiceState != usgsWebServiceState) {
+        _usgsWebServiceState = usgsWebServiceState;
+        [self updateLatestMeasurements];
+        [self.tableView reloadData];
+    }
+}
 
+-(void) setNoaaWebServiceState:(WebServiceState)noaaWebServiceState{
     
-    if ([self.usgsMeasurementData.heightMeasurements count] > 0) {
-        
-        NSDictionary* graphDictionary = [NSDictionary dictionaryWithObject:TITLE_GRAPH_HEIGHT forKey:KEY_CELL_TITLE];
-        NSDictionary* tableDictionary = [NSDictionary dictionaryWithObject:TITLE_TABLE_HEIGHT forKey:KEY_CELL_TITLE];
-        [self.graphCellDictionaries addObject:graphDictionary];
-        [self.tableCellDictionaries addObject:tableDictionary];
+    if (_noaaWebServiceState != noaaWebServiceState) {
+        _noaaWebServiceState = noaaWebServiceState;
+        [self updateLatestMeasurements];
 
+        [self.tableView reloadData];
     }
     
-    if ([self.usgsMeasurementData.dischargeMeasurements count] > 0) {
-        
-        NSDictionary* graphDictionary = [NSDictionary dictionaryWithObject:TITLE_GRAPH_DISCHARGE forKey:KEY_CELL_TITLE];
-        NSDictionary* tableDictionary = [NSDictionary dictionaryWithObject:TITLE_TABLE_DISHCARGE forKey:KEY_CELL_TITLE];
-        [self.graphCellDictionaries addObject:graphDictionary];
-        [self.tableCellDictionaries addObject:tableDictionary];
-        
-    }
+}
+
+-(void)updateLatestMeasurements{
     
-    if ([self.usgsMeasurementData.temperatureMeasurements count] > 0) {
-        
-        NSDictionary* graphDictionary = [NSDictionary dictionaryWithObject:TITLE_GRAPH_TEMPERATURE forKey:KEY_CELL_TITLE];
-        NSDictionary* tableDictionary = [NSDictionary dictionaryWithObject:TITLE_TABLE_TEMPERATURE forKey:KEY_CELL_TITLE];
-        [self.graphCellDictionaries addObject:graphDictionary];
-        [self.tableCellDictionaries addObject:tableDictionary];
-        
-    }
+    //USGS contains 3 measurements while NOOA only contains 2
+    //So always wait until USGS is loaded before updating the latest measurements
+    //If usgs fails to load, or contains no measurements for this gauge site, fall back to noaa data
     
-    
-    if ([self.noaaMeasurementData.forecastMeasurements count] > 0) {
+    if (self.usgsWebServiceState == WebServiceStateLoading) {
         
-        NSDictionary* graphDictionary = [NSDictionary dictionaryWithObject:TITLE_GRAPH_NOAA forKey:KEY_CELL_TITLE];
-        NSDictionary* tableDictionary = [NSDictionary dictionaryWithObject:TITLE_TABLE_NOAA forKey:KEY_CELL_TITLE];
-        [self.graphCellDictionaries addObject:graphDictionary];
-        [self.tableCellDictionaries addObject:tableDictionary];
-    }
-    
-    if ([self.noaaMeasurementData.significantData count] > 0) {
+        self.latestWebServiceState = WebServiceStateLoading;
         
-        NSDictionary* tableDictionary = [NSDictionary dictionaryWithObject:TITLE_TABLE_FLOOD_STAGES forKey:KEY_CELL_TITLE];
+    }else if (self.usgsWebServiceState == WebServiceStateFailed && self.noaaWebServiceState == WebServiceStateFailed) {
+        
+        self.latestWebServiceState = WebServiceStateFailed;
+        
+    }else if (self.usgsWebServiceState == WebServiceStateLoaded)  {
+        
+        if ([self.usgsMeasurementData hasMeasurements]) {
+            
+            [self updateLatestMeasurementsWithUsgsData];
+            self.latestWebServiceState = WebServiceStateLoaded;
+            
+        }else if (self.noaaWebServiceState == WebServiceStateLoaded) {
+            
+            [self updateLatestMeasurementsWithNoaaData];
+            self.latestWebServiceState = WebServiceStateLoaded;
+            
+        }else{
+            self.latestWebServiceState = WebServiceStateLoading;
+
+        }
+        
+    }else if(self.usgsWebServiceState == WebServiceStateFailed && self.noaaWebServiceState == WebServiceStateLoaded){
+        
+        [self updateLatestMeasurementsWithNoaaData];
+        self.latestWebServiceState = WebServiceStateLoaded;
         
     }
     
 }
 
--(void)setupLatestMeasurements
-{
+-(void)updateLatestMeasurementsWithUsgsData{
+ 
     self.latestMeasurementDictionaries = [NSMutableArray array];
     USGSMeasurement* heightMeasurement = [self.usgsMeasurementData.heightMeasurements lastObject];
     USGSMeasurement* tempMeasurement = [self.usgsMeasurementData.temperatureMeasurements lastObject];
     USGSMeasurement* dischargeMeasurement = [self.usgsMeasurementData.dischargeMeasurements lastObject];
-
+    
     
     if (heightMeasurement) {
         NSString* measurementString = [NSString stringWithFormat:@"%g %@",heightMeasurement.value,heightMeasurement.units];
@@ -154,7 +179,7 @@
         NSDictionary* measurementDic = [NSDictionary dictionaryWithObject:measurementString forKey:TITLE_RECENT_DISCHARGE];
         [self.latestMeasurementDictionaries addObject:measurementDic];
         self.latestMeasurementDate = dischargeMeasurement.date;
-
+        
     }
     
     if (tempMeasurement) {
@@ -162,20 +187,45 @@
         NSDictionary* measurementDic = [NSDictionary dictionaryWithObject:measurementString forKey:TITLE_RECENT_TEMPERATURE];
         [self.latestMeasurementDictionaries addObject:measurementDic];
         self.latestMeasurementDate = tempMeasurement.date;
+        
+    }
+    
+}
+
+-(void)updateLatestMeasurementsWithNoaaData{
+    
+    NOAAMeasurement* latestMeasurement = [self.noaaMeasurementData latestMeasurement];
+    self.latestMeasurementDictionaries = [NSMutableArray array];
+    
+    if (latestMeasurement.primaryValue) {
+        NSString* measurementString = [NSString stringWithFormat:@"%@ %@",latestMeasurement.primaryValue,latestMeasurement.primaryUnits];
+        NSDictionary* measurementDic = [NSDictionary dictionaryWithObject:measurementString forKey:latestMeasurement.primaryName];
+        [self.latestMeasurementDictionaries addObject:measurementDic];
 
     }
+    
+    if (latestMeasurement.secondaryValue) {
+        NSString* measurementString = [NSString stringWithFormat:@"%@ %@",latestMeasurement.secondaryValue,latestMeasurement.secondaryUnits];
+        NSDictionary* measurementDic = [NSDictionary dictionaryWithObject:measurementString forKey:latestMeasurement.secondaryName];
+        [self.latestMeasurementDictionaries addObject:measurementDic];
+        
+    }
+
+    self.latestMeasurementDate = latestMeasurement.date;
+
 }
+
+
 
 -(void)setNumberOfWebservicesLoaded:(NSInteger)numberOfWebservicesLoaded{
     _numberOfWebservicesLoaded = numberOfWebservicesLoaded;
     
     if (_numberOfWebservicesLoaded ==2 ) {
         
-        [self setupLatestMeasurements];
-        [self setupGraphAndTableSections];
+       // [self setupLatestMeasurements];
         [self.loadingView removeFromSuperview];
         self.tableView.userInteractionEnabled = YES;
-        [self.tableView reloadData];
+      //  [self.tableView reloadData];
     }
 }
 
@@ -222,6 +272,59 @@
     
 }
 
+-(void)downloadUsgsData
+{
+    self.usgsWebServiceState = WebServiceStateLoading;
+    [USGSWebServices downloadMeasurementsForSiteId:self.gaugeSite.usgsId NumberOfDays:30 Completion:^(USGSMeasurementData *usgsMeasurementData, NSError* error) {
+        
+        
+        if (error  ) {
+            self.usgsWebServiceState = WebServiceStateFailed;
+        }else{
+
+            TableSection* tableSection = [TableSection tableSectionWithName:SECTION_MOST_RECENT_MEASUREMENTS Order:0];
+            [self.tableSections addObject:tableSection];
+            
+            self.usgsMeasurementData = usgsMeasurementData;
+            self.numberOfWebservicesLoaded++;
+            
+            NSLog(@"Loaded USGS:%d",[usgsMeasurementData.heightMeasurements count]);
+            
+            self.usgsWebServiceState = WebServiceStateLoaded;
+
+        }
+
+    }];
+}
+
+-(void)downloadNoaaData
+{
+    
+    self.usgsWebServiceState = WebServiceStateLoading;
+    [self.noaaWebServices downloadMeasurementsForSiteId:self.gaugeSite.nwsId Completion:^(NOAAMeasurementData *noaaMeasurementData, NSError *error) {
+        
+        if (error) {
+            self.noaaWebServiceState = WebServiceStateFailed;
+
+        }else{
+
+            self.noaaMeasurementData = noaaMeasurementData;
+            
+            if ([self.noaaMeasurementData.significantData count] > 0) {
+                TableSection* tableSection = [TableSection tableSectionWithName:SECTION_SIGNIFICANT_DATA Order:1];
+                [self.tableSections addObject:tableSection];
+            }
+            self.numberOfWebservicesLoaded++;
+            NSLog(@"Loaded NOAA:%d",[noaaMeasurementData.noaaMeasurements count]);
+            self.noaaWebServiceState = WebServiceStateLoaded;
+
+        }
+
+
+        
+    }];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -231,8 +334,7 @@
     
     self.loadingView = [[LoadingView alloc] initWithFrame:self.tableView.bounds];
     self.loadingView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cellStripedDarkBackground"]];
-    [self.tableView addSubview:self.loadingView];
-    self.tableView.userInteractionEnabled = NO;
+    //[self.tableView addSubview:self.loadingView];
     
     if (!self.gaugeSite) {
         self.gaugeSite = [GaugeSite testSite];
@@ -241,38 +343,11 @@
     self.tableView.tableHeaderView = [self viewForTableHeader];
     
     self.tableSections = [[NSMutableArray alloc] init];
-
-    [USGSWebServices downloadMeasurementsForSiteId:self.gaugeSite.usgsId NumberOfDays:30 Completion:^(USGSMeasurementData *usgsMeasurementData, NSError* error) {
-        
-        
-        TableSection* tableSection = [TableSection tableSectionWithName:SECTION_MOST_RECENT_MEASUREMENTS Order:0];
-        [self.tableSections addObject:tableSection];
-
-        self.usgsMeasurementData = usgsMeasurementData;
-        self.numberOfWebservicesLoaded++;
-        
-        NSLog(@"Loaded USGS:%d",[usgsMeasurementData.heightMeasurements count]);
-    }];
-  
     self.noaaWebServices = [[NOAAWebServices alloc] init];
-    
-    [self.noaaWebServices downloadMeasurementsForSiteId:self.gaugeSite.nwsId Completion:^(NOAAMeasurementData *noaaMeasurementData, NSError *error) {
-        
-        self.noaaMeasurementData = noaaMeasurementData;
-        
-        if ([self.noaaMeasurementData.significantData count] > 0) {
-            TableSection* tableSection = [TableSection tableSectionWithName:SECTION_SIGNIFICANT_DATA Order:1];
-            [self.tableSections addObject:tableSection];
-        }
-        self.numberOfWebservicesLoaded++;
-        NSLog(@"Loaded NOAA:%d",[noaaMeasurementData.noaaMeasurements count]);
 
-    }];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self downloadNoaaData];
+    [self downloadUsgsData];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -280,11 +355,6 @@
     [self.tableView reloadData];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark - Table view data source
 
@@ -299,22 +369,23 @@
 
     switch (section) {
         case SECTION_NOAA:{
-            if ([self.graphCellDictionaries count] > 0) {
-                title = @"National Weather Service";
-
-            }
+            title = @"National Weather Service";
         }break;
         case SECTION_USGS:{
-            if ([self.tableCellDictionaries count] > 0) {
-                title = @"USGS";
-                
-            }
+           title = @"USGS";
         }break;
         case SECTION_LATEST:{
-            NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-            dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-            dateFormatter.timeStyle = NSDateFormatterShortStyle;
-            title = [dateFormatter stringFromDate:self.latestMeasurementDate];
+            
+            if ([self.latestMeasurementDictionaries count]) {
+                
+                NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+                dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+                dateFormatter.timeStyle = NSDateFormatterShortStyle;
+                title = [dateFormatter stringFromDate:self.latestMeasurementDate];
+            }else{
+                title = @"Latest";
+            }
+
         }break;
         default:
             break;
@@ -331,13 +402,30 @@
         case SECTION_LATEST:
             numberOfRows = [self.latestMeasurementDictionaries count];
             break;
-        case SECTION_NOAA:
-            numberOfRows = 0;
-         //   numberOfRows = [self.graphCellDictionaries count];
-            break;
-        case SECTION_USGS:
-            numberOfRows = 2;
-            break;
+        case SECTION_NOAA: {
+            
+            if (self.noaaWebServiceState == WebServiceStateLoaded) {
+                
+                if ([self.noaaMeasurementData.significantData count]) {
+                    numberOfRows = 3; //Graph, Table, Flood Stages
+                }else{
+                    numberOfRows = 2; //Graph, Table
+                }
+                
+            }else{
+                numberOfRows = 1; 
+            }
+            
+        }break;
+        case SECTION_USGS:{
+            
+            if (self.usgsWebServiceState == WebServiceStateLoaded && [self.usgsMeasurementData hasMeasurements]) {
+                numberOfRows = 2; // Graph, Table
+            }else{
+                numberOfRows = 1;
+            }
+            
+        } break;
         default:
             break;
     }
@@ -353,38 +441,61 @@
     
     
     switch (indexPath.section) {
-            /*
-        case SECTION_GAUGE_NAME:{
-            static NSString* cellIdentifer = @"GaugeNameCell";
-            cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:cellIdentifer];
-            if (!cell) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifer];
-            }
-            cell.textLabel.text = self.gaugeSite.siteName;
-            NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-            dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-            dateFormatter.timeStyle = NSDateFormatterMediumStyle;
-            cell.detailTextLabel.text = [dateFormatter stringFromDate:self.latestMeasurementDate];
-            return cell;
-        }break;
-             */
         case SECTION_LATEST:
             cell = [self cellForRecentMeasuremnentAtIndexPath:indexPath TableView:tableView];
             break;
         case SECTION_USGS:
-            switch (indexPath.row) {
-                case ROW_GRAPHS:
-                    cell = [self graphCell];
+            
+            switch (self.usgsWebServiceState) {
+                case WebServiceStateFailed : 
+                    cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_ERROR];
                     break;
-                case ROW_TABLES:
-                    cell = [self tablesCell];
+                case WebServiceStateLoading :
+                    cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_LOADING];
                     break;
+                case WebServiceStateLoaded : {
+                    
+                    switch (indexPath.row) {
+                        case ROW_GRAPHS:
+                            cell = [self graphCell];
+                            break;
+                        case ROW_TABLES:
+                            cell = [self tablesCell];
+                            break;
+                        default:
+                            break;
+                    }
+                }break;
                 default:
                     break;
-            }
-            break;
+            }break;
         case SECTION_NOAA:
-            cell = [self graphCell];
+            switch (self.noaaWebServiceState) {
+                case WebServiceStateFailed :
+                    cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_ERROR];
+                    break;
+                case WebServiceStateLoading :
+                    cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_LOADING];
+                    break;
+                case WebServiceStateLoaded : {
+                    
+                    switch (indexPath.row) {
+                        case ROW_GRAPHS:
+                            cell = [self graphCell];
+                            break;
+                        case ROW_TABLES:
+                            cell = [self tablesCell];
+                            break;
+                        case ROW_FLOOD:
+                            cell = [self floodCell];
+                            break;
+                        default:
+                            break;
+                    }
+                }break;
+                default:
+                    break;
+            }break;
             break;
         default:
             break;
@@ -396,6 +507,26 @@
     cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cellStripedBackground"]];
     return cell;
 }
+
+- (UITableViewCell *)floodCell
+{
+    static NSString *CellIdentifier = @"LatestMeasurementCell";
+    LatestMeasurementCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) {
+        cell = [[LatestMeasurementCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17];
+        cell.textLabel.textColor = [UIColor colorWithRed: 0 green: 0.33 blue: 0.57 alpha: 1]; //Ocean
+    }
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    cell.valueLabel.text = @"";
+    cell.icon.image = [UIImage imageNamed:@"99-umbrella"];
+    //cell.icon.bounds = CGRectMake(0, 0, 32, 32);
+    cell.descriptionLabel.text = @"Flood Stages";
+    return cell;
+}
+
 
 - (UITableViewCell *)graphCell
 {
@@ -451,11 +582,11 @@
 
     if ([description isEqualToString:TITLE_RECENT_HEIGHT] ) {
     
-        cell.icon.image = [UIImage imageNamed:@"ruler"];
+        cell.icon.image = [UIImage imageNamed:@"186-ruler"];
     
     }else  if ([description isEqualToString:TITLE_RECENT_DISCHARGE] ) {
         
-        cell.icon.image = [UIImage imageNamed:@"cloud"];
+        cell.icon.image = [UIImage imageNamed:@"04-squiggle"];
     
     }else if ([description isEqualToString:TITLE_RECENT_TEMPERATURE] ) {
       
@@ -540,53 +671,21 @@
     return 44;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if (indexPath.section == SECTION_USGS) {
+    if (indexPath.section == SECTION_USGS || indexPath.section == SECTION_NOAA) {
         
-        [self performSegueWithIdentifier:@"LineGraphView" sender:indexPath];
+        if (indexPath.row == ROW_TABLES || indexPath.row == ROW_FLOOD) {
+            [self performSegueWithIdentifier:@"MeasurementsTable" sender:indexPath];
+
+        }else if (indexPath.row == ROW_GRAPHS){
+            [self performSegueWithIdentifier:@"LineGraphView" sender:indexPath];
+
+        }
+        
         /*
         GraphViewController* graphViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"GraphViewController"];
         [self presentViewController:graphViewController animated:YES completion:nil];
@@ -596,29 +695,46 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(NSIndexPath*)sender{
-    USGSLineGraphViewController* graphViewController = segue.destinationViewController;
-    graphViewController.usgsMeasurementData = self.usgsMeasurementData;
+   
+    //USGSLineGraphViewController* graphViewController = segue.destinationViewController;
+    //graphViewController.usgsMeasurementData = self.usgsMeasurementData;
     
     
-    if (sender.section == SECTION_USGS) {
+    if (sender.section == SECTION_USGS){
         
-        NSDictionary* cellDictionary = self.graphCellDictionaries[sender.row];
-        NSString* cellTitle = [cellDictionary valueForKey:KEY_CELL_TITLE];
+        if (sender.row == ROW_TABLES) {
+            
+            MeasurementsViewController* meausrementsViewController = segue.destinationViewController;
+            
+        }
         
-        if ([cellTitle isEqualToString:TITLE_GRAPH_DISCHARGE]) {
-            graphViewController.graphType = LineGraphTypeUSGSDischarge;
-            graphViewController.usgsMeasurements = self.usgsMeasurementData.dischargeMeasurements;
-        }else if ([cellTitle isEqualToString:TITLE_GRAPH_HEIGHT]){
-            graphViewController.graphType = LineGraphTypeUSGSHeight;
-            graphViewController.usgsMeasurements = self.usgsMeasurementData.heightMeasurements;
-        }else if ([cellTitle isEqualToString:TITLE_GRAPH_TEMPERATURE]){
-            graphViewController.graphType = LineGraphTypeUSGSTemp;
-            graphViewController.usgsMeasurements = self.usgsMeasurementData.temperatureMeasurements;
+    }else if (sender.section == SECTION_NOAA){
+        
+        if (sender.row == ROW_TABLES) {
+            
+        }else if (sender.row == ROW_FLOOD){
+            MeasurementsViewController* meausrementsViewController = segue.destinationViewController;
+            meausrementsViewController.measurements = self.noaaMeasurementData.significantData;
+        }
+        
+    }
+        
+      /*
+        
+        sender.section == SECTION_NOAA) {
+        
+        if (sender.row == ROW_FLOOD || sender.row == ROW_TABLES) {
+            self performSegueWithIdentifier:<#(NSString *)#> sender:<#(id)#>
         }
         
         
         
-    }
+        NSDictionary* cellDictionary = self.graphCellDictionaries[sender.row];
+        NSString* cellTitle = [cellDictionary valueForKey:KEY_CELL_TITLE];
+        graphViewController.usgsMeasurementData = self.usgsMeasurementData;
+*/
+        
+    
     
     
 }

@@ -133,6 +133,10 @@
     [NSURLConnection sendAsynchronousRequest:urlRequest queue:queue completionHandler:^(NSURLResponse * response, NSData * data, NSError * error) {
         NSError* jsonError;
         
+        if (error || !data) {
+            completion(nil,error);
+        }else{
+        
         NSDictionary* jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
         
         if (!jsonError) {
@@ -166,7 +170,7 @@
                 completion(usgsMeasurementData,nil);
             }];
         }
-
+        }
     }];
 }
 

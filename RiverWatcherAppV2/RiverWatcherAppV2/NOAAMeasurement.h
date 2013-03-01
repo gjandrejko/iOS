@@ -14,10 +14,10 @@
 @property (strong,nonatomic) NSDate* date;
 @property (strong,nonatomic) NSString* primaryName;
 @property (strong,nonatomic) NSString* primaryUnits;
-@property (nonatomic) double primaryValue;
+@property (strong,nonatomic) NSNumber* primaryValue;
 @property (strong,nonatomic) NSString* secondaryName;
 @property (strong,nonatomic) NSString* secondaryUnits;
-@property (nonatomic) double secondaryValue;
+@property (strong,nonatomic) NSNumber* secondaryValue;
 @property (nonatomic) BOOL isForecast;
 
 @end

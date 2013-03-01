@@ -25,5 +25,5 @@
 +(NSInteger)lastIndexForDayRange:(NSInteger)dayRange InUsgsMeasurementsArray:(NSArray*)usgsMeasurments;
 +(NSInteger)startIndexForDayRange:(NSInteger)dayRange InUsgsMeasurementsArray:(NSArray*)usgsMeasurments;
 
-
+-(BOOL)hasMeasurements;
 @end

@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MeasurementDescriptionProtocol.h"
+@interface NOAASignificantItem : NSObject <MeasurementDescriptionProtocol>
 
-@interface NOAASignificantItem : NSObject
 @property (strong,nonatomic) NSString* name;
 @property (strong,nonatomic) NSNumber* flowValue;
 @property (strong,nonatomic) NSNumber* stageValue;

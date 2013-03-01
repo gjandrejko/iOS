@@ -12,6 +12,22 @@
 @implementation USGSMeasurementData
 
 
+-(BOOL)hasMeasurements{
+    
+    NSInteger totalMeasurements = 0;
+    
+    totalMeasurements += [self.heightMeasurements count];
+    totalMeasurements += [self.temperatureMeasurements count];
+    totalMeasurements += [self.dischargeMeasurements count];
+    
+    if (totalMeasurements > 0) {
+        return YES;
+    }else{
+        return NO;
+    }
+    
+}
+
 +(USGSMeasurement*)minMeasurmentInArray:(NSArray*)usgsMeasurments
 {
     USGSMeasurement* minMeasurement = [usgsMeasurments firstObject];
