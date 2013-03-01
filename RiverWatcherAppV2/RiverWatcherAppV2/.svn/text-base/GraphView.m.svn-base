@@ -1,0 +1,577 @@
+//
+//  GraphView.m
+//  RiverWeather
+//
+//  Created by George Andrejko on 2/18/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//
+
+#import "GraphView.h"
+#import "CGPointAsAClass.h"
+#import "SiteData.h"
+#include "RiverWeatherAppDelegate.h"
+
+@interface GraphView()
+@property CGFloat minMeasurement;
+@property CGFloat maxMeasurement;
+@property CGFloat minDate;
+@property CGFloat maxDate;
+@property CGRect graphRect;
+@property (strong, nonatomic) NSNumberFormatter *numberFormatter;
+
+@end
+
+@implementation GraphView
+@synthesize numberFormatter = _numberFormatter;
+@synthesize graphRect;
+@synthesize arrPoints = _arrPoints;
+@synthesize minDate, minMeasurement, maxDate, maxMeasurement;
+@synthesize strHeader = _strHeader;
+
+
+-(void)drawGraphBorder:(CGRect)rect
+{
+ 
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSaveGState(context);
+    CGContextSetLineWidth(context, 1.5);
+    CGContextSetStrokeColorWithColor(context, [UIColor whiteColor].CGColor);
+    CGContextAddRect(context, rect);
+    CGContextStrokePath(context);
+    CGContextRestoreGState(context);
+    
+}
+
+-(void)drawGraphGridLines:(CGRect)rect
+{
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    float xCoords = CGRectGetMinX(rect);
+    for(int i = 1; i < 4; i++)
+    {
+        xCoords +=  (CGRectGetWidth(rect) / 4.0);
+        CGContextMoveToPoint(context,xCoords , CGRectGetMinY(rect));
+        [[UIColor whiteColor] setStroke];
+        CGContextSetLineWidth(context, 0.3);   
+        CGContextAddLineToPoint(context, xCoords, CGRectGetMaxY(rect));
+        
+        CGContextDrawPath(context, kCGPathStroke);
+    }
+    
+    float yCoords = CGRectGetMinY(rect);
+    for(int i = 1; i < 5; i++)
+    {
+        yCoords +=  (CGRectGetHeight(rect) / 5);
+        CGContextMoveToPoint(context, CGRectGetMinX(rect),yCoords);
+        [[UIColor grayColor] setStroke];
+        CGContextSetLineWidth(context, 0.3);   
+        CGContextAddLineToPoint(context,CGRectGetMaxX(rect),yCoords);
+        
+        CGContextDrawPath(context, kCGPathStroke);
+    }
+    
+    
+}
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+    }
+    return self;
+}
+
+
+-(void)drawHeightWithPoints:(NSArray*)arrSiteData{
+    
+    CGPointAsAClass* point;
+    //NSLog(@"Num of Sites:%d", [arrSiteData count]);
+    float fltDate;
+    self.minDate = 0;
+    self.maxDate = 0;
+    self.minMeasurement = 0;
+    self.maxMeasurement = 0;
+    int i = 0;
+    self.arrPoints = [[NSMutableArray alloc]init];
+    
+    
+    for (SiteData* data in arrSiteData) {
+        
+        point = [[CGPointAsAClass alloc] init];
+        point.y = data.fltHeight;
+        
+        
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+        data.fltTime = [data.fltTime substringToIndex:19];
+        NSDate *date = [dateFormat dateFromString:data.fltTime];
+        
+        fltDate = date.timeIntervalSinceReferenceDate;
+        
+        point.x = fltDate;
+        if(fltDate < self.minDate || i == 0)self.minDate = fltDate;
+        if(fltDate > self.maxDate || i == 0)self.maxDate = fltDate;
+        if(data.fltHeight < self.minMeasurement || i == 0)self.minMeasurement = data.fltHeight;
+        if(data.fltHeight > self.maxMeasurement || i == 0)self.maxMeasurement = data.fltHeight;
+        
+        [self.arrPoints addObject:point];
+        
+        i++;
+    }
+    
+    [self setNeedsDisplay];
+}
+
+- (void)drawRect:(CGRect)rect
+{
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    [self drawBackgroundGradient];
+   // [self setGraphBackground:rect];
+
+
+
+    if([self.arrPoints count] > 0)[self drawMeasurementDataInRect:[self measurmentDataRect] withContext:context];
+    [self drawGraphGridLines:[self measurmentDataRect]];
+    [self drawGraphBorder:[self measurmentDataRect]];
+    [self drawValueText:[self measurmentDataRect]];
+    if(isTouching)
+    {
+       [self drawWhenIsTouching]; 
+    }else {
+        [self drawHeader];
+    }
+    [self drawXGridText:[self measurmentDataRect]];
+
+
+    
+}
+
+-(void)drawHeader{
+    
+    
+    UIFont* font = [UIFont boldSystemFontOfSize:20];
+    CGSize textSize = [self.strHeader sizeWithFont:font];
+    CGRect headerRect = CGRectMake(0, 0, CGRectGetMaxX([self measurmentDataRect]), CGRectGetMinY([self measurmentDataRect]));
+    
+    CGRect textRect = CGRectInset(headerRect, (headerRect.size.width - textSize.width) / 2,(headerRect.size.height - textSize.height) /2 );
+    [[UIColor whiteColor] setStroke];
+    [[UIColor whiteColor] setFill];
+    
+    [self.strHeader drawInRect:textRect withFont:font];
+
+    
+}
+
+-(void)drawWhenIsTouching
+{
+   
+    float rectSize = 18;
+    CGPointAsAClass* closetPoint = [arrPointsOnPath objectAtIndex:0];
+    
+    int closestPointIndex = 0;
+    
+    for(int i = 0;i < [arrPointsOnPath count]; i++)
+    {
+        CGPointAsAClass* point = [arrPointsOnPath objectAtIndex:i];
+        if(fabs(point.x - touchPoint.x) < fabs(closetPoint.x - touchPoint.x))
+        {
+            closetPoint = point;
+            closestPointIndex = i;
+        }
+    }
+    CGRect rect = CGRectMake(closetPoint.x  - (rectSize / 2), closetPoint.y - (rectSize / 2), rectSize , rectSize);
+
+    
+    
+    UIBezierPath* linePath = [UIBezierPath bezierPath];
+    [linePath moveToPoint:CGPointMake(closetPoint.x, CGRectGetMinY([self measurmentDataRect]))];
+    [linePath addLineToPoint:CGPointMake(closetPoint.x, CGRectGetMaxY([self measurmentDataRect]))];
+    [linePath setLineWidth:3.0];
+    [[UIColor redColor] setStroke];
+    [linePath stroke];
+
+    [self drawCircleOnGraph:rect];
+    
+    CGFloat xCoord = closetPoint.x - 30;
+    if(xCoord < 0) xCoord = 0;
+    if(xCoord + 60 > CGRectGetMaxX([self measurmentDataRect])) xCoord = CGRectGetMaxX([self measurmentDataRect]) - 60;
+
+    
+    CGRect labelRect = CGRectMake(xCoord,  CGRectGetMinY([self measurmentDataRect]) - 35, 60 , 25);
+    [self drawDynamicLabel:labelRect withFltX:((CGPointAsAClass*)[self.arrPoints objectAtIndex:closestPointIndex]).x withFltY:((CGPointAsAClass*)[self.arrPoints objectAtIndex:closestPointIndex]).y];
+   
+}
+
+-(void)drawDynamicLabel:(CGRect)rect withFltX:(float)fltX withFltY:(float)fltY
+{
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+    CGContextSaveGState(context);
+
+    CGFloat colors [] = { 
+        .4, .4, .4, 1.0, 
+        0.0, 0.0, 0.0, 1.0
+    };
+    
+
+    
+    CGColorSpaceRef baseSpace = CGColorSpaceCreateDeviceRGB();
+    CGGradientRef gradient = CGGradientCreateWithColorComponents(baseSpace, colors, NULL, 2);
+    CGColorSpaceRelease(baseSpace), baseSpace = NULL;
+    
+    CGFloat radius = 5.5f;
+    
+    CGFloat minx = CGRectGetMinX(rect), midx = CGRectGetMidX(rect), maxx = CGRectGetMaxX(rect);
+    CGFloat miny = CGRectGetMinY(rect), midy = CGRectGetMidY(rect), maxy = CGRectGetMaxY(rect);
+    
+    CGContextMoveToPoint(context, minx, midy);
+    CGContextAddArcToPoint(context, minx, miny, midx, miny, radius);
+    CGContextAddArcToPoint(context, maxx, miny, maxx, midy, radius);
+    CGContextAddArcToPoint(context, maxx, maxy, midx, maxy, radius);
+    CGContextAddArcToPoint(context, minx, maxy, minx, midy, radius);
+    CGContextClosePath(context);
+    
+    CGContextClip(context);
+
+    
+    CGPoint startPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMinY(rect));
+    CGPoint endPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMaxY(rect));
+    
+    CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0);
+    CGGradientRelease(gradient), gradient = NULL;
+    
+    CGContextDrawPath(context, kCGPathFillStroke);
+    CGContextRestoreGState(context);
+    
+    [[UIColor whiteColor] setFill];
+    [[UIColor whiteColor] setStroke];
+    
+    NSString* strYData = [NSString stringWithFormat:@"%g", fltY];
+    UIFont* font = [UIFont boldSystemFontOfSize:17];
+    CGSize textSize = [strYData sizeWithFont:font];
+    CGFloat dx = rect.size.width - textSize.width ;
+    CGFloat dy = rect.size.height - textSize.height;
+    CGRect textRect = CGRectInset(rect, dx / 2 ,dy / 2 );
+    [strYData drawInRect:textRect withFont:font];
+    
+    NSString* strXData = [self formatFltX:fltX];
+    UIFont* fontX = [UIFont boldSystemFontOfSize:17];
+    CGSize textSizeX = [strXData sizeWithFont:fontX];
+    CGRect tmpRect = CGRectMake(0, 0, CGRectGetMaxX([self measurmentDataRect]), 20);
+
+    CGFloat dxX = tmpRect.size.width - textSizeX.width ;
+    CGFloat dyX = tmpRect.size.height - textSizeX.height;
+    CGRect textRectX = CGRectInset(tmpRect, dxX / 2 ,dyX / 2 );
+    [strXData drawInRect:textRectX withFont:font];
+}
+
+
+-(NSString*)formatFltX:(float)fltX
+{
+    NSDate* date = [NSDate dateWithTimeIntervalSinceReferenceDate:fltX];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"EEE LLL dd hh:mm a"];
+    return [dateFormatter stringFromDate:date];
+   
+    
+    
+}
+-(void)drawCircleOnGraph:(CGRect)rect
+{
+    CGFloat colors [] = { 
+        1.0, 1.0, 1.0, 1.0, 
+        1.0, 0.0, 0.0, 1.0
+    };
+    
+    CGColorSpaceRef baseSpace = CGColorSpaceCreateDeviceRGB();
+    CGGradientRef gradient = CGGradientCreateWithColorComponents(baseSpace, colors, NULL, 2);
+    CGColorSpaceRelease(baseSpace), baseSpace = NULL;
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSaveGState(context);
+    CGContextAddEllipseInRect(context, rect);
+    CGContextClip(context);
+    
+    CGPoint startPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMinY(rect));
+    CGPoint endPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMaxY(rect));
+    
+    CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0);
+    CGGradientRelease(gradient), gradient = NULL;
+    
+    CGContextRestoreGState(context);
+    
+    CGContextAddEllipseInRect(context, rect);
+    CGContextDrawPath(context, kCGPathStroke);
+}
+
+
+
+-(void)setGraphBackground:(CGRect)rect
+{
+    UIBezierPath* rectPath = [UIBezierPath bezierPathWithRect:rect];
+    
+    UIImage *patternImage = [UIImage imageNamed:@"graphBackground2.jpg"];
+    UIColor* fillPattern = [UIColor colorWithPatternImage:patternImage];
+    [fillPattern setFill];
+    
+    
+    [rectPath fill];
+}
+
+- (void)drawMeasurementDataInRect:(CGRect)rect withContext:(CGContextRef)context {
+    
+    
+    arrPointsOnPath = [[NSMutableArray alloc] init];
+    
+    CGPoint point;
+    
+    UIGraphicsPushContext(context);
+    CGContextSaveGState(context);
+   // UIBezierPath* rectPath = [UIBezierPath bezierPathWithRect:rect];
+  //  [rectPath stroke];
+    CGFloat lineWidth = 5.0;
+
+    
+    path = [UIBezierPath bezierPath];
+    CGRect rectInset = CGRectInset(rect, lineWidth / 2, lineWidth);
+
+    
+    CGFloat horizontalSpacing = CGRectGetWidth(rectInset) / [self.arrPoints count];
+    CGFloat verticalScale = CGRectGetHeight(rectInset) / (self.maxMeasurement - self.minMeasurement);
+    
+    [path setLineWidth:lineWidth];
+    [path setLineJoinStyle:kCGLineJoinRound];
+    [path setLineCapStyle:kCGLineCapRound];
+
+    // inset so the path does not ever go beyond the frame of the graph
+    
+    CGFloat measurement = ((CGPointAsAClass*)[self.arrPoints objectAtIndex:0]).y;
+    CGPoint initialPoint = CGPointMake(lineWidth / 2.0,  CGRectGetMaxY(rectInset) - (measurement - self.minMeasurement) * verticalScale);
+    [path moveToPoint:initialPoint];
+   
+    [arrPointsOnPath addObject:[CGPointAsAClass classFromPoint:initialPoint]];
+     
+    
+    NSUInteger i = 0;
+    for ( i = 1; i < [self.arrPoints count]; i++) 
+    {
+        measurement = ((CGPointAsAClass*)[self.arrPoints objectAtIndex:i]).y;
+        point = CGPointMake((i + 1) * horizontalSpacing,
+                            CGRectGetMaxY(rectInset) - (measurement - self.minMeasurement) * verticalScale);
+        
+        [arrPointsOnPath addObject:[CGPointAsAClass classFromPoint:point]];
+        [path addLineToPoint:point];
+    }
+
+   
+    
+    [[UIColor whiteColor] setStroke];
+    [path stroke];
+
+    [path addLineToPoint:CGPointMake(CGRectGetMaxX(rect),
+                                     CGRectGetMaxY(rectInset) - (measurement - self.minMeasurement) * verticalScale)];
+    
+
+    
+    [path addLineToPoint:CGPointMake(CGRectGetMaxX(rect),CGRectGetMaxY(rect))];
+    [path addLineToPoint:CGPointMake(CGRectGetMinX(rect),CGRectGetMaxY(rect))];
+    [path addLineToPoint:initialPoint];
+    
+    [path addClip];
+    
+   // CGContextClip(context);
+    CGPoint startPoint = {0.0, 0.0};
+    CGPoint endPoint = {0.0, self.bounds.size.height};
+    CGContextDrawLinearGradient(context, [self graphGradient], startPoint, endPoint,0);
+
+    CGContextRestoreGState(context);
+
+
+    UIGraphicsPopContext();
+
+}
+
+- (CGRect)measurmentDataRect {
+    CGFloat textHeight = 30.0;
+    CGFloat bottom = [self bounds].size.height - (textHeight + [self measurementGraphHeight]);
+    
+    CGFloat left = 0.0;
+    CGFloat right = CGRectGetWidth(self.bounds) - [self measurementLabelWidth];
+    
+    return CGRectMake(left, bottom, right, [self measurementGraphHeight]);
+}
+
+- (CGFloat)measurementGraphHeight {
+    // tweaked till it looked good, should be doing something a bit more scientific
+    return 225;
+}
+
+- (CGFloat)measurementLabelWidth {
+    NSString* strYData = @"xxx.XX";
+    UIFont* font = [UIFont boldSystemFontOfSize:15];
+    CGSize textSize = [strYData sizeWithFont:font];
+    return textSize.width + 15;
+}
+
+
+- (CGGradientRef)backgroundGradient {
+    if(NULL == backgroundGradient_) {
+        CGFloat colors[8] = {0.0, 80.0 / 255.0, 89.0 / 255.0, 1.0,
+            0.0, 50.0f / 255.0, 64.0 / 255.0, 1.0};
+        CGFloat locations[2] = {0.0, 0.90};
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+        backgroundGradient_ = CGGradientCreateWithColorComponents(colorSpace, colors, locations, 2);
+        CGColorSpaceRelease(colorSpace);
+    }
+    return backgroundGradient_;
+}
+
+- (CGGradientRef)graphGradient {
+    if(NULL == graphGradient_) {
+        CGFloat colors[8] = {0.0, 200.0 / 255.0, 200.0 / 255.0, 1.0,
+            0.0, 50.0f / 255.0, 64.0 / 255.0, 1.0};
+        CGFloat locations[2] = {0.0, 0.90};
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+        graphGradient_ = CGGradientCreateWithColorComponents(colorSpace, colors, locations, 2);
+        CGColorSpaceRelease(colorSpace);
+    }
+    return graphGradient_;
+}
+
+
+
+-(void)drawValueText:(CGRect)rect
+{
+  
+    if([self.arrPoints count] != 0)
+    {
+
+        UIFont* font = [UIFont boldSystemFontOfSize:15];
+
+        NSString* strYData = @"X";
+        CGSize textSize = [strYData sizeWithFont:font];
+
+        float yCoords = CGRectGetMinY(rect) ;
+
+        CGFloat gridValue = self.maxMeasurement;
+        for(int i = 1; i <= 6; i++)
+        {
+            
+            
+            NSString* theText = [NSString stringWithFormat:@"%.5g" , gridValue];
+            
+           strYData = theText;
+             textSize = [strYData sizeWithFont:font];
+            CGFloat rectWidth = textSize.width + 5;
+            CGRect textRect = CGRectMake(self.bounds.size.width - rectWidth, yCoords - textSize.height, rectWidth, textSize.height);
+            [[UIColor whiteColor] setStroke];
+            [[UIColor whiteColor] setFill];
+
+            [strYData drawInRect:textRect withFont:font];
+            yCoords +=  (CGRectGetHeight(rect) / 5);
+            gridValue -=  ( (self.maxMeasurement - self.minMeasurement ) / 5 ) ;
+
+
+        }
+        
+    }
+    
+    
+}
+
+-(NSString*)formatXGridTextFromValue:(float)value
+{
+    NSDate* date = [NSDate dateWithTimeIntervalSinceReferenceDate:value];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd hh:mm"];
+    return [dateFormatter stringFromDate:date];
+
+}
+-(void)drawXGridText:(CGRect)rect
+{
+    
+    if([self.arrPoints count] != 0)
+    {
+        
+        
+        UIFont* font = [UIFont boldSystemFontOfSize:15];
+        NSString* gridText = @"xxxxx mmmmm";
+        CGSize textSize = [gridText sizeWithFont:font];
+        
+        
+        float xCoords = CGRectGetMinX(rect) ;
+        int arrIndex = 0;
+        
+        for(int i = 1; i <= 4; i++)
+        {
+          
+                        
+            [[UIColor whiteColor] setStroke];
+            [[UIColor whiteColor] setFill];
+            CGRect textRect = CGRectMake( xCoords, CGRectGetMaxY(rect) + 5, textSize.width, textSize.height);
+      
+
+            float xValue = ((CGPointAsAClass*)[self.arrPoints objectAtIndex:arrIndex]).x;
+            gridText = [self formatXGridTextFromValue:xValue];
+            [gridText drawInRect:textRect withFont:font];
+            
+            xCoords +=  (CGRectGetWidth(rect) / 4);
+            arrIndex += [self.arrPoints count] / 4 ;
+            if(arrIndex >= [self.arrPoints count])
+            {
+                arrIndex = [self.arrPoints count] - 1;
+            }
+            
+            
+            
+        }
+        
+    }
+    
+    
+}
+
+
+
+/*
+ * draws the blue background gradient
+ */
+- (void)drawBackgroundGradient {
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGPoint startPoint = {0.0, 0.0};
+    CGPoint endPoint = {0.0, self.bounds.size.height};
+    CGContextDrawLinearGradient(ctx, [self backgroundGradient], startPoint, endPoint,0);
+
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
+    touchPoint = [[touches anyObject] locationInView:self];
+    [self setNeedsDisplay];
+
+}
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    isTouching = YES;
+    touchPoint = [[touches anyObject] locationInView:self];
+    [self setNeedsDisplay];
+
+}
+
+-(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    isTouching = NO;
+    [self setNeedsDisplay];
+
+}
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    isTouching = NO;
+    [self setNeedsDisplay];
+
+}
+
+@end

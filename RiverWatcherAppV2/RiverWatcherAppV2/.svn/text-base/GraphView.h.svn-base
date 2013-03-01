@@ -1,0 +1,30 @@
+//
+//  GraphView.h
+//  RiverWeather
+//
+//  Created by George Andrejko on 2/18/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "CGPointAsAClass.h"
+#import <QuartzCore/QuartzCore.h>
+@interface GraphView : UIView {
+    
+    CGGradientRef backgroundGradient_;
+    CGGradientRef graphGradient_;
+
+    CGPoint touchPoint;
+    BOOL isTouching;
+    UIBezierPath *path;
+    NSMutableArray* arrPointsOnPath; //Array of CGPointAsClass
+}
+
+
+@property (strong, nonatomic) NSMutableArray* arrPoints;
+@property (strong,nonatomic) NSString* strHeader;
+
+-(void)drawHeightWithPoints:(NSArray*)arrSiteData;
+
+
+@end
