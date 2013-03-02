@@ -18,6 +18,7 @@
 #import "USGSLineGraphViewController.h"
 #import "MeasurementsViewController.h"
 #import "USGSMeasurementsTableViewController.h"
+#import "NoaaMeasurementsViewController.h"
 
 #define SECTION_SIGNIFICANT_DATA @"Major Stages/Flows"
 #define SECTION_MOST_RECENT_MEASUREMENTS @"Latests"
@@ -34,7 +35,8 @@
 typedef enum {
     WebServiceStateLoading,
     WebServiceStateFailed,
-    WebServiceStateLoaded
+    WebServiceStateLoaded,
+    WebServiceStateLoadedNoData
 } WebServiceState;
 
 
@@ -271,6 +273,8 @@ typedef enum {
     [labelContainerView addSubview:label];
     return labelContainerView;
     
+
+
 }
 
 -(void)downloadUsgsData
@@ -291,7 +295,13 @@ typedef enum {
             
             NSLog(@"Loaded USGS:%d",[usgsMeasurementData.heightMeasurements count]);
             
-            self.usgsWebServiceState = WebServiceStateLoaded;
+            if ([self.usgsMeasurementData hasMeasurements]) {
+                self.usgsWebServiceState = WebServiceStateLoaded;
+            }else{
+                self.usgsWebServiceState = WebServiceStateLoadedNoData;
+
+            }
+            
 
         }
 
@@ -317,7 +327,14 @@ typedef enum {
             }
             self.numberOfWebservicesLoaded++;
             NSLog(@"Loaded NOAA:%d",[noaaMeasurementData.noaaMeasurements count]);
-            self.noaaWebServiceState = WebServiceStateLoaded;
+            
+            if ([self.noaaMeasurementData.noaaMeasurements count] > 0) {
+                self.noaaWebServiceState = WebServiceStateLoaded;
+            }else{
+                self.noaaWebServiceState = WebServiceStateLoadedNoData;
+                
+            }
+            
 
         }
 
@@ -348,6 +365,9 @@ typedef enum {
 
     [self downloadNoaaData];
     [self downloadUsgsData];
+    
+    NSLog(@"USGS ID:%@",self.gaugeSite.usgsId);
+    NSLog(@"NOAA ID:%@",self.gaugeSite.nwsId);
 
 }
 
@@ -420,7 +440,7 @@ typedef enum {
         }break;
         case SECTION_USGS:{
             
-            if (self.usgsWebServiceState == WebServiceStateLoaded && [self.usgsMeasurementData hasMeasurements]) {
+            if (self.usgsWebServiceState == WebServiceStateLoaded ) {
                 numberOfRows = 2; // Graph, Table
             }else{
                 numberOfRows = 1;
@@ -454,6 +474,9 @@ typedef enum {
                 case WebServiceStateLoading :
                     cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_LOADING];
                     break;
+                case WebServiceStateLoadedNoData :
+                    cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_NODATA];
+                    break;
                 case WebServiceStateLoaded : {
                     
                     switch (indexPath.row) {
@@ -477,6 +500,9 @@ typedef enum {
                     break;
                 case WebServiceStateLoading :
                     cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_LOADING];
+                    break;
+                case WebServiceStateLoadedNoData :
+                    cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_NODATA];
                     break;
                 case WebServiceStateLoaded : {
                     
@@ -685,6 +711,9 @@ typedef enum {
         }else if (indexPath.row == ROW_GRAPHS){
             [self performSegueWithIdentifier:@"LineGraphView" sender:indexPath];
 
+        }else if (indexPath.row == ROW_TABLES){
+            [self performSegueWithIdentifier:@"NOAATables" sender:indexPath];
+
         }
         
         /*
@@ -719,6 +748,9 @@ typedef enum {
     }else if (sender.section == SECTION_NOAA){
         
         if (sender.row == ROW_TABLES) {
+            
+            NoaaMeasurementsViewController* noaaMeasurementViewController = segue.destinationViewController;
+            noaaMeasurementViewController.noaaMeasurementData = self.noaaMeasurementData;
             
         }else if (sender.row == ROW_FLOOD){
             MeasurementsViewController* meausrementsViewController = segue.destinationViewController;

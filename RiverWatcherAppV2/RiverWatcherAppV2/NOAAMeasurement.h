@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MeasurementDescriptionProtocol.h"
 
-@interface NOAAMeasurement : NSObject
+@interface NOAAMeasurement : NSObject <MeasurementDescriptionProtocol>
 
 @property (strong,nonatomic) NSTimeZone* timeZone;
 @property (strong,nonatomic) NSDate* date;

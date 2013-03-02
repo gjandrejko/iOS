@@ -7,10 +7,12 @@
 //
 
 #import "MeasurementsViewController.h"
+#import "NOAAMeasurementData.h"
 
 @interface NoaaMeasurementsViewController : MeasurementsViewController
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *measurementTypeSegControl;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *measurementTypeSegControl;
 
-@property (weak, nonatomic) IBOutlet UISegmentedControl *measurementTypeChanged;
+- (IBAction)measurementTypeChanged:(UISegmentedControl *)sender;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (strong,nonatomic) NOAAMeasurementData* noaaMeasurementData;
 @end

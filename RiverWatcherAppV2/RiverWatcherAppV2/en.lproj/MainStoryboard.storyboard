@@ -394,7 +394,7 @@
             </objects>
             <point key="canvasLocation" x="2404" y="-423"/>
         </scene>
-        <!--Noaa Measurements View Controller-->
+        <!--Noaa Measurements View Controller - NOAA-->
         <scene sceneID="l4y-pZ-7kI">
             <objects>
                 <viewController id="5hl-FP-rv9" customClass="NoaaMeasurementsViewController" sceneMemberID="viewController">
@@ -435,6 +435,10 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <connections>
+                                            <outlet property="measurementDescriptionLabel" destination="fr5-ty-3hP" id="Jpw-ng-g9y"/>
+                                            <outlet property="measurementValueLabel" destination="l4e-vH-V4Q" id="ohh-Ri-Amt"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -456,6 +460,9 @@
                                                 <segment title="Observed"/>
                                             </segments>
                                             <color key="tintColor" red="0.098039215690000001" green="0.3803921569" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="measurementTypeChanged:" destination="5hl-FP-rv9" eventType="valueChanged" id="BfW-Ti-ahi"/>
+                                            </connections>
                                         </segmentedControl>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="ow0-F5-vJ2"/>
@@ -464,10 +471,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="hgv-Cg-zcb"/>
+                    <navigationItem key="navigationItem" title="NOAA" id="hgv-Cg-zcb"/>
                     <connections>
-                        <outlet property="measurementTypeChanged" destination="zQW-aQ-1yJ" id="b1h-0A-FML"/>
-                        <outlet property="measurementTypeSegControl" destination="hNn-2U-UYy" id="Qt6-lP-DSi"/>
+                        <outlet property="measurementTypeSegControl" destination="zQW-aQ-1yJ" id="eGj-Dw-bLD"/>
                         <outlet property="tableView" destination="TD1-Gv-q6v" id="xge-2q-gQu"/>
                         <outlet property="toolbar" destination="6zm-n7-9Bv" id="pxm-YL-Mda"/>
                     </connections>
@@ -476,7 +482,7 @@
             </objects>
             <point key="canvasLocation" x="1841" y="260"/>
         </scene>
-        <!--Measurements Table View Controller-->
+        <!--Measurements Table View Controller - USGS-->
         <scene sceneID="r4a-eP-uhB">
             <objects>
                 <viewController id="hcP-Ze-zLC" customClass="USGSMeasurementsTableViewController" sceneMemberID="viewController">
@@ -555,7 +561,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="nYz-6v-maI"/>
+                    <navigationItem key="navigationItem" title="USGS" id="nYz-6v-maI"/>
                     <connections>
                         <outlet property="measurementTypeSegmetedControl" destination="S7R-7a-WSd" id="e4X-kG-T5R"/>
                         <outlet property="tableView" destination="nd6-0N-Y7u" id="LFR-jG-Ja3"/>
@@ -749,7 +755,7 @@
                         <segue destination="PRn-Ai-uTS" kind="modal" identifier="LineGraphView" id="DSr-SF-vKj"/>
                         <segue destination="RJR-f7-m6H" kind="push" identifier="FloodStagesTable" id="Awh-2B-LSL"/>
                         <segue destination="hcP-Ze-zLC" kind="push" identifier="USGSMeasurementTables" id="Wzd-he-7Kc"/>
-                        <segue destination="5hl-FP-rv9" kind="push" id="mVz-Uq-xca"/>
+                        <segue destination="5hl-FP-rv9" kind="push" identifier="NOAATables" id="mVz-Uq-xca"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rpQ-h1-Yw0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1056,8 +1062,8 @@
         <class className="NoaaMeasurementsViewController" superclassName="MeasurementsViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NoaaMeasurementsViewController.h"/>
             <relationships>
-                <relationship kind="outlet" name="measurementTypeChanged" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="measurementTypeSegControl" candidateClass="UIBarButtonItem"/>
+                <relationship kind="action" name="measurementTypeChanged:" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="measurementTypeSegControl" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
             </relationships>
         </class>
@@ -1087,6 +1093,14 @@
                 <relationship kind="outlet" name="dayRangeLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="lineGraph" candidateClass="RHLineGraphView"/>
                 <relationship kind="outlet" name="sliderContainerView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="USGSMeasurementsTableViewController" superclassName="MeasurementsViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/USGSMeasurementsTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="measurementTypeChanged:" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="measurementTypeSegmetedControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
             </relationships>
         </class>
     </classes>

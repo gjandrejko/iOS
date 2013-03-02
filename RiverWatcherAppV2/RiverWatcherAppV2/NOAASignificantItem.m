@@ -9,23 +9,7 @@
 #import "NOAASignificantItem.h"
 
 @implementation NOAASignificantItem
-/*
--(NSString*)name{
-    
-    //Capitalize first character in string
-    
-    if ([_name length] >= 1) {
-        
-        _name = [_name stringByReplacingCharactersInRange:NSMakeRange(0,1)
-                                                                          withString:[[_name  substringToIndex:1] capitalizedString]];
-        
-    }
-    
-    return _name;
-    
-}
 
-*/
 -(NSString*)measurementDescriptionString
 {
     //Capitalize first character 
