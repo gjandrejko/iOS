@@ -23,12 +23,13 @@
     
     [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
     
-    
-    
-    UIImage *navBarImage = [UIImage imageNamed:@"menubar"];
-    
-    [[UINavigationBar appearance] setBackgroundImage:navBarImage forBarMetrics:UIBarMetricsDefault];
-    [[UIToolbar appearance] setBackgroundImage:navBarImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+
+        
+        UIImage *navBarImage = [UIImage imageNamed:@"menubar"];
+        
+        [[UINavigationBar appearance] setBackgroundImage:navBarImage forBarMetrics:UIBarMetricsDefault];
+        [[UIToolbar appearance] setBackgroundImage:navBarImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+        
     
     UIImage *barButton = [[UIImage imageNamed:@"menubar-button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 4, 0, 4)];
     

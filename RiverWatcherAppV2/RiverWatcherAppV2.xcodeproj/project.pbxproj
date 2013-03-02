@@ -104,6 +104,13 @@
 		319D149616C5C38A0074D8EA /* 25-weather.png in Resources */ = {isa = PBXBuildFile; fileRef = 319D149416C5C3880074D8EA /* 25-weather.png */; };
 		319D149716C5C38A0074D8EA /* 25-weather@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 319D149516C5C3880074D8EA /* 25-weather@2x.png */; };
 		319D149A16C5C6740074D8EA /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 319D149916C5C6740074D8EA /* LoadingView.m */; };
+		31AD886716E2533600F75FA4 /* IPadMaindStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31AD886616E2533600F75FA4 /* IPadMaindStoryboard.storyboard */; };
+		31AD886A16E2534200F75FA4 /* IpadParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AD886916E2534200F75FA4 /* IpadParentViewController.m */; };
+		31AD886D16E2543900F75FA4 /* IpadMeasurementTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AD886C16E2543900F75FA4 /* IpadMeasurementTablesViewController.m */; };
+		31AD887616E266A100F75FA4 /* menubar@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 31AD887416E266A000F75FA4 /* menubar@2x~ipad.png */; };
+		31AD887716E266A100F75FA4 /* menubar~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 31AD887516E266A000F75FA4 /* menubar~ipad.png */; };
+		31AD887A16E271FB00F75FA4 /* IpadRecentValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AD887916E271FB00F75FA4 /* IpadRecentValuesViewController.m */; };
+		31AD887D16E272D600F75FA4 /* IpadGraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AD887C16E272D600F75FA4 /* IpadGraphViewController.m */; };
 		31AEAF7316E10D5800445336 /* 04-squiggle.png in Resources */ = {isa = PBXBuildFile; fileRef = 31AEAF7116E10D5800445336 /* 04-squiggle.png */; };
 		31AEAF7416E10D5800445336 /* 04-squiggle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31AEAF7216E10D5800445336 /* 04-squiggle@2x.png */; };
 		31AEAF7716E1280C00445336 /* UtilMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AEAF7616E1280B00445336 /* UtilMethods.m */; };
@@ -121,7 +128,6 @@
 		31AEAF9816E16EBC00445336 /* 14-gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 31AEAF9616E16EBC00445336 /* 14-gear.png */; };
 		31AEAF9916E16EBC00445336 /* 14-gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31AEAF9716E16EBC00445336 /* 14-gear@2x.png */; };
 		31AEAF9C16E1702000445336 /* NoaaMeasurementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AEAF9B16E1702000445336 /* NoaaMeasurementsViewController.m */; };
-		31E1A63716C6973C00628B7D /* IPadMaindStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E1A63616C6973C00628B7D /* IPadMaindStoryboard.storyboard */; };
 		31E1A63A16C6983400628B7D /* IpadMainMenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E1A63916C6983400628B7D /* IpadMainMenuTableViewController.m */; };
 		31E1A63D16C6B20700628B7D /* subtle_stripes_@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 31E1A63B16C6B20700628B7D /* subtle_stripes_@2X.png */; };
 		31E1A63E16C6B20700628B7D /* subtle_stripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 31E1A63C16C6B20700628B7D /* subtle_stripes.png */; };
@@ -359,6 +365,18 @@
 		319D149516C5C3880074D8EA /* 25-weather@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "25-weather@2x.png"; sourceTree = "<group>"; };
 		319D149816C5C6740074D8EA /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingView.h; sourceTree = "<group>"; };
 		319D149916C5C6740074D8EA /* LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingView.m; sourceTree = "<group>"; };
+		31AD886616E2533600F75FA4 /* IPadMaindStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IPadMaindStoryboard.storyboard; sourceTree = "<group>"; };
+		31AD886816E2534200F75FA4 /* IpadParentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IpadParentViewController.h; sourceTree = "<group>"; };
+		31AD886916E2534200F75FA4 /* IpadParentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IpadParentViewController.m; sourceTree = "<group>"; };
+		31AD886B16E2543900F75FA4 /* IpadMeasurementTablesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IpadMeasurementTablesViewController.h; sourceTree = "<group>"; };
+		31AD886C16E2543900F75FA4 /* IpadMeasurementTablesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IpadMeasurementTablesViewController.m; sourceTree = "<group>"; };
+		31AD887416E266A000F75FA4 /* menubar@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menubar@2x~ipad.png"; sourceTree = "<group>"; };
+		31AD887516E266A000F75FA4 /* menubar~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menubar~ipad.png"; sourceTree = "<group>"; };
+		31AD887816E271FB00F75FA4 /* IpadRecentValuesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IpadRecentValuesViewController.h; sourceTree = "<group>"; };
+		31AD887916E271FB00F75FA4 /* IpadRecentValuesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IpadRecentValuesViewController.m; sourceTree = "<group>"; };
+		31AD887B16E272D600F75FA4 /* IpadGraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IpadGraphViewController.h; sourceTree = "<group>"; };
+		31AD887C16E272D600F75FA4 /* IpadGraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IpadGraphViewController.m; sourceTree = "<group>"; };
+		31AD887E16E28FA200F75FA4 /* GaugeSiteSearchProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GaugeSiteSearchProtocol.h; sourceTree = "<group>"; };
 		31AEAF7116E10D5800445336 /* 04-squiggle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "04-squiggle.png"; sourceTree = "<group>"; };
 		31AEAF7216E10D5800445336 /* 04-squiggle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "04-squiggle@2x.png"; sourceTree = "<group>"; };
 		31AEAF7516E1280B00445336 /* UtilMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilMethods.h; sourceTree = "<group>"; };
@@ -382,7 +400,6 @@
 		31AEAF9716E16EBC00445336 /* 14-gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "14-gear@2x.png"; sourceTree = "<group>"; };
 		31AEAF9A16E1701F00445336 /* NoaaMeasurementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoaaMeasurementsViewController.h; sourceTree = "<group>"; };
 		31AEAF9B16E1702000445336 /* NoaaMeasurementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoaaMeasurementsViewController.m; sourceTree = "<group>"; };
-		31E1A63616C6973C00628B7D /* IPadMaindStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IPadMaindStoryboard.storyboard; sourceTree = "<group>"; };
 		31E1A63816C6983400628B7D /* IpadMainMenuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IpadMainMenuTableViewController.h; sourceTree = "<group>"; };
 		31E1A63916C6983400628B7D /* IpadMainMenuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IpadMainMenuTableViewController.m; sourceTree = "<group>"; };
 		31E1A63B16C6B20700628B7D /* subtle_stripes_@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subtle_stripes_@2X.png"; sourceTree = "<group>"; };
@@ -489,6 +506,8 @@
 		31041C5016C2D49100D92FE2 /* RiverWatcherAppV2 */ = {
 			isa = PBXGroup;
 			children = (
+				31041C6216C2D49100D92FE2 /* MainStoryboard.storyboard */,
+				31AD886616E2533600F75FA4 /* IPadMaindStoryboard.storyboard */,
 				312C0A6916C5D5B2004D6A9A /* Controller */,
 				319D147016C581AE0074D8EA /* View */,
 				31041CFB16C2ED7200D92FE2 /* Model */,
@@ -497,19 +516,13 @@
 				31041C6D16C2D5F800D92FE2 /* iPhone */,
 				31041C5916C2D49100D92FE2 /* RiverWatcherAppDelegate.h */,
 				31041C5A16C2D49100D92FE2 /* RiverWatcherAppDelegate.m */,
-				31041C6216C2D49100D92FE2 /* MainStoryboard.storyboard */,
 				31041C6516C2D49100D92FE2 /* RiverWatcherViewController.h */,
 				31041C6616C2D49100D92FE2 /* RiverWatcherViewController.m */,
 				31041C5116C2D49100D92FE2 /* Supporting Files */,
-				31041C6F16C2D66800D92FE2 /* MainMenuTableViewController.h */,
-				31041C7016C2D66800D92FE2 /* MainMenuTableViewController.m */,
 				31041C7216C2D6D000D92FE2 /* FavoritesManager.h */,
 				31041C7316C2D6D000D92FE2 /* FavoritesManager.m */,
-				31041C8116C2DE7B00D92FE2 /* MapSearchViewController.h */,
-				31041C8216C2DE7B00D92FE2 /* MapSearchViewController.m */,
 				31041C8416C2E0BD00D92FE2 /* ApplicationConstants.h */,
 				31041C8516C2E0BD00D92FE2 /* ApplicationConstants.m */,
-				31E1A63616C6973C00628B7D /* IPadMaindStoryboard.storyboard */,
 				31E1A63816C6983400628B7D /* IpadMainMenuTableViewController.h */,
 				31E1A63916C6983400628B7D /* IpadMainMenuTableViewController.m */,
 				31AEAF7516E1280B00445336 /* UtilMethods.h */,
@@ -552,6 +565,8 @@
 		31041C7816C2DB0E00D92FE2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				31AD887416E266A000F75FA4 /* menubar@2x~ipad.png */,
+				31AD887516E266A000F75FA4 /* menubar~ipad.png */,
 				31AEAF9616E16EBC00445336 /* 14-gear.png */,
 				31AEAF9716E16EBC00445336 /* 14-gear@2x.png */,
 				31AEAF9216E16E5800445336 /* 19-gear.png */,
@@ -748,6 +763,7 @@
 				31041D0716C2F91300D92FE2 /* USGSWebServices.m */,
 				31E1A67216C80B2100628B7D /* FavoriteMeasurement.h */,
 				31E1A67316C80B2100628B7D /* FavoriteMeasurement.m */,
+				31AD887E16E28FA200F75FA4 /* GaugeSiteSearchProtocol.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -755,24 +771,28 @@
 		312C0A6916C5D5B2004D6A9A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				312C0A6A16C5D5CA004D6A9A /* GraphViewController.h */,
-				312C0A6B16C5D5CA004D6A9A /* GraphViewController.m */,
+				31AD886F16E2545900F75FA4 /* Graphs */,
+				31AD887B16E272D600F75FA4 /* IpadGraphViewController.h */,
+				31AD887C16E272D600F75FA4 /* IpadGraphViewController.m */,
+				31AD886816E2534200F75FA4 /* IpadParentViewController.h */,
+				31AD886916E2534200F75FA4 /* IpadParentViewController.m */,
+				31AD887816E271FB00F75FA4 /* IpadRecentValuesViewController.h */,
+				31AD887916E271FB00F75FA4 /* IpadRecentValuesViewController.m */,
 				31E1A65516C6C1BD00628B7D /* IpadSummaryViewController.h */,
 				31E1A65616C6C1BD00628B7D /* IpadSummaryViewController.m */,
-				31E1A66916C6F16900628B7D /* SiteNameSearchPFQueryTableViewController.h */,
-				31E1A66A16C6F16900628B7D /* SiteNameSearchPFQueryTableViewController.m */,
+				31041C6F16C2D66800D92FE2 /* MainMenuTableViewController.h */,
+				31041C7016C2D66800D92FE2 /* MainMenuTableViewController.m */,
+				31041C8116C2DE7B00D92FE2 /* MapSearchViewController.h */,
+				31041C8216C2DE7B00D92FE2 /* MapSearchViewController.m */,
+				31AD886E16E2543D00F75FA4 /* MeasurmentTables */,
 				31E1A67716C840DD00628B7D /* MeausrementTablesViewController.h */,
 				31E1A67816C840DD00628B7D /* MeausrementTablesViewController.m */,
-				31472F3416D9713700761303 /* USGSLineGraphViewController.h */,
-				31472F3516D9713700761303 /* USGSLineGraphViewController.m */,
 				31472F5016DAC12D00761303 /* NOAALineGraphController.h */,
 				31472F5116DAC12D00761303 /* NOAALineGraphController.m */,
-				31AEAF7D16E1397F00445336 /* MeasurementsViewController.h */,
-				31AEAF7E16E1397F00445336 /* MeasurementsViewController.m */,
-				31AEAF8316E157B500445336 /* USGSMeasurementsTableViewController.h */,
-				31AEAF8416E157B500445336 /* USGSMeasurementsTableViewController.m */,
-				31AEAF9A16E1701F00445336 /* NoaaMeasurementsViewController.h */,
-				31AEAF9B16E1702000445336 /* NoaaMeasurementsViewController.m */,
+				31E1A66916C6F16900628B7D /* SiteNameSearchPFQueryTableViewController.h */,
+				31E1A66A16C6F16900628B7D /* SiteNameSearchPFQueryTableViewController.m */,
+				31472F3416D9713700761303 /* USGSLineGraphViewController.h */,
+				31472F3516D9713700761303 /* USGSLineGraphViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -834,6 +854,30 @@
 				319D147A16C588090074D8EA /* paper_fibers.png */,
 			);
 			name = Patterns;
+			sourceTree = "<group>";
+		};
+		31AD886E16E2543D00F75FA4 /* MeasurmentTables */ = {
+			isa = PBXGroup;
+			children = (
+				31AEAF7D16E1397F00445336 /* MeasurementsViewController.h */,
+				31AEAF7E16E1397F00445336 /* MeasurementsViewController.m */,
+				31AEAF8316E157B500445336 /* USGSMeasurementsTableViewController.h */,
+				31AEAF8416E157B500445336 /* USGSMeasurementsTableViewController.m */,
+				31AEAF9A16E1701F00445336 /* NoaaMeasurementsViewController.h */,
+				31AEAF9B16E1702000445336 /* NoaaMeasurementsViewController.m */,
+				31AD886B16E2543900F75FA4 /* IpadMeasurementTablesViewController.h */,
+				31AD886C16E2543900F75FA4 /* IpadMeasurementTablesViewController.m */,
+			);
+			name = MeasurmentTables;
+			sourceTree = "<group>";
+		};
+		31AD886F16E2545900F75FA4 /* Graphs */ = {
+			isa = PBXGroup;
+			children = (
+				312C0A6A16C5D5CA004D6A9A /* GraphViewController.h */,
+				312C0A6B16C5D5CA004D6A9A /* GraphViewController.m */,
+			);
+			name = Graphs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -936,7 +980,6 @@
 				319D149316C5C29F0074D8EA /* 28-star@2x.png in Resources */,
 				319D149616C5C38A0074D8EA /* 25-weather.png in Resources */,
 				319D149716C5C38A0074D8EA /* 25-weather@2x.png in Resources */,
-				31E1A63716C6973C00628B7D /* IPadMaindStoryboard.storyboard in Resources */,
 				31E1A63D16C6B20700628B7D /* subtle_stripes_@2X.png in Resources */,
 				31E1A63E16C6B20700628B7D /* subtle_stripes.png in Resources */,
 				31E1A64116C6B27B00628B7D /* brillant@2X.png in Resources */,
@@ -974,6 +1017,9 @@
 				31AEAF9516E16E5800445336 /* 19-gear@2x.png in Resources */,
 				31AEAF9816E16EBC00445336 /* 14-gear.png in Resources */,
 				31AEAF9916E16EBC00445336 /* 14-gear@2x.png in Resources */,
+				31AD886716E2533600F75FA4 /* IPadMaindStoryboard.storyboard in Resources */,
+				31AD887616E266A100F75FA4 /* menubar@2x~ipad.png in Resources */,
+				31AD887716E266A100F75FA4 /* menubar~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1023,6 +1069,10 @@
 				31AEAF8216E1414F00445336 /* MeasurementTableViewCell.m in Sources */,
 				31AEAF8516E157B500445336 /* USGSMeasurementsTableViewController.m in Sources */,
 				31AEAF9C16E1702000445336 /* NoaaMeasurementsViewController.m in Sources */,
+				31AD886A16E2534200F75FA4 /* IpadParentViewController.m in Sources */,
+				31AD886D16E2543900F75FA4 /* IpadMeasurementTablesViewController.m in Sources */,
+				31AD887A16E271FB00F75FA4 /* IpadRecentValuesViewController.m in Sources */,
+				31AD887D16E272D600F75FA4 /* IpadGraphViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1104,7 +1154,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RiverWatcherAppV2/RiverWatcherAppV2-Prefix.pch";
 				INFOPLIST_FILE = "RiverWatcherAppV2/RiverWatcherAppV2-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Parse\"",
@@ -1122,7 +1172,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RiverWatcherAppV2/RiverWatcherAppV2-Prefix.pch";
 				INFOPLIST_FILE = "RiverWatcherAppV2/RiverWatcherAppV2-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Parse\"",
