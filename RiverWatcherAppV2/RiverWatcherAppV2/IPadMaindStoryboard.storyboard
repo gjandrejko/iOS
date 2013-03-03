@@ -14,11 +14,11 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FavoriteTableViewCell" rowHeight="72" id="dpp-FC-yHf" customClass="FavoriteTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FavoriteTableViewCell" rowHeight="72" id="dpp-FC-yHf" customClass="FavoriteTableViewCell">
                                 <rect key="frame" x="0.0" y="34" width="320" height="73"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="10" y="1" width="280" height="71"/>
+                                    <rect key="frame" x="10" y="1" width="300" height="71"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="10 ft" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FUY-0A-As2">
@@ -70,7 +70,7 @@
                                     <outletCollection property="measurementLabels" destination="a5Q-gA-glW" id="6Xe-1Q-u0J"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RiverWatcherDefaultCell" rowHeight="50" id="h7L-9E-Ig9" customClass="RiverWatcherDefaultCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RiverWatcherDefaultCell" rowHeight="50" id="h7L-9E-Ig9" customClass="RiverWatcherDefaultCell">
                                 <rect key="frame" x="0.0" y="107" width="320" height="51"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -82,13 +82,17 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="By State" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="R69-Nn-X4p">
-                                            <rect key="frame" x="92" y="4" width="157" height="42"/>
+                                            <rect key="frame" x="101" y="4" width="157" height="42"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="23"/>
                                             <color key="textColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <size key="shadowOffset" width="0.0" height="1"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="center" image="ipad-arrow.png" id="mxj-bQ-pXw">
+                                            <rect key="frame" x="259" y="12" width="28" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -115,69 +119,69 @@
             <objects>
                 <viewController storyboardIdentifier="IpadRecentValuesViewController" id="ztv-AE-94k" customClass="IpadRecentValuesViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EQN-0W-9lI">
-                        <rect key="frame" x="0.0" y="0.0" width="232" height="298"/>
+                        <rect key="frame" x="0.0" y="0.0" width="354" height="237"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Wed Mar 21" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="83O-Ur-Dkb">
-                                <rect key="frame" x="20" y="24" width="192" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Wed Mar 21, 04:30 PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="83O-Ur-Dkb">
+                                <rect key="frame" x="20" y="9" width="314" height="42"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="04:33 PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e8D-nk-CCY">
-                                <rect key="frame" x="20" y="53" width="192" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Stage" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UUP-dK-vcE">
+                                <rect key="frame" x="33" y="66" width="105" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="31"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Flow" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UUP-dK-vcE">
-                                <rect key="frame" x="20" y="125" width="79" height="23"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Flow" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yex-v3-sk4">
+                                <rect key="frame" x="33" y="125" width="105" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="31"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Stage" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="n08-Z8-zSp">
-                                <rect key="frame" x="20" y="182" width="79" height="23"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Temp" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kJd-hp-KQT">
+                                <rect key="frame" x="33" y="179" width="84" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="31"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Temp" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BMK-ji-FRU">
-                                <rect key="frame" x="20" y="237" width="79" height="23"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="3200 cfs" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="61s-5k-lpI">
-                                <rect key="frame" x="133" y="126" width="79" height="23"/>
+                                <rect key="frame" x="192" y="68" width="116" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="19"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="27"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="2.5 ft" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RVl-Pf-Azt">
-                                <rect key="frame" x="133" y="183" width="79" height="23"/>
+                                <rect key="frame" x="192" y="125" width="116" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="19"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="27"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0.3 C" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9RC-tU-R2b">
-                                <rect key="frame" x="133" y="238" width="79" height="23"/>
+                                <rect key="frame" x="192" y="181" width="116" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="19"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="27"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
-                            <view contentMode="scaleToFill" id="Jv1-H9-YOb">
-                                <rect key="frame" x="9" y="93" width="213" height="2"/>
+                            <view contentMode="scaleToFill" id="wtY-BX-vwp">
+                                <rect key="frame" x="11" y="53" width="334" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -210,12 +214,22 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="OLD-P8-pXD">
-                                        <rect key="frame" x="0.0" y="0.0" width="1040" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <items>
-                                            <barButtonItem title="Item" id="YNm-is-mkQ">
+                                            <barButtonItem image="259-list.png" id="YNm-is-mkQ">
                                                 <connections>
                                                     <action selector="showHideSideNavView:" destination="zWh-BJ-8hS" id="ijt-Xs-j1e"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="HAg-Lk-Wnw"/>
+                                            <barButtonItem title="USGS Web" id="7Jp-wf-0PJ"/>
+                                            <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="Ohb-Kz-ukq"/>
+                                            <barButtonItem title="NWS Web" id="keI-36-Vdp"/>
+                                            <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="aih-b8-jYW"/>
+                                            <barButtonItem image="starEmpty.png" id="1IU-0Z-IYz">
+                                                <connections>
+                                                    <action selector="addRemoveFavorite:" destination="zWh-BJ-8hS" id="fK9-DS-dgm"/>
                                                 </connections>
                                             </barButtonItem>
                                         </items>
@@ -226,22 +240,22 @@
                                         <color key="backgroundColor" red="0.1333333333" green="0.64313725489999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" id="TFY-cc-yR2">
-                                        <rect key="frame" x="20" y="63" width="232" height="237"/>
+                                        <rect key="frame" x="20" y="63" width="354" height="237"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.25098040700000002" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Susquehanna River At Wilkes Barre" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" id="aah-1k-bEk">
-                                        <rect key="frame" x="71" y="11" width="900" height="21"/>
+                                        <rect key="frame" x="71" y="11" width="621" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="23"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </label>
-                                    <view contentMode="scaleToFill" id="hKB-XL-blY">
-                                        <rect key="frame" x="274" y="63" width="730" height="237"/>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" id="hKB-XL-blY">
+                                        <rect key="frame" x="409" y="63" width="595" height="237"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -252,16 +266,44 @@
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="favoriteBarButton" destination="1IU-0Z-IYz" id="pMd-oi-KyP"/>
                         <outlet property="graphContainerView" destination="tw5-VV-Oje" id="ZtP-mJ-Pqf"/>
                         <outlet property="mainContainerView" destination="rNh-kd-P0N" id="aI8-Mx-qM2"/>
                         <outlet property="recentValuesView" destination="TFY-cc-yR2" id="cJi-gm-uzj"/>
                         <outlet property="sideNavView" destination="ozs-wx-ZtQ" id="9t1-wD-8gd"/>
                         <outlet property="tablesContainerView" destination="hKB-XL-blY" id="Kx2-GK-bcg"/>
+                        <outlet property="titleLabel" destination="aah-1k-bEk" id="3Et-wf-qBO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SAy-yS-1kR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2120" y="-1311"/>
+        </scene>
+        <!--Line Graph View Controller-->
+        <scene sceneID="mUt-dI-mRL">
+            <objects>
+                <viewController storyboardIdentifier="LineGraphViewController" id="EjW-mT-lKl" customClass="USGSLineGraphViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dnf-uS-4ke">
+                        <rect key="frame" x="0.0" y="0.0" width="984" height="415"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="M1P-cb-jGN" customClass="RHLineGraphView">
+                                <rect key="frame" x="0.0" y="0.0" width="984" height="415"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="lineGraph" destination="M1P-cb-jGN" id="Fkq-oO-e6e"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZuW-Ok-gac" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-188" y="-827"/>
         </scene>
         <!--Map Search View Controller-->
         <scene sceneID="zpU-6q-CwU">
@@ -322,36 +364,119 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y9Q-R7-cxV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1249" y="-2597"/>
+            <point key="canvasLocation" x="-2293" y="-2505"/>
+        </scene>
+        <!--Site Name SearchPF Query Table View Controller-->
+        <scene sceneID="zO1-hv-u5j">
+            <objects>
+                <tableViewController storyboardIdentifier="SiteNameSearchController" id="foP-uu-AA5" customClass="SiteNameSearchPFQueryTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="XWg-Uw-Mm7">
+                        <rect key="frame" x="0.0" y="20" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Name Or Location Of River" id="R6J-2I-Lmv">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="foP-uu-AA5" id="3zF-bP-afd"/>
+                            </connections>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="6x6-pS-c5j">
+                                <rect key="frame" x="0.0" y="66" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="foP-uu-AA5" id="hXW-ao-Oo2"/>
+                            <outlet property="delegate" destination="foP-uu-AA5" id="JNB-86-rMV"/>
+                        </connections>
+                    </tableView>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="searchBar" destination="R6J-2I-Lmv" id="utH-0W-aow"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="idQ-T0-puU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1386" y="-2532"/>
         </scene>
         <!--Ipad Measurement Tables View Controller-->
         <scene sceneID="cXd-Oh-a0j">
             <objects>
                 <viewController storyboardIdentifier="IpadMeasurementTablesViewController" id="MCQ-yb-s0U" customClass="IpadMeasurementTablesViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EvG-7j-Xvf">
-                        <rect key="frame" x="0.0" y="0.0" width="971" height="308"/>
+                        <rect key="frame" x="0.0" y="0.0" width="595" height="308"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="SQ1-Mi-wDh">
-                                <rect key="frame" x="0.0" y="29" width="971" height="279"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                            </tableView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="03I-WY-ZM6">
-                                <rect key="frame" x="0.0" y="0.0" width="971" height="30"/>
+                                <rect key="frame" x="0.0" y="-1" width="595" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Observed"/>
                                     <segment title="Forecast"/>
                                     <segment title="Flood Stages"/>
                                 </segments>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="measurementTypeChanged:" destination="MCQ-yb-s0U" eventType="valueChanged" id="iqS-R7-L01"/>
+                                </connections>
                             </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="SQ1-Mi-wDh">
+                                <rect key="frame" x="0.0" y="29" width="595" height="279"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MeasurementTableViewCell" id="lLW-AF-bWe" customClass="MeasurementTableViewCell">
+                                        <rect key="frame" x="0.0" y="22" width="595" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="595" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BHY-AG-yJw">
+                                                    <rect key="frame" x="36" y="11" width="266" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1dN-cV-uVA">
+                                                    <rect key="frame" x="321" y="11" width="207" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="23"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <connections>
+                                            <outlet property="measurementDescriptionLabel" destination="BHY-AG-yJw" id="gLk-CT-tRn"/>
+                                            <outlet property="measurementValueLabel" destination="1dN-cV-uVA" id="ss8-Sz-8dt"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="MCQ-yb-s0U" id="bTT-Xa-2To"/>
+                                    <outlet property="delegate" destination="MCQ-yb-s0U" id="VX4-Ew-9a9"/>
+                                </connections>
+                            </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="measurementTypesSegControl" destination="03I-WY-ZM6" id="muC-XT-rOa"/>
+                        <outlet property="tableView" destination="SQ1-Mi-wDh" id="Qby-4k-Zgv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="80g-jr-II7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -360,7 +485,10 @@
     </scenes>
     <resources>
         <image name="193-location-arrow.png" width="24" height="24"/>
+        <image name="259-list.png" width="20" height="14"/>
+        <image name="ipad-arrow.png" width="9" height="14"/>
         <image name="map@2x.png" width="369" height="304"/>
+        <image name="starEmpty.png" width="28" height="27"/>
     </resources>
     <classes>
         <class className="FavoriteTableViewCell" superclassName="UITableViewCell">
@@ -377,21 +505,25 @@
         <class className="IpadMainMenuTableViewController" superclassName="MainMenuTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/IpadMainMenuTableViewController.h"/>
         </class>
-        <class className="IpadMeasurementTablesViewController" superclassName="MeausrementTablesViewController">
+        <class className="IpadMeasurementTablesViewController" superclassName="MeasurementsViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/IpadMeasurementTablesViewController.h"/>
             <relationships>
+                <relationship kind="outlet" name="measurementTypesSegControl" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="resizeButton" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
         <class className="IpadParentViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/IpadParentViewController.h"/>
             <relationships>
+                <relationship kind="action" name="addRemoveFavorite:"/>
                 <relationship kind="action" name="showHideSideNavView:"/>
+                <relationship kind="outlet" name="favoriteBarButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="graphContainerView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="mainContainerView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="recentValuesView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="sideNavView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="tablesContainerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="IpadRecentValuesViewController" superclassName="UIViewController">
@@ -409,14 +541,46 @@
                 <relationship kind="outlet" name="mapview" candidateClass="MKMapView"/>
             </relationships>
         </class>
-        <class className="MeausrementTablesViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MeausrementTablesViewController.h"/>
+        <class className="MeasurementTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MeasurementTableViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="measurementDescriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="measurementValueLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="MeasurementsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MeasurementsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="PFQueryTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFQueryTableViewController.h"/>
+        </class>
+        <class className="RHLineGraphView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RHLineGraphView.h"/>
         </class>
         <class className="RiverWatcherDefaultCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RiverWatcherDefaultCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="icon" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="SiteNameSearchPFQueryTableViewController" superclassName="PFQueryTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SiteNameSearchPFQueryTableViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+        <class className="USGSLineGraphViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/USGSLineGraphViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="dismissView:"/>
+                <relationship kind="action" name="toggleFullScreen:"/>
+                <relationship kind="outlet" name="dayRangeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lineGraph" candidateClass="RHLineGraphView"/>
+                <relationship kind="outlet" name="sliderContainerView" candidateClass="UIView"/>
             </relationships>
         </class>
     </classes>

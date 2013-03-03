@@ -7,7 +7,7 @@
 //
 
 #import "MainMenuTableViewController.h"
-
+#import "IpadParentViewController.h"
 @interface IpadMainMenuTableViewController : MainMenuTableViewController
-
+@property (strong,nonatomic) IpadParentViewController* ipadParentViewController;
 @end

@@ -17,4 +17,6 @@
 
 @interface MainMenuTableViewController : UITableViewController
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+@property (strong,nonatomic) NSArray* favoritesGaugeSites;
+-(void)updateFavoriteMeasurements;
 @end

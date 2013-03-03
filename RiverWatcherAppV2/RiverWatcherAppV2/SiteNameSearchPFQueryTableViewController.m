@@ -152,8 +152,18 @@
     
     if (indexPath.row < [self.objects count]) {
         GaugeSite* gaugeSite = [GaugeSite gaugeSiteWithPFObject:self.objects[indexPath.row]];
-        [self performSegueWithIdentifier:@"SearchToSummary" sender:gaugeSite];
+
+        if (self.delegate) {
+            //Ipad
+            [self.delegate viewController:self didSelectGaugeSite:gaugeSite];
+        }else{
+            //Iphone
+            [self performSegueWithIdentifier:@"SearchToSummary" sender:gaugeSite];
+
+        }
+        
     }else{
+        //Load More.. cell from parse table view
         [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     }
 

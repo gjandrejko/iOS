@@ -7,8 +7,9 @@
 //
 
 #import "PFQueryTableViewController.h"
-
+#import "GaugeSiteSearchProtocol.h"
 @interface SiteNameSearchPFQueryTableViewController : PFQueryTableViewController
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (weak,nonatomic) id<GaugeSiteSearchProtocol> delegate;
 @end

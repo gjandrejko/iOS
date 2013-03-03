@@ -10,5 +10,7 @@
 #import <UIKit/UIKit.h>
 
 @interface LoadingView : UIView
+@property (strong,nonatomic) UIActivityIndicatorView* spinner;
+@property (strong,nonatomic) UILabel* downloadingLabel;
 
 @end

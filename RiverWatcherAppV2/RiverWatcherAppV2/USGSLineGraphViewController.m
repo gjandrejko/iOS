@@ -33,14 +33,22 @@
     [super viewDidLoad];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     self.usgsMeasurements = self.usgsMeasurementData.heightMeasurements;
-
+    self.dayRange =   7;
+    [self computeStartIndex];
+    
+    UITapGestureRecognizer* tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleFullScreen:)];
+    
+    
+    [self.view addGestureRecognizer:tapGesture];
+    /*
+    
     UIImageView* backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"graphBackground"]];
     backgroundImageView.frame = self.view.bounds;
     backgroundImageView.autoresizingMask = self.lineGraph.autoresizingMask;
     [self.view addSubview:backgroundImageView];
     [self.view sendSubviewToBack:backgroundImageView];
     self.lineGraph.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.1];
-
+*/
     [self setupSlider];
     self.dayRangeSlider.value = 7;
     [self dayRangeChanged:self.dayRangeSlider];
@@ -263,8 +271,12 @@
     return minimumYValueOfLineGraph;
 
 }
+- (IBAction)toggleFullScreen:(id)sender {
+    [self.ipadParentViewController toggleViewControllerFullScreen:self];
+}
 -(CGFloat)maximumXValueOfLineGraph
 {
+    return 1;
     CGFloat maximumXValueOfLineGraph = 0;
    maximumXValueOfLineGraph = [[[self.usgsMeasurementData.dischargeMeasurements lastObject] date] timeIntervalSinceDate:[self.usgsMeasurementData.dischargeMeasurements[self.dayRangeStartIndex] date]];
     /*

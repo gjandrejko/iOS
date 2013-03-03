@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+//!!This class Requires a cell in storyboard with a reuse identifier MeasurementTableViewCell
+
 @interface MeasurementsViewController : UIViewController <UITableViewDelegate,UITextFieldDelegate>
 
 //Objects in measurements array must follow MeasurementDescriptionProtocol

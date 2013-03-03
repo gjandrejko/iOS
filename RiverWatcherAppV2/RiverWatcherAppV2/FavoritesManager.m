@@ -48,6 +48,8 @@
  
     NSMutableDictionary* favorites = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:KEY_FAVORITES]];
     
+    
+    
     [favorites setObject:[self dictionaryForGaugeSite:gaugeSite] forKey:gaugeSite.usgsId];
     
     [[NSUserDefaults standardUserDefaults] setObject:favorites forKey:KEY_FAVORITES];

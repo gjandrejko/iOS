@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GaugeSite.h"
 @interface IpadParentViewController : UIViewController
 - (IBAction)showHideSideNavView:(id)sender;
 @property (weak, nonatomic) IBOutlet UIView *tablesContainerView;
@@ -15,4 +16,8 @@
 @property (weak, nonatomic) IBOutlet UIView *recentValuesView;
 -(void)toggleViewControllerFullScreen:(UIViewController*)viewController;
 @property (weak, nonatomic) IBOutlet UIView *graphContainerView;
+@property (strong,nonatomic) GaugeSite* gaugeSite;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+- (IBAction)addRemoveFavorite:(id)sender;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *favoriteBarButton;
 @end

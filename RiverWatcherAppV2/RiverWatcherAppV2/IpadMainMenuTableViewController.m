@@ -8,9 +8,10 @@
 
 #import "IpadMainMenuTableViewController.h"
 #import "MapSearchViewController.h"
-
-@interface IpadMainMenuTableViewController ()
-@property (strong,nonatomic) UIPopoverController* mapPopover;
+#import "GaugeSiteSearchProtocol.h"
+#import "SiteNameSearchPFQueryTableViewController.h"
+@interface IpadMainMenuTableViewController () <GaugeSiteSearchProtocol>
+@property (strong,nonatomic) UIPopoverController* mainMenuPopoverController;
 @end
 
 @implementation IpadMainMenuTableViewController
@@ -40,26 +41,50 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (!self.mainMenuPopoverController.isPopoverVisible) {
+        
+    
+    
     UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
     CGRect cellRect = [cell convertRect:cell.frame toView:self.tableView];
     if (indexPath.section == SECTION_SEARCH) {
         switch (indexPath.row) {
             case ROW_MAP_SEARCH:{
                 
-                if (!self.mapPopover) {
-                    MapSearchViewController* mapSearchViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MapSearchViewController"];
-                    self.mapPopover = [[UIPopoverController alloc] initWithContentViewController:mapSearchViewController];
-                }
+                MapSearchViewController* mapSearchViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MapSearchViewController"];
+                    mapSearchViewController.delegate = self;
+                self.mainMenuPopoverController = [[UIPopoverController alloc] initWithContentViewController:mapSearchViewController];
                 
-                [self.mapPopover presentPopoverFromRect:cellRect inView:self.tableView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+                
+                [self.mainMenuPopoverController presentPopoverFromRect:cellRect inView:self.tableView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+                
+            }break;
+            case ROW_NAME_SEARCH:{
+                
+                SiteNameSearchPFQueryTableViewController* siteNameSearchController = [self.storyboard instantiateViewControllerWithIdentifier:@"SiteNameSearchController"];
+                siteNameSearchController.delegate = self;
+                self.mainMenuPopoverController = [[UIPopoverController alloc] initWithContentViewController:siteNameSearchController];
+                
+                
+                [self.mainMenuPopoverController presentPopoverFromRect:cellRect inView:self.tableView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
                 
             }
-              //  [self performSegueWithIdentifier:@"MapSearchViewController" sender:nil];
-                break;
-                
-            default:
+                        default:
                 break;
         }
+    }else if (indexPath.section == SECTION_FAVORITES){
+        GaugeSite* gaugeSite = self.favoritesGaugeSites[indexPath.row];
+        self.ipadParentViewController.gaugeSite = gaugeSite;
+
     }
+        
+    }
+}
+
+-(void)viewController:(UIViewController *)viewController didSelectGaugeSite:(GaugeSite *)gaugeSite{
+    
+    [self.mainMenuPopoverController dismissPopoverAnimated:YES];
+    self.ipadParentViewController.gaugeSite = gaugeSite;
+    
 }
 @end

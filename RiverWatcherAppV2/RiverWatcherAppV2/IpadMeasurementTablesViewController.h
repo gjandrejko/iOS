@@ -6,11 +6,12 @@
 //  Copyright (c) 2013 Root Hollow Apps. All rights reserved.
 //
 
-#import "MeausrementTablesViewController.h"
+#import "MeasurementsViewController.h"
 #import "IpadParentViewController.h"
-
-@interface IpadMeasurementTablesViewController : MeausrementTablesViewController 
+#import "USGSMeasurementData.h"
+#import "NOAAMeasurementData.h"
+@interface IpadMeasurementTablesViewController : MeasurementsViewController
 @property (strong,nonatomic) IpadParentViewController* parentViewController;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *resizeButton;
-
+-(void)setUSGSMeasurementData:(USGSMeasurementData*)usgsMeasurementData NOAAMeasurementData:(NOAAMeasurementData*)noaaMeasurmentData;
 @end

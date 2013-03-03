@@ -10,11 +10,14 @@
 #import <MapKit/MapKit.h>
 #import "GaugeSite.h"
 
+#import "GaugeSiteSearchProtocol.h"
 
 @interface MapSearchViewController : UIViewController <MKMapViewDelegate>
+@property (weak,nonatomic) id<GaugeSiteSearchProtocol> delegate;
 @property (weak, nonatomic) IBOutlet MKMapView *mapview;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 - (IBAction)changeMapType:(UISegmentedControl *)sender;
 
 - (IBAction)zoomToUserLocation:(id)sender;
+
 @end

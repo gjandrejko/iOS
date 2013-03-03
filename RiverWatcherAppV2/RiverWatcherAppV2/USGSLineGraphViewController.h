@@ -10,6 +10,7 @@
 #import "USGSMeasurementData.h"
 #import "NOAAMeasurementData.h"
 #import "RHLineGraphView.h"
+#import "IpadParentViewController.h"
 typedef enum  {
     LineGraphTypeUnknown,     
     LineGraphTypeUSGSTemp,
@@ -27,5 +28,5 @@ typedef enum  {
 @property (weak, nonatomic) IBOutlet RHLineGraphView *lineGraph;
 @property (weak, nonatomic) IBOutlet UIView *sliderContainerView;
 @property (strong,nonatomic) NSArray* usgsMeasurements;
-
+@property (strong,nonatomic) IpadParentViewController* ipadParentViewController;
 @end

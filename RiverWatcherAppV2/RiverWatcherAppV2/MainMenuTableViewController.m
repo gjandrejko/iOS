@@ -18,7 +18,6 @@
 
 @interface MainMenuTableViewController ()
 @property (strong,nonatomic) FavoritesManager* favoritesManager;
-@property (strong,nonatomic) NSArray* favoritesGaugeSites;
 @property (strong,nonatomic) NSDictionary* favoriteMeausrements;
 
 @end
@@ -27,7 +26,7 @@
 
 
 -(void)updateFavoriteMeasurements{
-    
+    self.favoriteMeausrements = nil;
     [USGSWebServices downloadLatestMeasurementsFoGaugeSites:self.favoritesGaugeSites Completion:^(NSDictionary *measurementDictionaryWithUsgsIdKeys, NSError *error) {
         
         self.favoriteMeausrements = measurementDictionaryWithUsgsIdKeys;
@@ -46,6 +45,8 @@
     self.favoritesGaugeSites = [self.favoritesManager favoriteGaugeSites];
     [self updateFavoriteMeasurements];
 }
+
+
 
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -177,20 +178,7 @@
                     [cell setUpCellForGaugeSite:gaugeSite FavoriteMeasurement:favovriteMeasurement];
                 }
                 
-                
-                
-                
-                /*
-                cell.siteNameLabel.text = gaugeSite.siteName;
-                cell.tempLabel.text = [NSString stringWithFormat:@"%g %@",favovriteMeasurement.temperatureMeasurement.value,favovriteMeasurement.temperatureMeasurement.units];
-                cell.dischargeLabel.text = [NSString stringWithFormat:@"%g %@",favovriteMeasurement.dischargeMeasurement.value,favovriteMeasurement.dischargeMeasurement.units];
-                cell.heightLabel.text = [NSString stringWithFormat:@"%g %@",favovriteMeasurement.heightMeasurement.value,favovriteMeasurement.heightMeasurement.units];
 
-                NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-                dateFormatter.timeStyle = NSDateFormatterShortStyle;
-                dateFormatter.dateStyle = NSDateFormatterLongStyle;
-                cell.dateLabel.text = [dateFormatter stringFromDate:[favovriteMeasurement measurementDate]];
-                */
                 cell.contentView.backgroundColor= [UIColor clearColor];
                 
                 cell.backgroundColor =  [UIColor colorWithPatternImage:[UIImage imageNamed:@"cellStripedBackground"]];
@@ -209,7 +197,6 @@
                 
                 cell.textLabel.text = @"No Favorites Added Yet";
                 cell.textLabel.textColor = [UIColor lightGrayColor];
-                
                 return cell;
             }
 

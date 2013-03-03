@@ -55,6 +55,10 @@
     
     static NSString* reuseIdentifer = @"AnnotationReuseIdentifer";
     
+    if (annotation == self.mapview.userLocation) {
+        return nil;                                                                 
+    }
+    
     MKPinAnnotationView* annotationView = (MKPinAnnotationView*)[self.mapview dequeueReusableAnnotationViewWithIdentifier:reuseIdentifer];
     
     if (!annotationView) {
@@ -72,8 +76,18 @@
     
     GaugeSiteAnnotation* gaugeSiteAnnotaion = view.annotation;
     GaugeSite* gaugeSite = gaugeSiteAnnotaion.gaugeSite;
-    [self performSegueWithIdentifier:@"GaugeSiteSummary" sender:gaugeSite];
+    
     NSLog(@"Gauge Site:%@",gaugeSite.siteName);
+    
+    
+    
+    if (self.delegate) {
+        [self.delegate viewController:self didSelectGaugeSite:gaugeSite];
+    }else{
+        [self performSegueWithIdentifier:@"GaugeSiteSummary" sender:gaugeSite];
+
+    }
+    
     
     
 }
