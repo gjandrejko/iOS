@@ -8,6 +8,23 @@
 
 #import "RHLineGraphView.h"
 
+@interface CGPointWithIndex : NSObject
+@property (nonatomic) CGPoint point;
+@property (nonatomic) NSInteger index;
+@end
+
+
+@implementation CGPointWithIndex
+
++(CGPointWithIndex*)cgPoint:(CGPoint)point Index:(NSInteger)index{
+    CGPointWithIndex* cgPointWithIndex = [[CGPointWithIndex alloc] init];
+    cgPointWithIndex.point = point;
+    cgPointWithIndex.index = index;
+    return cgPointWithIndex;
+}
+
+@end
+
 @interface RHLineGraphView ()
 - (UIBezierPath *)pathFromDataInRect:(CGRect)rect;
 - (UIBezierPath *)bottomClipPathFromDataInRect:(CGRect)rect;
@@ -25,6 +42,12 @@
 @property (strong,nonatomic) NSMutableArray* verticalLabelStrings;
 @property (strong,nonatomic) NSMutableArray* horizontalLabelStrings;
 @property (nonatomic) NSInteger numberOfPointsInGraph;
+@property (strong,nonatomic) UIBezierPath* pathToDraw;
+@property (strong,nonatomic) UIBezierPath* dashedPathToDraw;
+@property (strong,nonatomic) NSMutableArray* cgPointWithIndexes;
+@property (nonatomic) BOOL isTouching;
+@property (nonatomic,strong) CGPointWithIndex *closestPointToTouch;
+
 
 @end
 
@@ -67,14 +90,14 @@
 
 -(UIFont*)verticalLabelsFont{
     if (!_verticalLabelsFont) {
-        _verticalLabelsFont = [UIFont systemFontOfSize:14];
+        _verticalLabelsFont = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:15];
     }
     return _verticalLabelsFont;
 }
 
 -(UIFont*)horizontalLabelsFont{
     if (!_horizontalLabelsFont) {
-        _horizontalLabelsFont = [UIFont systemFontOfSize:14];
+        _horizontalLabelsFont = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:15];
     }
     return _horizontalLabelsFont;
 }
@@ -168,7 +191,7 @@
     
     [self.verticalLabelStrings removeAllObjects];
     
-    for (int i = 0; i < numberOfVerticalLabels; i++) {
+    for (int i = numberOfVerticalLabels -1; i >= 0; i--) {
     
         
         CGFloat yValue = self.minGrpahYValue + (([self yValueRange] / (numberOfVerticalLabels - 1)) * i);
@@ -186,8 +209,8 @@
 - (void)drawRect:(CGRect)rect
 {
     self.numberOfPointsInGraph = [self.dataSource numberOfPointsInLineGraph];
+    self.cgPointWithIndexes = [NSMutableArray arrayWithCapacity:self.numberOfPointsInGraph];
 
-    
     self.minGraphXValue = [dataSource minimumXValueOfLineGraph];
     self.maxGraphXValue = [dataSource maximumXValueOfLineGraph];
     self.minGrpahYValue = [dataSource minimumYValueOfLineGraph];
@@ -195,11 +218,16 @@
     
     [self setUpHorizontalLablels];
     [self setUpVerticalLabels];
-  //  CGRect graphRect = CGRectMake([self maxVerticalLabelSize].width + 5, [[self.verticalLabelStrings lastObject] sizeWithFont:self.verticalLabelsFont].height / 2, rect.size.width - [self maxHorizontaLabelSize].width, rect.size.height - [self maxVerticalLabelSize].height * 3);
-    CGRect graphRect = rect;
+    NSInteger topInfoSpace = 70;
+    CGRect graphRect = CGRectMake([self maxVerticalLabelSize].width + 5, topInfoSpace, rect.size.width - [self maxHorizontaLabelSize].width, (rect.size.height - [self maxVerticalLabelSize].height * 3) - topInfoSpace);
+    graphRect = self.graphInsetRect;
+   //  graphRect = CGRectMake([self maxVerticalLabelSize].width + 5, [[self.verticalLabelStrings lastObject] sizeWithFont:self.verticalLabelsFont].height / 2, rect.size.width - [self maxHorizontaLabelSize].width, rect.size.height - [self maxVerticalLabelSize].height * 3);
     [[UIColor whiteColor] setFill];
-   // [self drawVerticalLabels:CGRectMake(0, graphRect.origin.y, [self maxHorizontaLabelSize].width, graphRect.size.height)];
+    [self drawVerticalLabels:CGRectMake(0, graphRect.origin.y, graphRect.size.width, graphRect.size.height)];
+    [self drawHorizontalLabels:CGRectZero];
 
+    
+    [self drawGridLines];
     UIBezierPath* graphOutlinePath = [UIBezierPath bezierPathWithRoundedRect:graphRect byRoundingCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(9, 9)];
     graphOutlinePath.lineJoinStyle = kCGLineCapRound;
     graphOutlinePath.lineCapStyle = kCGLineCapRound;
@@ -208,6 +236,11 @@
     [graphOutlinePath stroke ];
     
     UIBezierPath* pathToDraw = [self pathForDataSourceValuesInRect:graphRect];
+    //UIBezierPath* dashedPathToDraw = [self pathForDataSourceValuesInRect:graphRect];
+
+    //float dashPattern[] = {6,20}; //make your pattern here
+    //[pathToDraw setLineDash:dashPattern count:2 phase:0];
+    
     pathToDraw.lineWidth = 3;
     [[UIColor colorWithRed: 0 green: 0.33 blue: 0.57 alpha: 1] setStroke];
     [pathToDraw stroke];
@@ -215,18 +248,53 @@
 
     
 }
-/*
+
 -(void)drawVerticalLabels:(CGRect)rect{
-    
+    [[UIColor blackColor] setStroke];
+    [[UIColor blackColor] setFill];
+
     for (int i = 0; i < [self.verticalLabelStrings count]; i++) {
-        CGSize stringSize = [self.verticalLabelStrings[i] sizeWithFont:self.verticalLabelsFont];
-        CGPoint pointToDraw = CGPointMake(0, i * rect.size.height / ([self.verticalLabelStrings count] -1) + rect.origin.y - (stringSize.height / 2) );
-        [self.verticalLabelStrings[i] drawAtPoint:pointToDraw withFont:self.verticalLabelsFont];
         
+        
+        CGSize stringSize = [self.verticalLabelStrings[i] sizeWithFont:self.verticalLabelsFont];
+        CGRect rectToDraw = CGRectMake(0, i * rect.size.height / ([self.verticalLabelStrings count] -1) + rect.origin.y - (stringSize.height / 2) , self.graphInsetRect.origin.x - 15, stringSize.height);
+        [self.verticalLabelStrings[i] drawInRect:rectToDraw withFont:self.verticalLabelsFont lineBreakMode:NSLineBreakByClipping alignment:NSTextAlignmentRight];
+    }
+    
+    
+}
+
+
+-(void)drawHorizontalLabels:(CGRect)rect{
+    [[UIColor blackColor] setStroke];
+    [[UIColor blackColor] setFill];
+    
+    /*    CGFloat xInterval = CGRectGetWidth(self.graphInsetRect) / ([self.horizontalLabelStrings count] - 1);
+     for (int i = 1 ; i < [self.horizontalLabelStrings count] - 1; i ++) {
+     
+     UIBezierPath* bezierPath = [UIBezierPath bezierPath];
+     [bezierPath moveToPoint:CGPointMake(CGRectGetMinX(self.graphInsetRect) + (i*xInterval), CGRectGetMinY(self.graphInsetRect))];
+     [bezierPath addLineToPoint:CGPointMake(CGRectGetMinX(self.graphInsetRect) + (i*xInterval), CGRectGetMaxY(self.graphInsetRect) )];
+     bezierPath.lineWidth = .5;
+     [bezierPath stroke ];
+     
+     }
+     */
+    
+    CGFloat xInterval = CGRectGetWidth(self.graphInsetRect) / ([self.horizontalLabelStrings count] - 1);
+    for (int i = 0; i < [self.horizontalLabelStrings count]; i++) {
+        
+        
+        CGSize stringSize = [self.horizontalLabelStrings[i] sizeWithFont:self.horizontalLabelsFont];
+        
+        CGFloat xOrigin = CGRectGetMinX(self.graphInsetRect) + (i*xInterval) - (stringSize.width / 2);
+        CGRect rectToDraw = CGRectMake(xOrigin, CGRectGetMaxY(self.graphInsetRect) + 20,stringSize.width,stringSize.height);
+        [self.horizontalLabelStrings[i] drawInRect:rectToDraw withFont:self.horizontalLabelsFont lineBreakMode:NSLineBreakByClipping alignment:NSTextAlignmentRight];
     }
     
 }
-*/
+
+
 
 
 
@@ -288,6 +356,9 @@
         CGFloat yValue = [dataSource ValueForYatIndex:i];
         CGFloat xPointCoords =    horizontalScale  * (xValue - minimumX)  + rect.origin.x;
         CGFloat yPointCoords =   ((yValue - minimumY) * verticalScale) + rect.origin.y;
+        
+        
+        [self.cgPointWithIndexes addObject:[CGPointWithIndex cgPoint:CGPointMake(xPointCoords, yPointCoords) Index:i]];
         if (i == 0) {
             [pathToReturn moveToPoint:CGPointMake(xPointCoords, yPointCoords)];
 
@@ -298,11 +369,70 @@
 
         
     }
-    
-    CGAffineTransform flipVertical = CGAffineTransformMake(1, 0, 0, -1, 0, CGRectGetHeight(rect));
+
+   CGAffineTransform flipVertical = CGAffineTransformMake(1, 0, 0, -1, 0, CGRectGetMaxY(self.graphInsetRect));
     [pathToReturn applyTransform:flipVertical];
 
     return pathToReturn;
+}
+
+-(void)drawGridLines{
+    CGFloat yInterval = CGRectGetHeight(self.graphInsetRect) / ([self.verticalLabelStrings count] - 1);
+    for (int i = 1 ; i < [self.verticalLabelStrings count] - 1; i ++) {
+        
+        UIBezierPath* bezierPath = [UIBezierPath bezierPath];
+        [bezierPath moveToPoint:CGPointMake(CGRectGetMinX(self.graphInsetRect), CGRectGetMinY(self.graphInsetRect) + (i*yInterval))];
+        [bezierPath addLineToPoint:CGPointMake(CGRectGetMaxX(self.graphInsetRect), CGRectGetMinY(self.graphInsetRect) + (i*yInterval))];
+        bezierPath.lineWidth = .5;
+        [bezierPath stroke ];
+        
+    }
+    
+    CGFloat xInterval = CGRectGetWidth(self.graphInsetRect) / ([self.horizontalLabelStrings count] - 1);
+    for (int i = 1 ; i < [self.horizontalLabelStrings count] - 1; i ++) {
+        
+        UIBezierPath* bezierPath = [UIBezierPath bezierPath];
+        [bezierPath moveToPoint:CGPointMake(CGRectGetMinX(self.graphInsetRect) + (i*xInterval), CGRectGetMinY(self.graphInsetRect))];
+        [bezierPath addLineToPoint:CGPointMake(CGRectGetMinX(self.graphInsetRect) + (i*xInterval), CGRectGetMaxY(self.graphInsetRect) )];
+        bezierPath.lineWidth = .5;
+        [bezierPath stroke ];
+        
+    }
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    self.isTouching = YES;
+}
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    self.isTouching = NO;
+}
+
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch* touch = [touches anyObject];
+    CGPoint touchPoint = [touch locationInView:self];
+    
+    CGPointWithIndex* closestPoint = [self.cgPointWithIndexes firstObject];
+
+    for (CGPointWithIndex* cgPointWithIndex in self.cgPointWithIndexes) {
+        
+        CGFloat distance = abs(cgPointWithIndex.point.x - touchPoint.x);
+        if (distance < abs(closestPoint.point.x - touchPoint.x))
+        {
+            closestPoint = cgPointWithIndex;
+        }
+    
+    }
+    self.closestPointToTouch = closestPoint;
+    CGFloat xValue = [self.dataSource ValueForXatIndex:closestPoint.index];
+    CGFloat yValue = [self.dataSource ValueForYatIndex:closestPoint.index];
+    
+    NSString* xString = [self.delegate stringForXValueLabel:xValue];
+    NSString* yString = [self.delegate stringForYValueLabel:yValue];
+
+    NSLog(@"X:%g Y:%g",touchPoint.x, touchPoint.y);
+    NSLog(@"X:%@ Y:%@",xString, yString);
+
 }
 
 @end

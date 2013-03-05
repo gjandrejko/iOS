@@ -11,22 +11,16 @@
 #import "NOAAMeasurementData.h"
 #import "RHLineGraphView.h"
 #import "IpadParentViewController.h"
-typedef enum  {
-    LineGraphTypeUnknown,     
-    LineGraphTypeUSGSTemp,
-    LineGraphTypeUSGSHeight,
-    LineGraphTypeUSGSDischarge,
-    LineGraphTypeNOAAHeight,
-    LineGraphTypeNOAADischarge
-}LineGraphType;
 
-@interface USGSLineGraphViewController : UIViewController <RHLineGraphViewDataSource,RHLineGraphViewDelegate>
 
-@property (nonatomic) LineGraphType graphType;
+@interface LineGraphViewController : UIViewController <RHLineGraphViewDataSource,RHLineGraphViewDelegate>
+
 @property (strong,nonatomic) USGSMeasurementData* usgsMeasurementData;
 @property (strong,nonatomic) NOAAMeasurementData* noaaMeasurementData;
 @property (weak, nonatomic) IBOutlet RHLineGraphView *lineGraph;
 @property (weak, nonatomic) IBOutlet UIView *sliderContainerView;
-@property (strong,nonatomic) NSArray* usgsMeasurements;
+@property (strong,nonatomic) NSArray* measurements;
 @property (strong,nonatomic) IpadParentViewController* ipadParentViewController;
+-(void)setUsgsMeasurementData:(USGSMeasurementData *)usgsMeasurementData NOAAMeasurementData:(NOAAMeasurementData*)noaaMeasurementData;
+@property (weak, nonatomic) IBOutlet UIView *graphInsetView;
 @end

@@ -9,7 +9,7 @@
             <objects>
                 <tableViewController id="lrj-Ea-xji" customClass="MainMenuTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="p4D-E4-1GO">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -121,18 +121,18 @@
             <objects>
                 <viewController id="QEu-2b-eSw" customClass="MapSearchViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="m50-Ak-f2Z">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="RFi-Mn-qTe">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="QEu-2b-eSw" id="EMv-T2-dR6"/>
                                 </connections>
                             </mapView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="FBV-ly-teJ">
-                                <rect key="frame" x="0.0" y="372" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="460" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
                                     <barButtonItem image="193-location-arrow.png" style="plain" id="bnr-Fs-LIP">
@@ -192,7 +192,7 @@
             <objects>
                 <tableViewController id="mAK-Vk-vxc" customClass="SiteNameSearchPFQueryTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="bno-94-RbK">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Name Or Location Of River" id="RDI-Rz-mXV">
@@ -248,11 +248,11 @@
             <objects>
                 <viewController id="dmv-w9-htJ" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rsG-Zl-s9D">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kx6-ca-Q6T">
-                                <rect key="frame" x="442" y="0.0" width="38" height="33"/>
+                                <rect key="frame" x="530" y="287" width="38" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="298-circlex.png">
@@ -267,7 +267,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" id="1Hs-Um-y0B" customClass="RHLineGraphView">
-                                <rect key="frame" x="27" y="50" width="426" height="243"/>
+                                <rect key="frame" x="27" y="50" width="514" height="243"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
@@ -285,18 +285,18 @@
         <!--Line Graph View Controller-->
         <scene sceneID="JN1-ev-A9d">
             <objects>
-                <viewController id="PRn-Ai-uTS" customClass="USGSLineGraphViewController" sceneMemberID="viewController">
+                <viewController id="PRn-Ai-uTS" customClass="LineGraphViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nav-np-UAM">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="V71-3z-GpJ" customClass="RHLineGraphView">
-                                <rect key="frame" x="50" y="61" width="390" height="220"/>
+                                <rect key="frame" x="50" y="61" width="478" height="220"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ALW-5k-0ed">
-                                <rect key="frame" x="441" y="12" width="38" height="33"/>
+                                <rect key="frame" x="529" y="12" width="38" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="298-circlex.png">
@@ -311,26 +311,26 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" id="zYN-ZL-tjP">
-                                <rect key="frame" x="448" y="87" width="28" height="168"/>
+                                <rect key="frame" x="536" y="87" width="28" height="168"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="DAYS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8Oz-1U-77H">
-                                <rect key="frame" x="441" y="263" width="42" height="21"/>
+                                <rect key="frame" x="529" y="263" width="42" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="12"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="30" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0dk-df-yzC">
-                                <rect key="frame" x="441" y="58" width="42" height="21"/>
+                                <rect key="frame" x="529" y="58" width="42" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="14"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="WSq-yB-Ykp">
-                                <rect key="frame" x="59" y="15" width="371" height="30"/>
+                                <rect key="frame" x="71" y="15" width="447" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Height"/>
@@ -359,16 +359,16 @@
             <objects>
                 <viewController storyboardIdentifier="GraphViewController" wantsFullScreenLayout="YES" id="hla-4h-Eth" customClass="GraphViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xbG-zP-WSb">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="nSw-lu-abc" customClass="GraphView">
-                                <rect key="frame" x="-1" y="0.0" width="480" height="320"/>
+                                <rect key="frame" x="-1" y="0.0" width="568" height="320"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VMB-NA-XdI">
-                                <rect key="frame" x="406" y="0.0" width="73" height="44"/>
+                                <rect key="frame" x="494" y="0.0" width="73" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Button">
@@ -399,11 +399,11 @@
             <objects>
                 <viewController id="5hl-FP-rv9" customClass="NoaaMeasurementsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZQg-ob-ZgH">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="TD1-Gv-q6v">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -447,7 +447,7 @@
                                 </connections>
                             </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="6zm-n7-9Bv">
-                                <rect key="frame" x="0.0" y="372" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="460" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="5eo-FP-qov"/>
@@ -487,11 +487,11 @@
             <objects>
                 <viewController id="hcP-Ze-zLC" customClass="USGSMeasurementsTableViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="505-tG-j4n">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="nd6-0N-Y7u">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -536,7 +536,7 @@
                                 </connections>
                             </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="e0V-ff-lWc">
-                                <rect key="frame" x="0.0" y="372" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="460" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="WdU-nB-td3"/>
@@ -577,11 +577,11 @@
             <objects>
                 <viewController id="RJR-f7-m6H" customClass="MeasurementsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cjC-7e-PFa">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="rLY-oE-Z6Q">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
@@ -639,7 +639,7 @@
             <objects>
                 <tableViewController id="CAD-hR-ra7" customClass="GaugeSiteIPhoneTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="swy-ta-kYp">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <color key="separatorColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
@@ -767,7 +767,7 @@
             <objects>
                 <tableViewController id="AOP-AM-kv8" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="gSy-0L-E3w">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -997,10 +997,108 @@
         <image name="map@2x.png" width="369" height="304"/>
         <image name="measurementCellBackground.png" width="320" height="38"/>
     </resources>
+    <classes>
+        <class className="FavoriteTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FavoriteTableViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="dischargeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="heightLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="siteNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="tempLabel" candidateClass="UILabel"/>
+                <relationship kind="outletCollection" name="measurementLabels" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="GaugeSiteIPhoneTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GaugeSiteIPhoneTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addOrDeleteFavorite:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="favoritesButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="GraphView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphView.h"/>
+        </class>
+        <class className="GraphViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GraphViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="dismissGraph:"/>
+            </relationships>
+        </class>
+        <class className="LatestMeasurementCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LatestMeasurementCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="icon" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="valueLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="MainMenuTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainMenuTableViewController.h"/>
+        </class>
+        <class className="MapSearchViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MapSearchViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="changeMapType:" candidateClass="UISegmentedControl"/>
+                <relationship kind="action" name="zoomToUserLocation:"/>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="mapview" candidateClass="MKMapView"/>
+            </relationships>
+        </class>
+        <class className="MeasurementTableViewCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MeasurementTableViewCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="measurementDescriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="measurementValueLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="MeasurementsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MeasurementsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="NoaaMeasurementsViewController" superclassName="MeasurementsViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NoaaMeasurementsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="measurementTypeChanged:" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="measurementTypeSegControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="PFQueryTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFQueryTableViewController.h"/>
+        </class>
+        <class className="RHLineGraphView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RHLineGraphView.h"/>
+        </class>
+        <class className="RiverWatcherDefaultCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RiverWatcherDefaultCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="icon" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="SiteNameSearchPFQueryTableViewController" superclassName="PFQueryTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SiteNameSearchPFQueryTableViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="searchBar" candidateClass="UISearchBar"/>
+            </relationships>
+        </class>
+        <class className="USGSMeasurementsTableViewController" superclassName="MeasurementsViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/USGSMeasurementsTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="measurementTypeChanged:" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="measurementTypeSegmetedControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="vHI-lC-Ur1"/>

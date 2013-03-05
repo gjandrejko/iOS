@@ -7,39 +7,26 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "RiverWatcherAppV2/IpadMainMenuTableViewController.m"
-         timestampString = "383950152.531261"
+         filePath = "RiverWatcherAppV2/RHLineGraphView.m"
+         timestampString = "384039200.113173"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "65"
-         endingLineNumber = "65"
-         landmarkName = "-tableView:didSelectRowAtIndexPath:"
+         startingLineNumber = "290"
+         endingLineNumber = "290"
+         landmarkName = "-drawHorizontalLabels:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "RiverWatcherAppV2/IpadParentViewController.m"
-         timestampString = "383982616.618584"
+         filePath = "RiverWatcherAppV2/RHLineGraphView.m"
+         timestampString = "384039250.287321"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "62"
-         endingLineNumber = "62"
-         landmarkName = "-checkWebServiceStatus"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "RiverWatcherAppV2/MeasurementsViewController.m"
-         timestampString = "383963160.415114"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "45"
-         endingLineNumber = "45"
-         landmarkName = "-tableView:numberOfRowsInSection:"
+         startingLineNumber = "292"
+         endingLineNumber = "292"
+         landmarkName = "-drawHorizontalLabels:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

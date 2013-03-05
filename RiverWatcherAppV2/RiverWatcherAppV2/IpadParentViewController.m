@@ -17,15 +17,16 @@
 #import "NOAAWebServices.h"
 #import "USGSWebServices.h"
 #import "LoadingView.h"
-#import "USGSLineGraphViewController.h"
+#import "LineGraphViewController.h"
+#import "IpadRecentValuesTableViewController.h"
 
 @interface IpadParentViewController ()
 @property (strong,nonatomic)  IpadMainMenuTableViewController* mainMenuViewController;
 @property (strong,nonatomic)  IpadMeasurementTablesViewController* ipadMeasurementTablesViewController;
-@property (strong,nonatomic)  IpadRecentValuesViewController* ipadRecentValuesViewController;
+@property (strong,nonatomic)  IpadRecentValuesTableViewController* ipadRecentValuesTableViewController;
 @property (strong,nonatomic)  NOAAMeasurementData* noaaMeasurementData;
 @property (strong,nonatomic) NOAAWebServices* noaaWebServices;
-@property (strong,nonatomic) USGSLineGraphViewController* lineGraphViewController;
+@property (strong,nonatomic) LineGraphViewController* lineGraphViewController;
 
 @property (strong,nonatomic)  USGSMeasurementData* usgsMeasurementData;
 @property (nonatomic) NSInteger numberOfWebservicesDownloaded;
@@ -58,11 +59,10 @@
 }
 
 -(void)checkWebServiceStatus{
-    if (self.numberOfWebservicesDownloaded + self.numberOfWebservicesFailed ==2) {
+    if (self.numberOfWebservicesDownloaded + self.numberOfWebservicesFailed >=2 ) {
         [self.ipadMeasurementTablesViewController setUSGSMeasurementData:self.usgsMeasurementData NOAAMeasurementData:self.noaaMeasurementData];
-        self.lineGraphViewController.usgsMeasurementData = self.usgsMeasurementData;
-        self.lineGraphViewController.noaaMeasurementData = self.noaaMeasurementData;
-        [self.lineGraphViewController.lineGraph reloadGraph];
+        [self.lineGraphViewController setUsgsMeasurementData:self.usgsMeasurementData NOAAMeasurementData:self.noaaMeasurementData];
+        self.ipadRecentValuesTableViewController.usgsMeasurmentData = self.usgsMeasurementData;
         [self dismissLoadingView];
     }
 }
@@ -283,9 +283,11 @@
     self.ipadMeasurementTablesViewController.parentViewController = self;
     self.tablesContainerViewOriginalFrame = self.tablesContainerView.frame;
     
-    self.ipadRecentValuesViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"IpadRecentValuesViewController"];
-    [self addChildViewController:self.ipadRecentValuesViewController];
-    [self.recentValuesView addSubview:self.ipadRecentValuesViewController.view];
+    self.ipadRecentValuesTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"IpadRecentValuesTableViewController"];
+    [self addChildViewController:self.ipadRecentValuesTableViewController];
+    [self.recentValuesView addSubview:self.ipadRecentValuesTableViewController.tableView];
+    self.ipadRecentValuesTableViewController.tableView.frame = self.recentValuesView.bounds;
+    self.recentValuesView.clipsToBounds =YES;
     self.recentValuesView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cellStripedBackground"]];
     self.recentValuesView.layer.cornerRadius = 7;
     self.recentValuesView.layer.shadowColor = [UIColor blackColor].CGColor;

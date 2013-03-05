@@ -15,7 +15,7 @@
 #import "LatestMeasurementCell.h"
 #import "GraphViewController.h"
 #import "FavoritesManager.h"
-#import "USGSLineGraphViewController.h"
+#import "LineGraphViewController.h"
 #import "MeasurementsViewController.h"
 #import "USGSMeasurementsTableViewController.h"
 #import "NoaaMeasurementsViewController.h"

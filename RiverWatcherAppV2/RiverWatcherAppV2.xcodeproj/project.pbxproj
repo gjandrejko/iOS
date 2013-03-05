@@ -67,8 +67,9 @@
 		312C0A6516C5D459004D6A9A /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312C0A6416C5D459004D6A9A /* GraphView.m */; };
 		312C0A6816C5D49A004D6A9A /* CGPointAsAClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 312C0A6716C5D49A004D6A9A /* CGPointAsAClass.m */; };
 		312C0A6C16C5D5CA004D6A9A /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 312C0A6B16C5D5CA004D6A9A /* GraphViewController.m */; };
+		3135357116E3FE62001C015C /* IpadRecentValuesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3135357016E3FE62001C015C /* IpadRecentValuesTableViewController.m */; };
 		31472F3316D96FFC00761303 /* RHLineGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31472F3216D96FFC00761303 /* RHLineGraphView.m */; };
-		31472F3616D9713700761303 /* USGSLineGraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31472F3516D9713700761303 /* USGSLineGraphViewController.m */; };
+		31472F3616D9713700761303 /* LineGraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31472F3516D9713700761303 /* LineGraphViewController.m */; };
 		31472F3916D996B200761303 /* 298-circlex.png in Resources */ = {isa = PBXBuildFile; fileRef = 31472F3716D996B200761303 /* 298-circlex.png */; };
 		31472F3A16D996B200761303 /* 298-circlex@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 31472F3816D996B200761303 /* 298-circlex@2x.png */; };
 		31472F3F16DAA7A100761303 /* graphBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 31472F3E16DAA7A100761303 /* graphBackground.png */; };
@@ -330,11 +331,13 @@
 		312C0A6716C5D49A004D6A9A /* CGPointAsAClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGPointAsAClass.m; sourceTree = "<group>"; };
 		312C0A6A16C5D5CA004D6A9A /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphViewController.h; sourceTree = "<group>"; };
 		312C0A6B16C5D5CA004D6A9A /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
+		3135356F16E3FE62001C015C /* IpadRecentValuesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IpadRecentValuesTableViewController.h; sourceTree = "<group>"; };
+		3135357016E3FE62001C015C /* IpadRecentValuesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IpadRecentValuesTableViewController.m; sourceTree = "<group>"; };
 		31472F3016D96E3D00761303 /* GraphPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphPoint.h; sourceTree = "<group>"; };
 		31472F3116D96FFC00761303 /* RHLineGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHLineGraphView.h; sourceTree = "<group>"; };
 		31472F3216D96FFC00761303 /* RHLineGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHLineGraphView.m; sourceTree = "<group>"; };
-		31472F3416D9713700761303 /* USGSLineGraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USGSLineGraphViewController.h; sourceTree = "<group>"; };
-		31472F3516D9713700761303 /* USGSLineGraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USGSLineGraphViewController.m; sourceTree = "<group>"; };
+		31472F3416D9713700761303 /* LineGraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineGraphViewController.h; sourceTree = "<group>"; };
+		31472F3516D9713700761303 /* LineGraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineGraphViewController.m; sourceTree = "<group>"; };
 		31472F3716D996B200761303 /* 298-circlex.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "298-circlex.png"; sourceTree = "<group>"; };
 		31472F3816D996B200761303 /* 298-circlex@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "298-circlex@2x.png"; sourceTree = "<group>"; };
 		31472F3E16DAA7A100761303 /* graphBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = graphBackground.png; sourceTree = "<group>"; };
@@ -818,8 +821,10 @@
 				31472F5116DAC12D00761303 /* NOAALineGraphController.m */,
 				31E1A66916C6F16900628B7D /* SiteNameSearchPFQueryTableViewController.h */,
 				31E1A66A16C6F16900628B7D /* SiteNameSearchPFQueryTableViewController.m */,
-				31472F3416D9713700761303 /* USGSLineGraphViewController.h */,
-				31472F3516D9713700761303 /* USGSLineGraphViewController.m */,
+				31472F3416D9713700761303 /* LineGraphViewController.h */,
+				31472F3516D9713700761303 /* LineGraphViewController.m */,
+				3135356F16E3FE62001C015C /* IpadRecentValuesTableViewController.h */,
+				3135357016E3FE62001C015C /* IpadRecentValuesTableViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1098,7 +1103,7 @@
 				31E1A67416C80B2100628B7D /* FavoriteMeasurement.m in Sources */,
 				31E1A67916C840DD00628B7D /* MeausrementTablesViewController.m in Sources */,
 				31472F3316D96FFC00761303 /* RHLineGraphView.m in Sources */,
-				31472F3616D9713700761303 /* USGSLineGraphViewController.m in Sources */,
+				31472F3616D9713700761303 /* LineGraphViewController.m in Sources */,
 				31472F5216DAC12D00761303 /* NOAALineGraphController.m in Sources */,
 				31AEAF7716E1280C00445336 /* UtilMethods.m in Sources */,
 				31AEAF7F16E1397F00445336 /* MeasurementsViewController.m in Sources */,
@@ -1109,6 +1114,7 @@
 				31AD886D16E2543900F75FA4 /* IpadMeasurementTablesViewController.m in Sources */,
 				31AD887A16E271FB00F75FA4 /* IpadRecentValuesViewController.m in Sources */,
 				31AD887D16E272D600F75FA4 /* IpadGraphViewController.m in Sources */,
+				3135357116E3FE62001C015C /* IpadRecentValuesTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

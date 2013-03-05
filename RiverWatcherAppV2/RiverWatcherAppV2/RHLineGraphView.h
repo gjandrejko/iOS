@@ -28,8 +28,7 @@
 
 -(NSInteger)numberOfHorizontalLabelsInGraphView:(RHLineGraphView*)lineGraphView;
 -(NSInteger)numberOfVerticalLabelsInGraphView:(RHLineGraphView*)lineGraphView;
--(NSString*)stringForHorizontalLabelAtIndex:(NSInteger)index;
--(NSString*)stringForVerticalLabelAtIndex:(NSInteger)index;
+
 -(NSString*)stringForXValueLabel:(CGFloat)xValue;
 -(NSString*)stringForYValueLabel:(CGFloat)xValue;
 
@@ -43,7 +42,9 @@
 
 @property (strong,nonatomic) UIFont* verticalLabelsFont;
 @property (strong,nonatomic) UIFont* horizontalLabelsFont;
+@property (strong,nonatomic) NSNumber* indexToStartDashedPattern;
 
+@property (nonatomic) CGRect graphInsetRect;
 
 @property(nonatomic, assign) id<RHLineGraphViewDataSource> dataSource;
 @property(nonatomic, assign) id<RHLineGraphViewDelegate> delegate;
