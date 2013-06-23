@@ -26,6 +26,8 @@
 @property (strong,nonatomic)  IpadRecentValuesTableViewController* ipadRecentValuesTableViewController;
 @property (strong,nonatomic)  NOAAMeasurementData* noaaMeasurementData;
 @property (strong,nonatomic) NOAAWebServices* noaaWebServices;
+@property (strong,nonatomic) USGSWebServices* usgsWebsServices;
+
 @property (strong,nonatomic) LineGraphViewController* lineGraphViewController;
 
 @property (strong,nonatomic)  USGSMeasurementData* usgsMeasurementData;
@@ -34,6 +36,7 @@
 @property (strong,nonatomic) LoadingView* loadingView;
 @property (nonatomic) CGRect tablesContainerViewOriginalFrame;
 @property (nonatomic) CGRect graphContainerViewOriginalFrame;
+
 
 @end
 
@@ -88,9 +91,7 @@
 {
     [super viewDidLoad];
 
-    
-    self.mainContainerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"retina_dust"]];
-    [self setupViewControllers];
+   // [self setupViewControllers];
 }
 
 -(void)presentLoadingView{
@@ -149,7 +150,9 @@
 
 -(void)downloadUsgsData
 {
-    [USGSWebServices downloadMeasurementsForSiteId:self.gaugeSite.usgsId NumberOfDays:30 Completion:^(USGSMeasurementData *usgsMeasurementData, NSError* error) {
+   self.usgsWebsServices = [[USGSWebServices alloc] init];
+
+    [self.usgsWebsServices  downloadMeasurementsForSiteId:self.gaugeSite.usgsId NumberOfDays:30 Completion:^(USGSMeasurementData *usgsMeasurementData, NSError* error) {
         
         
         if (error  ) {
@@ -168,7 +171,7 @@
 {
     self.noaaWebServices = [[NOAAWebServices alloc] init];
     [self.noaaWebServices downloadMeasurementsForSiteId:self.gaugeSite.nwsId Completion:^(NOAAMeasurementData *noaaMeasurementData, NSError *error) {
-        
+        NSLog(@"NOAA COMPLETION");
         if (error) {
             self.numberOfWebservicesFailed++;
             
@@ -180,6 +183,7 @@
         }
         
     }];
+    self.noaaWebServices = nil;
 }
 
 
@@ -256,75 +260,49 @@
 #pragma mark Other Methods
 
 
-
 - (void)setupViewControllers
 {
-    //Add child view controllers to their cooresponding container views in the storyboard
-    //Setup delegates
-    //UI Cosmetic Modifications
-    
-    
+  
     self.mainMenuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainMenuTableViewController"];
     [self addChildViewController:self.mainMenuViewController];
     self.mainMenuViewController.ipadParentViewController = self;
     [self.sideNavView addSubview:self.mainMenuViewController.view];
-    self.mainMenuViewController.view.frame = self.sideNavView.bounds;
-    self.sideNavView.layer.masksToBounds = NO;
-    self.sideNavView.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.sideNavView.layer.shadowOffset = CGSizeMake(10, 5);
-    self.sideNavView.layer.shadowOpacity = 0.8;
-    self.sideNavView.layer.shadowRadius = 5.0;
-
-    
+    CGRect sideNavFrame = self.sideNavView.bounds;
+    sideNavFrame.size.width--;
+    self.sideNavView.backgroundColor = [UIColor blackColor];
+    self.mainMenuViewController.view.frame = sideNavFrame;
+ 
     self.ipadMeasurementTablesViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"IpadMeasurementTablesViewController"];
     [self addChildViewController:self.ipadMeasurementTablesViewController];
     [self.tablesContainerView addSubview:self.ipadMeasurementTablesViewController.view];
-    self.ipadMeasurementTablesViewController.view.frame = self.tablesContainerView.bounds;
+    self.ipadMeasurementTablesViewController.view.frame = CGRectInset(self.tablesContainerView.bounds, 1,1 );
     self.ipadMeasurementTablesViewController.parentViewController = self;
-    self.tablesContainerViewOriginalFrame = self.tablesContainerView.frame;
+    //  self.tablesContainerViewOriginalFrame = CGRectInset(self.tablesContainerView.bounds, 2,2 );
+    
     
     self.ipadRecentValuesTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"IpadRecentValuesTableViewController"];
     [self addChildViewController:self.ipadRecentValuesTableViewController];
     [self.recentValuesView addSubview:self.ipadRecentValuesTableViewController.tableView];
-    self.ipadRecentValuesTableViewController.tableView.frame = self.recentValuesView.bounds;
+    self.ipadRecentValuesTableViewController.tableView.frame = CGRectInset(self.recentValuesView.bounds, 1,1 );
     self.recentValuesView.clipsToBounds =YES;
-    self.recentValuesView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cellStripedBackground"]];
-    self.recentValuesView.layer.cornerRadius = 7;
-    self.recentValuesView.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.recentValuesView.layer.shadowOffset = CGSizeMake(1, 3);
-    self.recentValuesView.layer.masksToBounds = NO;
-    self.recentValuesView.layer.shadowRadius = 2.0;
-    self.recentValuesView.layer.shadowOpacity = 0.8;
 
 
     
-    self.tablesContainerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cellStripedBackground"]];
-    self.tablesContainerView.layer.cornerRadius = 7;
-    self.tablesContainerView.layer.masksToBounds = NO;
-    self.tablesContainerView.layer.shadowOffset = CGSizeMake(1, 3);
-    self.tablesContainerView.layer.masksToBounds = NO;
-    self.tablesContainerView.layer.shadowRadius = 2.0;
-    self.tablesContainerView.layer.shadowOpacity = 0.8;
-
     self.lineGraphViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LineGraphViewController"];
     [self addChildViewController:self.lineGraphViewController];
-    self.lineGraphViewController.view.frame = self.graphContainerView.bounds;
+    self.lineGraphViewController.view.frame = CGRectInset(self.graphContainerView.bounds, 1,1 );
     [self.graphContainerView addSubview:self.lineGraphViewController.view];
     self.lineGraphViewController.ipadParentViewController = self;
-    self.graphContainerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cellStripedBackground"]];
-    self.graphContainerView.layer.cornerRadius = 7;
-    self.graphContainerView.layer.masksToBounds = NO;
-    self.graphContainerView.layer.shadowOffset = CGSizeMake(1, 3);
-    self.graphContainerView.layer.masksToBounds = NO;
-    self.graphContainerView.layer.shadowRadius = 2.0;
-    self.graphContainerView.layer.shadowOpacity = 0.8;
-    self.graphContainerViewOriginalFrame = self.graphContainerView.frame;
 
     
+    
+    self.graphContainerView.backgroundColor = [UIColor colorWithRed:0.114 green:0.298 blue:0.376 alpha:1];
+    self.recentValuesView.backgroundColor = [UIColor colorWithRed:0.282 green:0.655 blue:0.816 alpha:1];
 }
 
 - (void)toggleViewControllerFullScreen:(UIViewController*)viewController
 {
+    return;
     if ([viewController view].frame.size.height == self.mainContainerView.frame.size.height) {
         
         [UIView animateWithDuration:.5 animations:^{

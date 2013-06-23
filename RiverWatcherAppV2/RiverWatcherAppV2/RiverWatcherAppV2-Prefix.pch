@@ -10,7 +10,7 @@
 
 #ifdef __OBJC__
     #import "NSArray+FirstObject.h"
-    #import "Parse.h"
+    #import <Parse/Parse.h>
     #import "ApplicationConstants.h"
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>

@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface USGSMultipleSitesWebService : NSObject
-
+-(void)downloadLatestMeasurementsFoGaugeSites:(NSArray*)gaugeSites Completion:(void (^)(NSDictionary* measurementDictionaryWithUsgsIdKeys,NSError* error))completion;
+-(void)cancel;
 @end

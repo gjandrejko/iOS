@@ -20,4 +20,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 - (IBAction)addRemoveFavorite:(id)sender;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *favoriteBarButton;
+@property (strong, nonatomic) IBOutlet UIView *contentContainerView;
 @end

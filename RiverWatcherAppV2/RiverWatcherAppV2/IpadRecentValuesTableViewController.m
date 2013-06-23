@@ -39,8 +39,18 @@
         }else{
             label.textColor = self.originalColor;
         }
+        label.textColor = [UIColor colorWithRed:0.192 green:0.282 blue:0.369 alpha:1];
+        label.shadowColor = [UIColor clearColor];
+        label.shadowColor = [UIColor whiteColor];
+        label.shadowOffset = CGSizeMake(0, 1);
     }
     
+    for (UILabel* descriptionLabel in self.descriptionLabels) {
+        descriptionLabel.textColor = [UIColor colorWithRed:0.192 green:0.282 blue:0.369 alpha:1];
+        descriptionLabel.shadowColor = [UIColor whiteColor];
+        descriptionLabel.shadowOffset = CGSizeMake(0, 1);
+                                                   
+    }
 }
 
 -(void)viewDidLoad{
@@ -62,6 +72,7 @@
     [self setDateLabel:nil];
     [self setValuelabels:nil];
 
+    [self setDescriptionLabels:nil];
     [super viewDidUnload];
 }
 @end

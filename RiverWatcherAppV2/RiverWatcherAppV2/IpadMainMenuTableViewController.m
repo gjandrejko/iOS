@@ -28,6 +28,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.tableView.backgroundView = nil;
+    self.tableView.backgroundColor = [UIColor colorWithRed:0.196 green:0.227 blue:0.286 alpha:1];
 	// Do any additional setup after loading the view.
 }
 
@@ -37,6 +39,23 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell* cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    cell.contentView.backgroundColor =[UIColor colorWithRed:0.173 green:0.243 blue:0.314 alpha:1];
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section == SECTION_SEARCH) {
+        return 50;
+        
+    }else if (indexPath.section == SECTION_FAVORITES){
+        return 90;
+    }else{
+        return 0;
+    }
+}
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

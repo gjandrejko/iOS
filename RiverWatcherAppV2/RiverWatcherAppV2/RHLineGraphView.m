@@ -208,6 +208,8 @@
 }
 - (void)drawRect:(CGRect)rect
 {
+    return;
+    
     self.numberOfPointsInGraph = [self.dataSource numberOfPointsInLineGraph];
     self.cgPointWithIndexes = [NSMutableArray arrayWithCapacity:self.numberOfPointsInGraph];
 
@@ -221,43 +223,48 @@
     NSInteger topInfoSpace = 70;
     CGRect graphRect = CGRectMake([self maxVerticalLabelSize].width + 5, topInfoSpace, rect.size.width - [self maxHorizontaLabelSize].width, (rect.size.height - [self maxVerticalLabelSize].height * 3) - topInfoSpace);
     graphRect = self.graphInsetRect;
-   //  graphRect = CGRectMake([self maxVerticalLabelSize].width + 5, [[self.verticalLabelStrings lastObject] sizeWithFont:self.verticalLabelsFont].height / 2, rect.size.width - [self maxHorizontaLabelSize].width, rect.size.height - [self maxVerticalLabelSize].height * 3);
     [[UIColor whiteColor] setFill];
     [self drawVerticalLabels:CGRectMake(0, graphRect.origin.y, graphRect.size.width, graphRect.size.height)];
     [self drawHorizontalLabels:CGRectZero];
 
     
     [self drawGridLines];
-    UIBezierPath* graphOutlinePath = [UIBezierPath bezierPathWithRoundedRect:graphRect byRoundingCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(9, 9)];
+    UIBezierPath* graphOutlinePath = [UIBezierPath bezierPathWithRoundedRect:graphRect byRoundingCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(1, 1)];
     graphOutlinePath.lineJoinStyle = kCGLineCapRound;
     graphOutlinePath.lineCapStyle = kCGLineCapRound;
-    graphOutlinePath.lineWidth = 3;
-    [[UIColor colorWithRed: 0 green: 0.33 blue: 0.57 alpha: 1] setStroke];
+    graphOutlinePath.lineWidth = 1;
+    [[UIColor whiteColor] setStroke];
     [graphOutlinePath stroke ];
     
     UIBezierPath* pathToDraw = [self pathForDataSourceValuesInRect:graphRect];
-    //UIBezierPath* dashedPathToDraw = [self pathForDataSourceValuesInRect:graphRect];
-
-    //float dashPattern[] = {6,20}; //make your pattern here
-    //[pathToDraw setLineDash:dashPattern count:2 phase:0];
-    
     pathToDraw.lineWidth = 3;
-    [[UIColor colorWithRed: 0 green: 0.33 blue: 0.57 alpha: 1] setStroke];
+    [[UIColor whiteColor] setStroke];
+    
+    UIBezierPath* fillPath = [pathToDraw copy];
+    [fillPath addLineToPoint:CGPointMake(CGRectGetMaxX(graphRect), CGRectGetMaxY(graphRect))];
+    [fillPath addLineToPoint:CGPointMake(CGRectGetMinX(graphRect), CGRectGetMaxY(graphRect))];
+    [fillPath closePath];
+    [[UIColor colorWithRed:0.282 green:0.655 blue:0.812 alpha:1] setFill];
+
+    [fillPath fill];
     [pathToDraw stroke];
+    
+    
+
     [pathToDraw addClip];
 
     
 }
 
 -(void)drawVerticalLabels:(CGRect)rect{
-    [[UIColor blackColor] setStroke];
-    [[UIColor blackColor] setFill];
+    [[UIColor whiteColor] setStroke];
+    [[UIColor whiteColor] setFill];
 
     for (int i = 0; i < [self.verticalLabelStrings count]; i++) {
         
         
         CGSize stringSize = [self.verticalLabelStrings[i] sizeWithFont:self.verticalLabelsFont];
-        CGRect rectToDraw = CGRectMake(0, i * rect.size.height / ([self.verticalLabelStrings count] -1) + rect.origin.y - (stringSize.height / 2) , self.graphInsetRect.origin.x - 15, stringSize.height);
+        CGRect rectToDraw = CGRectMake(0, i * rect.size.height / ([self.verticalLabelStrings count] -1) + rect.origin.y - (stringSize.height * .7) , self.graphInsetRect.origin.x - 15, stringSize.height);
         [self.verticalLabelStrings[i] drawInRect:rectToDraw withFont:self.verticalLabelsFont lineBreakMode:NSLineBreakByClipping alignment:NSTextAlignmentRight];
     }
     
@@ -266,8 +273,8 @@
 
 
 -(void)drawHorizontalLabels:(CGRect)rect{
-    [[UIColor blackColor] setStroke];
-    [[UIColor blackColor] setFill];
+    [[UIColor whiteColor] setStroke];
+    [[UIColor whiteColor] setFill];
     
     /*    CGFloat xInterval = CGRectGetWidth(self.graphInsetRect) / ([self.horizontalLabelStrings count] - 1);
      for (int i = 1 ; i < [self.horizontalLabelStrings count] - 1; i ++) {
@@ -287,8 +294,8 @@
         
         CGSize stringSize = [self.horizontalLabelStrings[i] sizeWithFont:self.horizontalLabelsFont];
         
-        CGFloat xOrigin = CGRectGetMinX(self.graphInsetRect) + (i*xInterval) - (stringSize.width / 2);
-        CGRect rectToDraw = CGRectMake(xOrigin, CGRectGetMaxY(self.graphInsetRect) + 20,stringSize.width,stringSize.height);
+        CGFloat xOrigin = CGRectGetMinX(self.graphInsetRect) + (i*xInterval) ;
+        CGRect rectToDraw = CGRectMake(xOrigin - stringSize.width/2, CGRectGetMaxY(self.graphInsetRect) + 10,stringSize.width,stringSize.height);
         [self.horizontalLabelStrings[i] drawInRect:rectToDraw withFont:self.horizontalLabelsFont lineBreakMode:NSLineBreakByClipping alignment:NSTextAlignmentRight];
     }
     
@@ -370,8 +377,11 @@
         
     }
 
+  
+    
    CGAffineTransform flipVertical = CGAffineTransformMake(1, 0, 0, -1, 0, CGRectGetMaxY(self.graphInsetRect));
     [pathToReturn applyTransform:flipVertical];
+
 
     return pathToReturn;
 }
@@ -392,12 +402,13 @@
     for (int i = 1 ; i < [self.horizontalLabelStrings count] - 1; i ++) {
         
         UIBezierPath* bezierPath = [UIBezierPath bezierPath];
-        [bezierPath moveToPoint:CGPointMake(CGRectGetMinX(self.graphInsetRect) + (i*xInterval), CGRectGetMinY(self.graphInsetRect))];
+        [bezierPath moveToPoint:CGPointMake(CGRectGetMinX(self.graphInsetRect) + (i*xInterval), CGRectGetMaxY(self.graphInsetRect) - 10)];
         [bezierPath addLineToPoint:CGPointMake(CGRectGetMinX(self.graphInsetRect) + (i*xInterval), CGRectGetMaxY(self.graphInsetRect) )];
         bezierPath.lineWidth = .5;
         [bezierPath stroke ];
         
     }
+     
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{

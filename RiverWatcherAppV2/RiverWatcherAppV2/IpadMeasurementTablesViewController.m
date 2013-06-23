@@ -16,7 +16,7 @@
 #define FLOOD_STAGES @"Flood Stages"
 
 
-@interface IpadMeasurementTablesViewController ()
+@interface IpadMeasurementTablesViewController () <UITableViewDelegate,UITableViewDataSource>
 @property (strong,nonatomic) NOAAMeasurementData* noaaMeasurementData;
 @property (strong,nonatomic) USGSMeasurementData* usgsMeasurementData;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *measurementTypesSegControl;
@@ -31,6 +31,7 @@
     
     
     [self.view addGestureRecognizer:tapGesture];
+    self.tableView.backgroundColor = [UIColor colorWithRed:0.208 green:0.518 blue:0.655 alpha:1];
     
 }
 
@@ -78,6 +79,17 @@
 }
 
 
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    UITableViewCell* cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    
+    if (indexPath.row % 2 == 0) {
+        cell.contentView.backgroundColor = [UIColor colorWithRed:0.208 green:0.518 blue:0.655 alpha:1];
+    }else{
+        cell.contentView.backgroundColor = [UIColor colorWithRed:0.255 green:0.600 blue:0.753 alpha:1];
+    }
+    return cell;
+}
 
 - (IBAction)measurementTypeChanged:(UISegmentedControl *)sender {
     

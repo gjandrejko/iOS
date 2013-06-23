@@ -12,8 +12,7 @@
 #define NOAA_OBSERVED @"Observed"
 #define FLOOD_STAGES @"Flood Stages"
 
-
-
+#import <QuartzCore/QuartzCore.h>
 
 #import "LineGraphViewController.h"
 #import "USGSMeasurement.h"
@@ -50,7 +49,51 @@
     
     UITapGestureRecognizer* tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleFullScreen:)];
     
+    // Set set segControl background to transparent
+    CGRect rect = CGRectMake(0, 0, 1, 1);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [[UIColor clearColor] CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *transparentImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
     
+    // Set set segControl background to transparent
+    
+    CALayer *imageLayer = [CALayer layer];
+    imageLayer.frame = CGRectMake(0, 0, 10, 10);
+    imageLayer.backgroundColor = [UIColor whiteColor].CGColor;
+    imageLayer.masksToBounds = YES;
+    imageLayer.cornerRadius = 0;
+    
+    UIGraphicsBeginImageContext(imageLayer.frame.size);
+    [imageLayer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *roundedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    self.measurementTypesSegControl.layer.cornerRadius  = 0;
+    [self.measurementTypesSegControl setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:
+      [UIColor whiteColor], UITextAttributeTextColor,
+      [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0], UITextAttributeTextShadowColor,
+      [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset,
+      [UIFont fontWithName:@"AvenirNext-Bold" size:20.0], UITextAttributeFont,
+      nil]
+                                          forState:UIControlStateNormal];
+    
+    [self.measurementTypesSegControl setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:
+     [UIColor colorWithRed:0.114 green:0.298 blue:0.373 alpha:1], UITextAttributeTextColor,
+      [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0], UITextAttributeTextShadowColor,
+      [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset,
+      [UIFont fontWithName:@"AvenirNext-Bold" size:20.0], UITextAttributeFont,
+      nil]
+                                                   forState:UIControlStateSelected];
+    
+    [self.measurementTypesSegControl setDividerImage:transparentImage forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [self.measurementTypesSegControl setBackgroundImage:transparentImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [self.measurementTypesSegControl setBackgroundImage:roundedImage forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+ 
     [self.view addGestureRecognizer:tapGesture];
     /*
     

@@ -7,7 +7,6 @@
 //
 
 #import "RiverWatcherAppDelegate.h"
-#import "Parse.h"
 @implementation RiverWatcherAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -23,23 +22,47 @@
     
     [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
     
+    CGSize size = CGSizeMake(5, 5);
+    UIColor* color = [UIColor colorWithRed:0.075 green:0.145 blue:0.184 alpha:1];
+    
+    UIGraphicsBeginImageContext(size);
+    CGContextRef currentContext = UIGraphicsGetCurrentContext();
+    CGRect fillRect = CGRectMake(0,0,size.width,size.height);
+    CGContextSetFillColorWithColor(currentContext, color.CGColor);
+    CGContextFillRect(currentContext, fillRect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    image = [image resizableImageWithCapInsets:UIEdgeInsetsZero];
 
+    
+    UINavigationBar* navAppearance = [UINavigationBar appearance];
+    
+    [navAppearance setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+     [[UIToolbar appearance] setBackgroundImage:image forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    [[UITabBar appearance] setBackgroundImage:image];
+    /*
+    [navAppearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                           [UIColor whiteColor], UITextAttributeTextColor,
+                                           [UIFont fontWithName:@"AvenirNext-Bold" size:18.0f], UITextAttributeFont,
+                                           nil]];
+
+    */
+      // UIImage *navBarImage = [UIImage imageNamed:@"menubar"];
         
-        UIImage *navBarImage = [UIImage imageNamed:@"menubar"];
-        
-        [[UINavigationBar appearance] setBackgroundImage:navBarImage forBarMetrics:UIBarMetricsDefault];
-        [[UIToolbar appearance] setBackgroundImage:navBarImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+     //   [[UINavigationBar appearance] setBackgroundImage:navBarImage forBarMetrics:UIBarMetricsDefault];
+ //   [[UIToolbar appearance] setBackgroundImage:image forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
         
     
-    UIImage *barButton = [[UIImage imageNamed:@"menubar-button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 4, 0, 4)];
+   // UIImage *barButton = [[UIImage imageNamed:@"menubar-button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 4, 0, 4)];
     
-    [[UIBarButtonItem appearance] setBackgroundImage:barButton forState:UIControlStateNormal
-                                          barMetrics:UIBarMetricsDefault];
+    //[[UIBarButtonItem appearance] setBackgroundImage:barButton forState:UIControlStateNormal
+            //                              barMetrics:UIBarMetricsDefault];
     
-    UIImage *backButton = [[UIImage imageNamed:@"back.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 14, 0, 4)];
+   // UIImage *backButton = [[UIImage imageNamed:@"back.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 14, 0, 4)];
     
-    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButton forState:UIControlStateNormal
-                                                    barMetrics:UIBarMetricsDefault];
+   // [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButton forState:UIControlStateNormal
+                                                    //barMetrics:UIBarMetricsDefault];
     
     return YES;
 }

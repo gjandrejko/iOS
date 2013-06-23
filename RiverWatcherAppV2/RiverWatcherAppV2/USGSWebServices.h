@@ -10,6 +10,7 @@
 #import "USGSMeasurementData.h"
 
 @interface USGSWebServices : NSObject
-+(void)downloadMeasurementsForSiteId:(NSString*)siteId NumberOfDays:(NSInteger)days Completion:(void (^)(USGSMeasurementData* data,NSError* error))completion;
-+(void)downloadLatestMeasurementsFoGaugeSites:(NSArray*)gaugeSites Completion:(void (^)(NSDictionary* measurementDictionaryWithUsgsIdKeys,NSError* error))completion;
+-(void)downloadMeasurementsForSiteId:(NSString*)siteId NumberOfDays:(NSInteger)days Completion:(void (^)(USGSMeasurementData* data,NSError* error))completion;
+-(void)downloadLatestMeasurementsFoGaugeSites:(NSArray*)gaugeSites Completion:(void (^)(NSDictionary* measurementDictionaryWithUsgsIdKeys,NSError* error))completion;
+-(void)cancel;
 @end

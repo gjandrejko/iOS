@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-
+@class USGSMeasurementData;
 @interface USGSSingleSiteWebService : NSObject
+-(void)downloadMeasurementsForSiteId:(NSString*)siteId NumberOfDays:(NSInteger)days Completion:(void (^)(USGSMeasurementData* data,NSError* error))completion;
+-(void)cancel;
 
 @end

@@ -27,7 +27,8 @@
 
 -(void)updateFavoriteMeasurements{
     self.favoriteMeausrements = nil;
-    [USGSWebServices downloadLatestMeasurementsFoGaugeSites:self.favoritesGaugeSites Completion:^(NSDictionary *measurementDictionaryWithUsgsIdKeys, NSError *error) {
+    USGSWebServices* usgsWebService = [[USGSWebServices alloc] init];
+    [usgsWebService downloadLatestMeasurementsFoGaugeSites:self.favoritesGaugeSites Completion:^(NSDictionary *measurementDictionaryWithUsgsIdKeys, NSError *error) {
         
         self.favoriteMeausrements = measurementDictionaryWithUsgsIdKeys;
         [self.tableView reloadData];
@@ -38,15 +39,84 @@
 {
     [super viewDidLoad];
     self.tableView.backgroundView = nil;
-    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cellStripedDarkBackground"]];
-    
-
+    self.tableView.backgroundColor =  [UIColor whiteColor];
+    //[self styleNavigationBarWithFontName:@"AvenirNext-Bold"];
+    self.tableView.separatorColor = [UIColor colorWithRed:0.820 green:0.859 blue:0.941 alpha:1];
     self.favoritesManager = [FavoritesManager sharedManager];
     self.favoritesGaugeSites = [self.favoritesManager favoriteGaugeSites];
     [self updateFavoriteMeasurements];
 }
 
 
+-(void)styleNavigationBarWithFontName:(NSString*)navigationTitleFont{
+    
+    
+    CGSize size = CGSizeMake(320, 44);
+    UIColor* color = [UIColor colorWithRed:65.0/255 green:75.0/255 blue:89.0/255 alpha:1.0];
+    
+    UIGraphicsBeginImageContext(size);
+    CGContextRef currentContext = UIGraphicsGetCurrentContext();
+    CGRect fillRect = CGRectMake(0,0,size.width,size.height);
+    CGContextSetFillColorWithColor(currentContext, color.CGColor);
+    CGContextFillRect(currentContext, fillRect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    
+    UINavigationBar* navAppearance = [UINavigationBar appearance];
+    
+    [navAppearance setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    
+    [navAppearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                           [UIColor whiteColor], UITextAttributeTextColor,
+                                           [UIFont fontWithName:navigationTitleFont size:18.0f], UITextAttributeFont,
+                                           nil]];
+    /*
+    UIImageView* searchView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"search.png"]];
+    searchView.frame = CGRectMake(0, 0, 20, 20);
+  
+    
+    UIBarButtonItem* searchItem = [[UIBarButtonItem alloc] initWithCustomView:searchView];
+    
+    self.navigationItem.rightBarButtonItem = searchItem;
+    
+    
+    UIImageView* menuView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"menu.png"]];
+    menuView.frame = CGRectMake(0, 0, 28, 20);
+    
+    UIBarButtonItem* menuItem = [[UIBarButtonItem alloc] initWithCustomView:menuView];
+    
+    self.navigationItem.leftBarButtonItem = menuItem;
+     */
+}
+
+-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    
+    UIView* view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 24)];
+    UILabel* label = [[UILabel alloc] init];
+    label.frame = CGRectInset(view.bounds, 10, 0);
+    [view addSubview:label];
+    label.textColor = [UIColor whiteColor]; 
+    view.backgroundColor = [UIColor colorWithRed:0.133 green:0.165 blue:0.263 alpha:1];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:@"AvenirNext-Bold" size:15];
+    label.text = [self tableView:self.tableView titleForHeaderInSection:section];
+    return view;
+    
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    return 0;
+    
+    if (section == SECTION_FAVORITES) {
+        return 24;
+    }else{
+        return 0;
+    }
+}
 
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -69,7 +139,7 @@
     
     if (section == SECTION_SEARCH) {
         
-        title =  @"Find A River";
+        //title =  @"Find A River";
         
     }else if (section == SECTION_FAVORITES){
         
@@ -87,10 +157,10 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section == SECTION_SEARCH) {
-        return 50;
+        return 70;
 
     }else if (indexPath.section == SECTION_FAVORITES){
-        return 72;
+        return 90;
     }else{
         return 0;
     }
@@ -119,7 +189,8 @@
 {
 
         if (indexPath.section == SECTION_SEARCH) {
-            
+           // UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"SearchCell"];
+        
             static NSString* cellIdentifier = @"RiverWatcherDefaultCell";
             RiverWatcherDefaultCell* cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
             
@@ -150,9 +221,9 @@
             CGRect textLabelFrame = cell.textLabel.frame;
             textLabelFrame.origin.x = 200;
             cell.textLabel.frame = textLabelFrame;
-            cell.contentView.backgroundColor= [UIColor clearColor];
+            cell.contentView.backgroundColor= [UIColor whiteColor];
 
-            cell.backgroundColor =  [UIColor colorWithPatternImage:[UIImage imageNamed:@"cellStripedBackground"]];
+            //cell.backgroundColor =  [UIColor colorWithPatternImage:[UIImage imageNamed:@"cellStripedBackground"]];
 
             return cell;
             
@@ -179,9 +250,9 @@
                 }
                 
 
-                cell.contentView.backgroundColor= [UIColor clearColor];
+                cell.contentView.backgroundColor= [UIColor whiteColor];
                 
-                cell.backgroundColor =  [UIColor colorWithPatternImage:[UIImage imageNamed:@"cellStripedBackground"]];
+              //  cell.backgroundColor =  [UIColor colorWithPatternImage:[UIImage imageNamed:@"cellStripedBackground"]];
 
                 return cell;
                 

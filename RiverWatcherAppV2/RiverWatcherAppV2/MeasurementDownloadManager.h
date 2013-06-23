@@ -7,7 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-
+@class NOAAMeasurementData;
+@class USGSMeasurementData;
+@class GaugeSite;
 @interface MeasurementDownloadManager : NSObject
 
+-(MeasurementDownloadManager*)sharedManager;
+@property (strong,nonatomic)  NOAAMeasurementData* noaaMeasurementData;
+@property (strong,nonatomic)  USGSMeasurementData* usgsMeasurementData;
+-(void)fetchDataForGaugeSite:(GaugeSite*)gaugeSite WithCompletion:(void (^)(NSError* error))completion;
 @end

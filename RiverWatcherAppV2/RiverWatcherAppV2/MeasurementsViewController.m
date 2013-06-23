@@ -56,6 +56,8 @@
     if (self.tableView.style == UITableViewStyleGrouped) {
         cell.backgroundColor =  [UIColor colorWithPatternImage:[UIImage imageNamed:@"cellStripedBackground"]];
 
+    }else{
+        cell.contentView.backgroundColor = [UIColor whiteColor];
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

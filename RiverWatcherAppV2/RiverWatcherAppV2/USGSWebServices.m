@@ -19,7 +19,7 @@
 @implementation USGSWebServices
 
 
-+(void)downloadLatestMeasurementsFoGaugeSites:(NSArray*)gaugeSites Completion:(void (^)(NSDictionary* measurementDictionaryWithUsgsIdKeys,NSError* error))completion{
+-(void)downloadLatestMeasurementsFoGaugeSites:(NSArray*)gaugeSites Completion:(void (^)(NSDictionary* measurementDictionaryWithUsgsIdKeys,NSError* error))completion{
 
     NSString* gaugeSitesCsvString = @"";
     
@@ -122,7 +122,7 @@
 }
 
 
-+(void)downloadMeasurementsForSiteId:(NSString*)siteId NumberOfDays:(NSInteger)days Completion:(void (^)(USGSMeasurementData* data,NSError* error))completion;{
+-(void)downloadMeasurementsForSiteId:(NSString*)siteId NumberOfDays:(NSInteger)days Completion:(void (^)(USGSMeasurementData* data,NSError* error))completion;{
     NSString* urlString = [NSString stringWithFormat:@"http://waterservices.usgs.gov/nwis/iv/?format=json,1.1&sites=%@&period=P%dD&parameterCd=00060,00065,00010",siteId,days];
 
     NSURL* url = [NSURL URLWithString:urlString];
@@ -172,6 +172,14 @@
         }
         }
     }];
+}
+
+-(void)cancel{
+    
+    
+    
+    
+    
 }
 
 +(NSArray*)measurmentsArrayWithArrayOfJsonValues:(NSArray*)values Units:(NSString*)units{

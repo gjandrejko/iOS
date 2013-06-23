@@ -17,4 +17,6 @@
 @property (nonatomic) double value;
 @property (strong,nonatomic) NSString* units;
 
+
++(NSArray*)measurmentsArrayWithArrayOfJsonValues:(NSArray*)values Units:(NSString*)units;
 @end

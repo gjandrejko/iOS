@@ -8,6 +8,29 @@
 
 #import "USGSMultipleSitesWebService.h"
 
+@interface USGSMultipleSitesWebService ()
+@property (strong,nonatomic) void (^completion)(NSDictionary* measurementDictionaryWithUsgsIdKeys,NSError* error);
+@property (strong,nonatomic) NSURLConnection* urlConnection;
+@end
+
 @implementation USGSMultipleSitesWebService
+
+
+-(void)downloadLatestMeasurementsFoGaugeSites:(NSArray*)gaugeSites Completion:(void (^)(NSDictionary* measurementDictionaryWithUsgsIdKeys,NSError* error))completion
+{
+    
+    
+    
+    
+}
+
+
+
+
+-(void)cancel
+{
+    [self.urlConnection cancel];
+    
+}
 
 @end

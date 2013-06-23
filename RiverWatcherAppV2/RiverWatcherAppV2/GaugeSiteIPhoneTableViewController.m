@@ -249,7 +249,7 @@ typedef enum {
     CGFloat horizontalInset = 60;
     CGFloat verticalInset = 10;
 
-    UIFont* font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:19];
+    UIFont* font = [UIFont fontWithName:@"AvenirNext-Medium" size:19];
     CGFloat labelWidth = self.tableView.bounds.size.width - (horizontalInset * 2);
   //  UIColor* textColor = [UIColor colorWithRed:0.298 green:0.337 blue:0.424 alpha:1];
      UIColor* textColor = [UIColor colorWithRed:0 green:0.333 blue:.57 alpha:1];
@@ -280,7 +280,9 @@ typedef enum {
 -(void)downloadUsgsData
 {
     self.usgsWebServiceState = WebServiceStateLoading;
-    [USGSWebServices downloadMeasurementsForSiteId:self.gaugeSite.usgsId NumberOfDays:30 Completion:^(USGSMeasurementData *usgsMeasurementData, NSError* error) {
+    USGSWebServices* usgsWebService = [[USGSWebServices alloc] init];
+
+    [usgsWebService downloadMeasurementsForSiteId:self.gaugeSite.usgsId NumberOfDays:30 Completion:^(USGSMeasurementData *usgsMeasurementData, NSError* error) {
         
         
         if (error  ) {
@@ -347,11 +349,11 @@ typedef enum {
 {
     [super viewDidLoad];
     self.tableView.backgroundView = nil;
-    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cellStripedDarkBackground"]];
+    self.tableView.backgroundColor = [UIColor colorWithRed:0.922 green:0.937 blue:0.969 alpha:1];
     
-    
+    self.tableView.separatorColor = [UIColor colorWithRed:0.820 green:0.859 blue:0.941 alpha:1];
     self.loadingView = [[LoadingView alloc] initWithFrame:self.tableView.bounds];
-    self.loadingView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cellStripedDarkBackground"]];
+    self.loadingView.backgroundColor = [UIColor colorWithRed:0.808 green:0.843 blue:0.961 alpha:1];
     //[self.tableView addSubview:self.loadingView];
     
     if (!self.gaugeSite) {
@@ -369,6 +371,22 @@ typedef enum {
     NSLog(@"USGS ID:%@",self.gaugeSite.usgsId);
     NSLog(@"NOAA ID:%@",self.gaugeSite.nwsId);
 
+}
+
+-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    
+    UIView* view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 26)];
+    UILabel* label = [[UILabel alloc] init];
+    label.frame = CGRectInset(view.bounds, 10, 0);
+    [view addSubview:label];
+    label.textColor = [UIColor colorWithRed:0.188 green:0.259 blue:0.573 alpha:1];
+    view.backgroundColor = [UIColor clearColor];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:@"AvenirNext-Bold" size:15];
+    label.text = [self tableView:self.tableView titleForHeaderInSection:section];
+    return view;
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -531,7 +549,7 @@ typedef enum {
     //cell.imageView.bounds = CGRectMake(0, 0, 32, 32);
 
     cell.contentView.backgroundColor= [UIColor clearColor];
-    cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cellStripedBackground"]];
+    cell.backgroundColor = [UIColor whiteColor];
     return cell;
 }
 

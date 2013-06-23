@@ -10,4 +10,5 @@
 #import "USGSMeasurementData.h"
 @interface IpadRecentValuesTableViewController : UITableViewController
 @property (strong,nonatomic) USGSMeasurementData* usgsMeasurmentData;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *descriptionLabels;
 @end

@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Root Hollow Apps. All rights reserved.
 //
 
-#import "PFQueryTableViewController.h"
+//#import "PFQueryTableViewController.h"
 #import "GaugeSiteSearchProtocol.h"
 @interface SiteNameSearchPFQueryTableViewController : PFQueryTableViewController
 

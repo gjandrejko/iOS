@@ -23,7 +23,7 @@ typedef enum {
 } NOAAWebServicesSection;
 
 
-@interface NOAAWebServices ()  <NSXMLParserDelegate>
+@interface NOAAWebServices ()  <NSXMLParserDelegate,NSURLConnectionDelegate>
 @property (strong,nonatomic) NOAAMeasurementData* noaaMeasurementData;
 @property (nonatomic) NOAAWebServicesSection currentSection;
 @property (strong,nonatomic) NSXMLParser* xmlParser;
@@ -31,6 +31,8 @@ typedef enum {
 @property (strong,nonatomic)  NSMutableString* currentElement;
 @property (strong,nonatomic)  NOAAMeasurement* currentMeasurement;
 @property (strong,nonatomic)  NOAASignificantItem* currentSignificantItem;
+@property (strong,nonatomic)  NSURLConnection* urlConnection;
+@property (strong,nonatomic)  NSMutableData* noaaData;
 
 
 @end
@@ -44,28 +46,43 @@ typedef enum {
     
     NSURLRequest* urlRequest = [NSURLRequest requestWithURL:url];
     self.completion = completion;
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-
-    [NSURLConnection sendAsynchronousRequest:urlRequest queue:queue completionHandler:^(NSURLResponse * response, NSData * data, NSError * error) {
-        
-        if (!error) {
-            self.xmlParser = [[NSXMLParser alloc] initWithData:data];
-            self.xmlParser.delegate = self;
-            self.noaaMeasurementData = [[NOAAMeasurementData alloc] init];
-            [self.xmlParser parse];
-        }else{
-            NSLog(@"ERROR Downloading NOAA Datat");
-            self.completion(nil,error);
-        }
-        
-
-        
-    }];
+    self.noaaData = [NSMutableData data];
     
-    
+    [self.urlConnection cancel];
+    self.urlConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self startImmediately:YES];
 
 
 }
+
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
+    
+    if (self.completion) {
+        
+        self.completion(nil,error);
+        self.completion = nil; //Ensures another callback doesn't send anoter completion block
+    }
+
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+    
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    self.xmlParser = [[NSXMLParser alloc] initWithData:self.noaaData];
+    self.xmlParser.delegate = self;
+    self.noaaMeasurementData = [[NOAAMeasurementData alloc] init];
+    [self.xmlParser parse];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    [self.noaaData appendData:data];
+}
+
+
 
 #pragma mark NSXMLParserDelegate Methods
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
@@ -239,14 +256,22 @@ typedef enum {
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError
 {
-    self.completion(nil,parseError);
+    if (self.completion) {
+        self.completion(nil,parseError);
+
+    }
 
 }
 
 - (void)parserDidEndDocument:(NSXMLParser *)parser
 {
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        self.completion(self.noaaMeasurementData,nil);
+        
+        if (self.completion) {
+            self.completion(self.noaaMeasurementData,nil);
+
+        }
+        
     }];
     
 }

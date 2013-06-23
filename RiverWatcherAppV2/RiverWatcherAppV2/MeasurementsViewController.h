@@ -14,7 +14,7 @@
 
 //Objects in measurements array must follow MeasurementDescriptionProtocol
 @property (strong,nonatomic) NSArray* measurements;
-
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end
