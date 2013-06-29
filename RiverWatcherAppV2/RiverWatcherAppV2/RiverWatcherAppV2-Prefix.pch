@@ -8,7 +8,15 @@
 #warning "This project uses features only available in iOS SDK 5.0 and later."
 #endif
 
+#ifdef UI_USER_INTERFACE_IDIOM
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#else
+#define IS_IPAD false
+#endif
+
+
 #ifdef __OBJC__
+    #import "UIColor+RWColors.h"
     #import "NSArray+FirstObject.h"
     #import <Parse/Parse.h>
     #import "ApplicationConstants.h"

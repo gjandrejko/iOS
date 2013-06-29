@@ -10,19 +10,24 @@
 #import "NOAAWebServices.h"
 #import "USGSWebServices.h"
 #import "GaugeSite.h"
+
+
+NSString* const MeasuremntDownloadManagerDidDownloadUSGSNotification = @"MeasuremntDownloadManagerDidDownloadUSGSNotification";
+NSString* const MeasuremntDownloadManagerDidDownloadNOAANotification = @"MeasuremntDownloadManagerDidDownloadNOAANotification";
+NSString* const MeasuremntDownloadManagerDidDownloadAllNotification = @"MeasuremntDownloadManagerDidDownloadAllNotification";
+
+
 @interface MeasurementDownloadManager()
+
 @property (nonatomic) NSInteger numberOfWebservicesDownloaded;
 @property (nonatomic) NSInteger numberOfWebservicesFailed;
 @property (strong,nonatomic) NOAAWebServices* noaaWebServices;
 @property (strong,nonatomic) USGSWebServices* usgsWebsServices;
-@property (strong,nonatomic) GaugeSite* gaugeSite;
 @property (strong,nonatomic) void(^completion)(NSError* error);
 
 @end
 
 @implementation MeasurementDownloadManager
-
-
 
 
 -(void)setNumberOfWebservicesDownloaded:(NSInteger)numberOfWebservicesDownloaded{
@@ -48,10 +53,14 @@
         NSError* error;
         if (self.numberOfWebservicesFailed > 0) {
             error = [NSError errorWithDomain:@"com.roothollow.error" code:-1 userInfo:nil];
+        }else{
+            
+                [[NSNotificationCenter defaultCenter] postNotificationName:MeasuremntDownloadManagerDidDownloadAllNotification object:self];
+            
         }
         
         if (self.completion) {
-            
+             [[NSNotificationCenter defaultCenter] postNotificationName:MeasuremntDownloadManagerDidDownloadAllNotification object:self];
             self.completion(error);
         }
     
@@ -77,12 +86,13 @@
         if (error  ) {
             self.numberOfWebservicesFailed++;
         }else{
-            
+            [[NSNotificationCenter defaultCenter] postNotificationName:MeasuremntDownloadManagerDidDownloadUSGSNotification object:self];
             self.usgsMeasurementData = usgsMeasurementData;
             self.numberOfWebservicesDownloaded++;
             
         }
-        
+        [self checkWebServiceStatus];
+
     }];
 }
 
@@ -95,20 +105,21 @@
             self.numberOfWebservicesFailed++;
             
         }else{
-            
+            [[NSNotificationCenter defaultCenter] postNotificationName:MeasuremntDownloadManagerDidDownloadNOAANotification object:self];
             self.noaaMeasurementData = noaaMeasurementData;
             self.numberOfWebservicesDownloaded++;
-            
+
         }
-        
+        [self checkWebServiceStatus];
     }];
-    self.noaaWebServices = nil;
 }
 
 
 -(void)fetchDataForGaugeSite:(GaugeSite*)gaugeSite WithCompletion:(void (^)(NSError* error))completion{
     
-    
+    self.gaugeSite = gaugeSite;
+    [self downloadNoaaData];
+    [self downloadUsgsData];
     
 }
 

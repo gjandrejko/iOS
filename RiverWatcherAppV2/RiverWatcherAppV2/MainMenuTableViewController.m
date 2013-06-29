@@ -15,7 +15,8 @@
 #import "USGSWebServices.h"
 #import "FavoriteMeasurement.h"
 #import "FavoriteTableViewCell.h"
-
+#import "UIImage+GJACoveredOverlay.h"
+#import "UIColor+FlatUI.h"
 @interface MainMenuTableViewController ()
 @property (strong,nonatomic) FavoritesManager* favoritesManager;
 @property (strong,nonatomic) NSDictionary* favoriteMeausrements;
@@ -26,12 +27,15 @@
 
 
 -(void)updateFavoriteMeasurements{
-    self.favoriteMeausrements = nil;
+    self.favoritesGaugeSites = [self.favoritesManager favoriteGaugeSites];
+    [self.tableView selectRowAtIndexPath:nil animated:NO scrollPosition:UITableViewScrollPositionNone];
     USGSWebServices* usgsWebService = [[USGSWebServices alloc] init];
     [usgsWebService downloadLatestMeasurementsFoGaugeSites:self.favoritesGaugeSites Completion:^(NSDictionary *measurementDictionaryWithUsgsIdKeys, NSError *error) {
         
         self.favoriteMeausrements = measurementDictionaryWithUsgsIdKeys;
+        NSIndexPath* indexPath = [self.tableView indexPathForSelectedRow];
         [self.tableView reloadData];
+        [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     }];
 }
 
@@ -72,24 +76,7 @@
                                            [UIColor whiteColor], UITextAttributeTextColor,
                                            [UIFont fontWithName:navigationTitleFont size:18.0f], UITextAttributeFont,
                                            nil]];
-    /*
-    UIImageView* searchView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"search.png"]];
-    searchView.frame = CGRectMake(0, 0, 20, 20);
-  
-    
-    UIBarButtonItem* searchItem = [[UIBarButtonItem alloc] initWithCustomView:searchView];
-    
-    self.navigationItem.rightBarButtonItem = searchItem;
-    
-    
-    UIImageView* menuView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"menu.png"]];
-    menuView.frame = CGRectMake(0, 0, 28, 20);
-    
-    UIBarButtonItem* menuItem = [[UIBarButtonItem alloc] initWithCustomView:menuView];
-    
-    self.navigationItem.leftBarButtonItem = menuItem;
-     */
-}
+ }
 
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
@@ -99,7 +86,7 @@
     label.frame = CGRectInset(view.bounds, 10, 0);
     [view addSubview:label];
     label.textColor = [UIColor whiteColor]; 
-    view.backgroundColor = [UIColor colorWithRed:0.133 green:0.165 blue:0.263 alpha:1];
+    view.backgroundColor = [UIColor belizeHoleColor];
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont fontWithName:@"AvenirNext-Bold" size:15];
     label.text = [self tableView:self.tableView titleForHeaderInSection:section];
@@ -109,7 +96,6 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    return 0;
     
     if (section == SECTION_FAVORITES) {
         return 24;
@@ -157,7 +143,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section == SECTION_SEARCH) {
-        return 70;
+        return 38;
 
     }else if (indexPath.section == SECTION_FAVORITES){
         return 90;
@@ -202,17 +188,17 @@
             
             switch (indexPath.row) {
                 case ROW_MAP_SEARCH:{
-                    cell.titleLabel.text = @"On Map";
-                    cell.icon.image = [UIImage imageNamed:@"map"];
+                    cell.titleLabel.text = @"ON MAP";
+                    cell.icon.image = [[UIImage imageNamed:@"103-map.png"] gja_imageWithOverlayColor:[UIColor whiteColor]];
                 }break;
                 case ROW_NAME_SEARCH:{
-                    cell.titleLabel.text = @"By Name";
-                    cell.icon.image = [UIImage imageNamed:@"magnifiy"];
+                    cell.titleLabel.text = @"BY NAME";
+                    cell.icon.image = [[UIImage imageNamed:@"magnifiy"] gja_imageWithOverlayColor:[UIColor whiteColor]];
 
                 }break;
                 case ROW_STATE_SEARCH:{
-                    cell.titleLabel.text = @"By State";
-                    cell.icon.image = [UIImage imageNamed:@"statePA"];
+                    cell.titleLabel.text = @"NEAR ME";
+                    cell.icon.image = [[UIImage imageNamed:@"statePA"] gja_imageWithOverlayColor:[UIColor whiteColor]];
 
                 }break;
                 default:
@@ -280,35 +266,6 @@
 
 
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 

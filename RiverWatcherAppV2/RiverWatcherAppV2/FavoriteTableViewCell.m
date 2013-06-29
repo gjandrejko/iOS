@@ -54,6 +54,9 @@
 
     if (favoriteMeasurement.temperatureMeasurement) {
         self.tempLabel.text = [NSString stringWithFormat:@"%g %@",favoriteMeasurement.temperatureMeasurement.value,favoriteMeasurement.temperatureMeasurement.units];
+        self.tempLabel.text = [self.tempLabel.text stringByReplacingOccurrencesOfString:@"DEG" withString:@"°"];
+        self.tempLabel.text = [self.tempLabel.text stringByReplacingOccurrencesOfString:@"deg" withString:@"°"];
+
         numberOfMeasurements++;
     }
     

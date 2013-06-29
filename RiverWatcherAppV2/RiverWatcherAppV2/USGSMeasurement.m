@@ -7,15 +7,28 @@
 //
 
 #import "USGSMeasurement.h"
+@interface USGSMeasurement()
+@property (strong,nonatomic) NSNumberFormatter* numberFormatter;
+@end
 
 @implementation USGSMeasurement
+
+-(NSNumberFormatter*)numberFormatter{
+    
+    if (!_numberFormatter) {
+        _numberFormatter = [[NSNumberFormatter alloc] init];
+        [_numberFormatter setMinimumFractionDigits:0];
+        [_numberFormatter setMaximumFractionDigits:2];
+    }
+    return _numberFormatter;
+}
 
 -(NSString*)measurementDescriptionString{
     
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
 
-   // [dateFormatter setDateFormat:@"EEE MMM dd, hh:mm a"];
-    [dateFormatter setDateFormat:@"hh:mm a"];
+   [dateFormatter setDateFormat:@"EEE MMM dd, hh:mm a"];
+    //[dateFormatter setDateFormat:@"hh:mm a"];
 
     
     return [dateFormatter stringFromDate:self.date];
@@ -24,10 +37,14 @@
 
 -(NSString*)measurementValueString{
 
+    NSNumber* valueNumber = [NSNumber numberWithDouble:self.value];
+    NSString* valueString = [self.numberFormatter stringFromNumber:valueNumber];
+    
+    
     if ([self.units rangeOfString:@"deg" options:NSCaseInsensitiveSearch].location != NSNotFound ) {
-          return [NSString stringWithFormat:@"%g%@",self.value,[[self.units uppercaseString] stringByReplacingOccurrencesOfString:@"DEG" withString:@"°"]];
+          return [NSString stringWithFormat:@"%@ %@",valueString,[[self.units uppercaseString] stringByReplacingOccurrencesOfString:@"DEG" withString:@"°"]];
     }else{
-          return [NSString stringWithFormat:@"%g %@",self.value,self.units];
+          return [NSString stringWithFormat:@"%@ %@",valueString,self.units];
     }
     
 

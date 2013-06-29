@@ -31,7 +31,9 @@
 
 -(NSString*)stringForXValueLabel:(CGFloat)xValue;
 -(NSString*)stringForYValueLabel:(CGFloat)xValue;
-
+-(NSString*)stringForYValueSubLabel:(CGFloat)xValue;
+-(void)graphEndedTouch;
+-(void)graphIsBeingTouchedAtNearestValuePoint:(CGPoint)point XValue:(CGFloat)xValue YValue:(CGFloat)yValue ;
 
 
 @end
@@ -39,6 +41,13 @@
 @interface RHLineGraphView : UIView
 -(void)reloadGraph;
 -(UIView*)lineGraphBackgroundView;
+@property (strong,nonatomic) UIColor* labelColor;
+@property (strong,nonatomic) UIColor* gridColor;
+@property (strong,nonatomic) UIColor* graphStrokeColor;
+@property (strong,nonatomic) UIColor* graphFillColor;
+@property (strong,nonatomic) UIFont* verticalLabelFont;
+@property (strong,nonatomic) UIFont* horizontalLabelFont;
+
 
 @property (strong,nonatomic) UIFont* verticalLabelsFont;
 @property (strong,nonatomic) UIFont* horizontalLabelsFont;

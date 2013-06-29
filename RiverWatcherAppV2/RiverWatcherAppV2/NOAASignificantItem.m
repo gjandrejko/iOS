@@ -7,8 +7,22 @@
 //
 
 #import "NOAASignificantItem.h"
+@interface NOAASignificantItem ()
+@property (strong,nonatomic) NSNumberFormatter* numberFormatter;
+@end
 
 @implementation NOAASignificantItem
+
+
+-(NSNumberFormatter*)numberFormatter{
+    
+    if (!_numberFormatter) {
+        _numberFormatter = [[NSNumberFormatter alloc] init];
+        [_numberFormatter setMinimumFractionDigits:0];
+        [_numberFormatter setMaximumFractionDigits:2];
+    }
+    return _numberFormatter;
+}
 
 -(NSString*)measurementDescriptionString
 {
@@ -27,7 +41,7 @@
     NSString* measurementValueString = @"";
     
     if (self.stageValue && self.stageUnits) {
-        measurementValueString = [NSString stringWithFormat:@"%@ %@",self.stageValue,self.stageUnits];
+        measurementValueString = [NSString stringWithFormat:@"%@ %@",[self.numberFormatter stringFromNumber:self.stageValue],self.stageUnits];
     }
     
     if (self.stageValue && self.stageUnits && self.flowValue && self.flowUnits) {
@@ -35,7 +49,7 @@
     }
     
     if (self.flowValue && self.flowUnits) {
-        measurementValueString = [NSString stringWithFormat:@"%@%@ %@",measurementValueString,self.flowValue,self.flowUnits];
+        measurementValueString = [NSString stringWithFormat:@"%@%@ %@",measurementValueString,[self.numberFormatter stringFromNumber:self.flowValue],self.flowUnits];
     }
     
     if (!([measurementValueString length] > 0)) {

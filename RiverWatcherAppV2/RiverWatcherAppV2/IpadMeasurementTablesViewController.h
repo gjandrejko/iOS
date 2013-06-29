@@ -10,8 +10,10 @@
 #import "IpadParentViewController.h"
 #import "USGSMeasurementData.h"
 #import "NOAAMeasurementData.h"
+#import "MeasurementDownloadManager.h"
 @interface IpadMeasurementTablesViewController : MeasurementsViewController
 @property (strong,nonatomic) IpadParentViewController* parentViewController;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *resizeButton;
+@property (strong,nonatomic) MeasurementDownloadManager* measurementDownloadManager;
 -(void)setUSGSMeasurementData:(USGSMeasurementData*)usgsMeasurementData NOAAMeasurementData:(NOAAMeasurementData*)noaaMeasurmentData;
 @end

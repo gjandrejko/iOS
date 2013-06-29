@@ -8,6 +8,7 @@
 
 #import "IpadMeasurementTablesViewController.h"
 #import "MeasurementTableViewCell.h"
+#import "UIColor+FlatUI.h"
 #define HEIGHT @"Stage"
 #define DISCHARGE @"Flow"
 #define TEMPERATURE @"Temp"
@@ -27,19 +28,32 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    UITapGestureRecognizer* tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleFullScreen:)];
+    
+    [self updateUI:nil];
+    self.tableView.backgroundView = nil;
+    self.tableView.backgroundColor = [UIColor clearColor];
+}
+
+
+-(void)setMeasurementDownloadManager:(MeasurementDownloadManager *)measurementDownloadManager{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    _measurementDownloadManager = measurementDownloadManager;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:MeasuremntDownloadManagerDidDownloadAllNotification object:nil];
     
     
-    [self.view addGestureRecognizer:tapGesture];
-    self.tableView.backgroundColor = [UIColor colorWithRed:0.208 green:0.518 blue:0.655 alpha:1];
+   
+    //  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:MeasuremntDownloadManagerDidDownloadUSGSNotification object:nil];
+    // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:MeasuremntDownloadManagerDidDownloadNOAANotification object:nil];
     
 }
 
--(void)setUSGSMeasurementData:(USGSMeasurementData*)usgsMeasurementData NOAAMeasurementData:(NOAAMeasurementData*)noaaMeasurmentData
+- (void)updateUI:(NSNotification*)notification
 {
-    self.noaaMeasurementData = noaaMeasurmentData;
-    self.usgsMeasurementData = usgsMeasurementData;
-    
+
+    self.noaaMeasurementData = self.measurementDownloadManager.noaaMeasurementData;
+    self.usgsMeasurementData = self.measurementDownloadManager.usgsMeasurementData;
+
     [self.measurementTypesSegControl removeAllSegments];
     
     if ([self.usgsMeasurementData.heightMeasurements count]) {
@@ -68,7 +82,7 @@
     if ([self.noaaMeasurementData.significantData count]) {
         [self.measurementTypesSegControl insertSegmentWithTitle:FLOOD_STAGES atIndex:self.measurementTypesSegControl.numberOfSegments animated:NO];
     }
-
+    
     if (self.measurementTypesSegControl.numberOfSegments > 0) {
         self.measurementTypesSegControl.selectedSegmentIndex = 0;
         [self measurementTypeChanged:self.measurementTypesSegControl];
@@ -76,6 +90,13 @@
         self.measurements = nil;
         [self.tableView reloadData];
     }
+}
+
+-(void)setUSGSMeasurementData:(USGSMeasurementData*)usgsMeasurementData NOAAMeasurementData:(NOAAMeasurementData*)noaaMeasurmentData
+{
+    
+    
+    
 }
 
 
@@ -88,6 +109,8 @@
     }else{
         cell.contentView.backgroundColor = [UIColor colorWithRed:0.255 green:0.600 blue:0.753 alpha:1];
     }
+    
+    cell.contentView.backgroundColor = [UIColor whiteColor];
     return cell;
 }
 
@@ -158,10 +181,6 @@
 
 
 
-
-- (IBAction)toggleFullScreen:(id)sender {
-    [self.parentViewController toggleViewControllerFullScreen:self];
-}
 
 - (void)viewDidUnload {
     [self setMeasurementTypesSegControl:nil];

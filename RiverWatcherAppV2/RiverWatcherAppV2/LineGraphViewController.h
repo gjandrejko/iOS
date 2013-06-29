@@ -11,7 +11,7 @@
 #import "NOAAMeasurementData.h"
 #import "RHLineGraphView.h"
 #import "IpadParentViewController.h"
-
+#import "MeasurementDownloadManager.h"
 
 @interface LineGraphViewController : UIViewController <RHLineGraphViewDataSource,RHLineGraphViewDelegate>
 
@@ -23,4 +23,5 @@
 @property (strong,nonatomic) IpadParentViewController* ipadParentViewController;
 -(void)setUsgsMeasurementData:(USGSMeasurementData *)usgsMeasurementData NOAAMeasurementData:(NOAAMeasurementData*)noaaMeasurementData;
 @property (weak, nonatomic) IBOutlet UIView *graphInsetView;
+@property (strong,nonatomic) MeasurementDownloadManager* measurementDownloadManager;
 @end

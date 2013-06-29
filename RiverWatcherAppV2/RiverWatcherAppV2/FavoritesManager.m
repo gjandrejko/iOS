@@ -10,6 +10,9 @@
 #define KEY_FAVORITES @"Favorites"
 #import "FavoritesManager.h"
 
+NSString* const FavoritesManagerWasModifiedNotification = @"FavoritesManagerWasModifiedNotification";
+
+
 @implementation FavoritesManager
 +(FavoritesManager*)sharedManager{
     static FavoritesManager* sharedObj;
@@ -46,6 +49,11 @@
 
 -(void)addFavoriteGaugeSite:(GaugeSite *)gaugeSite{
  
+    if (![self gaugeSiteExistsInFavorites:gaugeSite]) {
+        
+    
+    
+    
     NSMutableDictionary* favorites = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:KEY_FAVORITES]];
     
     
@@ -54,11 +62,17 @@
     
     [[NSUserDefaults standardUserDefaults] setObject:favorites forKey:KEY_FAVORITES];
     [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:FavoritesManagerWasModifiedNotification object:self];
+    }
 
 }
 
 -(void)deleteFavoriteGaugeSite:(GaugeSite *)gaugeSite{
     
+    if ([self gaugeSiteExistsInFavorites:gaugeSite]) {
+
     NSMutableDictionary* favorites = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:KEY_FAVORITES]];
     
     [favorites removeObjectForKey:gaugeSite.usgsId];
@@ -66,6 +80,9 @@
     [[NSUserDefaults standardUserDefaults] setObject:favorites forKey:KEY_FAVORITES];
     
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:FavoritesManagerWasModifiedNotification object:self];
+    }
 }
 
 -(BOOL)gaugeSiteExistsInFavorites:(GaugeSite*)gaugeSite

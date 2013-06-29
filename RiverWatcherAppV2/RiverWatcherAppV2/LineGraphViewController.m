@@ -17,6 +17,7 @@
 #import "LineGraphViewController.h"
 #import "USGSMeasurement.h"
 #import "NOAAMeasurement.h"
+#import "UIColor+FlatUI.h"
 @interface LineGraphViewController ()
 @property (strong,nonatomic) UISlider* dayRangeSlider;
 @property (weak, nonatomic) IBOutlet UILabel *dayRangeLabel;
@@ -25,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *measurementTypesSegControl;
 @property (strong,nonatomic) NSString* noaaForecastPrimary;
 @property (strong,nonatomic) NSString* noaaForecastSecondary;
+@property (strong,nonatomic) UIView* graphTouchView;
+@property (strong,nonatomic) UIView* graphTouchPointView;
 
 @end
 
@@ -39,85 +42,22 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
-    self.measurements = self.usgsMeasurementData.heightMeasurements;
-    self.dayRange =   7;
-    [self computeStartIndex];
-    
-    UITapGestureRecognizer* tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleFullScreen:)];
-    
-    // Set set segControl background to transparent
-    CGRect rect = CGRectMake(0, 0, 1, 1);
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, [[UIColor clearColor] CGColor]);
-    CGContextFillRect(context, rect);
-    UIImage *transparentImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    // Set set segControl background to transparent
-    
-    CALayer *imageLayer = [CALayer layer];
-    imageLayer.frame = CGRectMake(0, 0, 10, 10);
-    imageLayer.backgroundColor = [UIColor whiteColor].CGColor;
-    imageLayer.masksToBounds = YES;
-    imageLayer.cornerRadius = 0;
-    
-    UIGraphicsBeginImageContext(imageLayer.frame.size);
-    [imageLayer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *roundedImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
 
-    self.measurementTypesSegControl.layer.cornerRadius  = 0;
-    [self.measurementTypesSegControl setTitleTextAttributes:
-     [NSDictionary dictionaryWithObjectsAndKeys:
-      [UIColor whiteColor], UITextAttributeTextColor,
-      [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0], UITextAttributeTextShadowColor,
-      [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset,
-      [UIFont fontWithName:@"AvenirNext-Bold" size:20.0], UITextAttributeFont,
-      nil]
-                                          forState:UIControlStateNormal];
+
+-(void)setMeasurementDownloadManager:(MeasurementDownloadManager *)measurementDownloadManager{
     
-    [self.measurementTypesSegControl setTitleTextAttributes:
-     [NSDictionary dictionaryWithObjectsAndKeys:
-     [UIColor colorWithRed:0.114 green:0.298 blue:0.373 alpha:1], UITextAttributeTextColor,
-      [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0], UITextAttributeTextShadowColor,
-      [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset,
-      [UIFont fontWithName:@"AvenirNext-Bold" size:20.0], UITextAttributeFont,
-      nil]
-                                                   forState:UIControlStateSelected];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    _measurementDownloadManager = measurementDownloadManager;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:MeasuremntDownloadManagerDidDownloadAllNotification object:nil];
     
-    [self.measurementTypesSegControl setDividerImage:transparentImage forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [self.measurementTypesSegControl setBackgroundImage:transparentImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [self.measurementTypesSegControl setBackgroundImage:roundedImage forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
- 
-    [self.view addGestureRecognizer:tapGesture];
-    /*
     
-    UIImageView* backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"graphBackground"]];
-    backgroundImageView.frame = self.view.bounds;
-    backgroundImageView.autoresizingMask = self.lineGraph.autoresizingMask;
-    [self.view addSubview:backgroundImageView];
-    [self.view sendSubviewToBack:backgroundImageView];
-    self.lineGraph.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.1];
-*/
-    [self setupSlider];
-    self.dayRangeSlider.value = 7;
-    [self dayRangeChanged:self.dayRangeSlider];
-    self.lineGraph.dataSource = self;
-    self.lineGraph.delegate = self;
-   // self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cellStripedBackground"]];
-   // self.lineGraph.backgroundColor = [UIColor colorWithRed:0.220 green:0.231 blue:0.259 alpha:1];
-   // self.view.backgroundColor = [UIColor colorWithRed:0.243 green:0.255 blue:0.282 alpha:1];
 }
 
--(void)setUsgsMeasurementData:(USGSMeasurementData *)usgsMeasurementData NOAAMeasurementData:(NOAAMeasurementData*)noaaMeasurementData
+- (void)updateUI:(NSNotification*)notification
 {
-    self.usgsMeasurementData = usgsMeasurementData;
-    self.noaaMeasurementData = noaaMeasurementData;
+    [self setUsgsMeasurementData:self.measurementDownloadManager.usgsMeasurementData NOAAMeasurementData:self.measurementDownloadManager.noaaMeasurementData];
+    
+    
     
     [self.measurementTypesSegControl removeAllSegments];
     
@@ -140,7 +80,7 @@
         NOAAMeasurement* noaaMeasurement = [self.noaaMeasurementData.forecastMeasurements firstObject];
         self.noaaForecastPrimary = [NSString stringWithFormat:@"%@ Forecast",noaaMeasurement.primaryName];
         self.noaaForecastSecondary = [NSString stringWithFormat:@"%@ Forecast",noaaMeasurement.secondaryName];
-
+        
         if (noaaMeasurement.primaryUnits && noaaMeasurement.primaryValue) {
             [self.measurementTypesSegControl insertSegmentWithTitle:self.noaaForecastPrimary atIndex:self.measurementTypesSegControl.numberOfSegments animated:NO];
         }
@@ -151,7 +91,7 @@
         }
         
     }
-
+    
     if (self.measurementTypesSegControl.numberOfSegments > 0) {
         self.measurementTypesSegControl.selectedSegmentIndex = 0;
         [self measurementTypeChanged:self.measurementTypesSegControl];
@@ -159,6 +99,43 @@
         self.measurements = nil;
         [self.lineGraph reloadGraph];
     }
+
+    
+}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    self.measurements = self.usgsMeasurementData.heightMeasurements;
+    self.dayRange =   7;
+    [self computeStartIndex];
+
+    [self setupSlider];
+    self.dayRangeSlider.value = 7;
+    [self dayRangeChanged:self.dayRangeSlider];
+    self.lineGraph.dataSource = self;
+    self.lineGraph.delegate = self;
+    
+    [self updateUI:nil];
+    self.lineGraph.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithWhite:.95 alpha:1];
+    
+    self.graphTouchView = [[UIView alloc] initWithFrame:CGRectMake(0, self.graphInsetView.frame.origin.y, 2, self.graphInsetView.frame.size.height)];
+    self.graphTouchView.hidden = YES;
+    self.graphTouchView.backgroundColor = [UIColor redColor];
+    [self.lineGraph addSubview:self.graphTouchView];
+    
+    self.graphTouchPointView = [[UIView alloc] initWithFrame:CGRectMake(0,0, 16, 16)];
+    self.graphTouchPointView.layer.cornerRadius = 8;
+    self.graphTouchPointView.hidden = YES;
+    self.graphTouchPointView.backgroundColor = [UIColor redColor];
+    [self.lineGraph addSubview:self.graphTouchPointView];
+}
+
+-(void)setUsgsMeasurementData:(USGSMeasurementData *)usgsMeasurementData NOAAMeasurementData:(NOAAMeasurementData*)noaaMeasurementData
+{
+    self.usgsMeasurementData = usgsMeasurementData;
+    self.noaaMeasurementData = noaaMeasurementData;
     
 
 }
@@ -168,21 +145,21 @@
     
     if ([segmentTitle isEqualToString:USGS_HEIGHT]) {
         
-        self.measurements = self.usgsMeasurementData.heightMeasurements;
+        self.measurements = self.measurementDownloadManager.usgsMeasurementData.heightMeasurements;
         
     }else if ([segmentTitle isEqualToString:USGS_DISCHARGE]) {
         
-        self.measurements = self.usgsMeasurementData.dischargeMeasurements;
+        self.measurements = self.measurementDownloadManager.usgsMeasurementData.dischargeMeasurements;
 
-        
+         
     }else if ([segmentTitle isEqualToString:USGS_TEMPERATURE]) {
         
-        self.measurements = self.usgsMeasurementData.temperatureMeasurements;
+        self.measurements = self.measurementDownloadManager.usgsMeasurementData.temperatureMeasurements;
 
         
     }else if ([segmentTitle isEqualToString:self.noaaForecastPrimary] || [segmentTitle isEqualToString:self.noaaForecastSecondary]) {
         
-        self.measurements = [self.noaaMeasurementData.noaaMeasurements sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        self.measurements = [self.measurementDownloadManager.noaaMeasurementData.noaaMeasurements sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
             NOAAMeasurement* noaaMeasurement1 = (NOAAMeasurement*)obj1;
             NOAAMeasurement* noaaMeasurement2 = (NOAAMeasurement*)obj2;
             
@@ -220,6 +197,13 @@
     [super viewWillAppear:animated];
 }
 
+-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
+    self.lineGraph.graphInsetRect = self.graphInsetView.frame;
+    [self.lineGraph reloadGraph];
+
+
+}
+
 -(void)computeStartIndex{
     
     if ([self isCurrentMeasurementTypeUSGS]) {
@@ -252,11 +236,15 @@
 
 -(NOAAMeasurementType)currentNoaaMeausurementType{
     
+    if (self.measurementTypesSegControl.selectedSegmentIndex < 0 ) {
+        return NOAAMeasurementTypeUnknown;
+    } 
+    
     NSString* measurementTitle = [self.measurementTypesSegControl titleForSegmentAtIndex:self.measurementTypesSegControl.selectedSegmentIndex];
     if ([measurementTitle isEqualToString:self.noaaForecastPrimary]) {
         return NOAAMeasurementTypePrimary;
     }else if ([measurementTitle isEqualToString:self.noaaForecastSecondary]) {
-        return NOAAMeasurementTypePrimary;
+        return NOAAMeasurementTypeSecondary;
     }else{
         return NOAAMeasurementTypeUnknown;
     }
@@ -352,12 +340,10 @@
     }
     NSLog(@"MinY %g",minimumYValueOfLineGraph);
 
-    return minimumYValueOfLineGraph;
+    return  floor(minimumYValueOfLineGraph);
 
 }
-- (IBAction)toggleFullScreen:(id)sender {
-    [self.ipadParentViewController toggleViewControllerFullScreen:self];
-}
+
 -(CGFloat)maximumXValueOfLineGraph
 {
     CGFloat maximumXValueOfLineGraph = 0;
@@ -398,7 +384,7 @@
     }
     NSLog(@"MaxY %g",maximumYValueOfLineGraph);
 
-    return maximumYValueOfLineGraph;
+    return ceil(maximumYValueOfLineGraph);
 
 }
 
@@ -423,6 +409,9 @@
 
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MMM dd hh:mm a"];
+    
+    
+    
     NSString* dateString = [dateFormatter stringFromDate:dateOfMeasurement];
     if (!dateString) {
         dateString = @"";
@@ -433,12 +422,37 @@
 -(NSString*)stringForYValueLabel:(CGFloat)yValue
 {
 
-    NSString* yValueString = [NSString stringWithFormat:@"%g",yValue];
+    NSNumberFormatter* numberFormatter = [[NSNumberFormatter alloc] init];
+    NSNumber* number = [NSNumber numberWithFloat:yValue];
+    
+    if (yValue > 100) {
+        [numberFormatter setMaximumFractionDigits:0];
+    }else if (yValue > 10){
+        [numberFormatter setMinimumFractionDigits:1];
+        [numberFormatter setMaximumFractionDigits:1];
+    }else{
+        [numberFormatter setMaximumFractionDigits:2];
+        [numberFormatter setMinimumFractionDigits:2];
+
+    }
+    
+    NSString* numberString = [numberFormatter stringFromNumber:number];
+    NSString* yValueString = [NSString stringWithFormat:@"%@",numberString];
     return yValueString;
 }
 
 
+-(void)graphIsBeingTouchedAtNearestValuePoint:(CGPoint)point XValue:(CGFloat)xValue YValue:(CGFloat)yValue
+{
+    self.graphTouchView.hidden = NO;
+    self.graphTouchPointView.hidden = NO;
+    self.graphTouchPointView.center = point;
 
+    CGRect newFrame = self.graphTouchView.frame;
+    newFrame.origin.x = point.x - (self.graphTouchView.bounds.size.width / 2);
+    self.graphTouchView.frame = newFrame;
+    
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

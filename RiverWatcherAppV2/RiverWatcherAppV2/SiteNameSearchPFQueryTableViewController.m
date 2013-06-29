@@ -8,6 +8,7 @@
 
 #import "SiteNameSearchPFQueryTableViewController.h"
 #import "GaugeSite.h"
+#import "UIColor+FlatUI.h"
 #import "GaugeSiteIPhoneTableViewController.h"
 
 @interface SiteNameSearchPFQueryTableViewController () <UISearchBarDelegate>
@@ -43,6 +44,24 @@
     self.cellContentMargin = 5;
     self.minimumHeight = 32;
     [super viewDidLoad];
+    
+    
+#ifdef IS_IPAD
+    CGSize size = CGSizeMake(1,1);
+    UIColor*   color = [UIColor toolBarColor];
+    
+    UIGraphicsBeginImageContext(size);
+    CGContextRef currentContext = UIGraphicsGetCurrentContext();
+    CGRect fillRect = CGRectMake(0,0,size.width,size.height);
+    CGContextSetFillColorWithColor(currentContext, color.CGColor);
+    CGContextFillRect(currentContext, fillRect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    image = [image resizableImageWithCapInsets:UIEdgeInsetsZero];
+    self.searchBar.backgroundImage = image;
+
+#endif
 	// Do any additional setup after loading the view.
 }
 

@@ -92,6 +92,15 @@
 		316F8F6B16E3102200099571 /* starEmpty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 316F8F6916E3102100099571 /* starEmpty@2x.png */; };
 		316F8F6E16E3160800099571 /* retina_dust_@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 316F8F6C16E3160600099571 /* retina_dust_@2X.png */; };
 		316F8F6F16E3160800099571 /* retina_dust.png in Resources */ = {isa = PBXBuildFile; fileRef = 316F8F6D16E3160700099571 /* retina_dust.png */; };
+		318CBF9B1776AA4A006FC8DE /* UIImage+GJACoveredOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 318CBF9A1776AA4A006FC8DE /* UIImage+GJACoveredOverlay.m */; };
+		318CBF9F17773661006FC8DE /* UIView+Origami.m in Sources */ = {isa = PBXBuildFile; fileRef = 318CBF9E17773661006FC8DE /* UIView+Origami.m */; };
+		318CBFA517773704006FC8DE /* RWTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 318CBFA417773704006FC8DE /* RWTabBarController.m */; };
+		318CBFA817773CF1006FC8DE /* RWSegControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 318CBFA717773CF1006FC8DE /* RWSegControl.m */; };
+		318CBFAB17774609006FC8DE /* RWSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 318CBFAA17774609006FC8DE /* RWSplitViewController.m */; };
+		318CBFAE17779AC4006FC8DE /* GaugeSiteMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 318CBFAD17779AC2006FC8DE /* GaugeSiteMapViewController.m */; };
+		318CBFB11777A115006FC8DE /* thermometer.svg in Resources */ = {isa = PBXBuildFile; fileRef = 318CBFB01777A115006FC8DE /* thermometer.svg */; };
+		318CBFB41777A56D006FC8DE /* ThermometerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 318CBFB31777A56D006FC8DE /* ThermometerView.m */; };
+		318CBFB71777B420006FC8DE /* UIColor+RWColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 318CBFB61777B41F006FC8DE /* UIColor+RWColors.m */; };
 		319D146216C57B500074D8EA /* list-item-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 319D146016C57B500074D8EA /* list-item-bg.png */; };
 		319D146316C57B500074D8EA /* list-item-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 319D146116C57B500074D8EA /* list-item-bg@2x.png */; };
 		319D146616C57BEC0074D8EA /* menubar.png in Resources */ = {isa = PBXBuildFile; fileRef = 319D146416C57BEC0074D8EA /* menubar.png */; };
@@ -119,6 +128,7 @@
 		319D149616C5C38A0074D8EA /* 25-weather.png in Resources */ = {isa = PBXBuildFile; fileRef = 319D149416C5C3880074D8EA /* 25-weather.png */; };
 		319D149716C5C38A0074D8EA /* 25-weather@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 319D149516C5C3880074D8EA /* 25-weather@2x.png */; };
 		319D149A16C5C6740074D8EA /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 319D149916C5C6740074D8EA /* LoadingView.m */; };
+		31A4B8D0177F49A30043E8DF /* SelectionArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A4B8CF177F49A30043E8DF /* SelectionArrowView.m */; };
 		31AD886716E2533600F75FA4 /* IPadMaindStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31AD886616E2533600F75FA4 /* IPadMaindStoryboard.storyboard */; };
 		31AD886A16E2534200F75FA4 /* IpadParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AD886916E2534200F75FA4 /* IpadParentViewController.m */; };
 		31AD886D16E2543900F75FA4 /* IpadMeasurementTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AD886C16E2543900F75FA4 /* IpadMeasurementTablesViewController.m */; };
@@ -299,6 +309,23 @@
 		316F8F6916E3102100099571 /* starEmpty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "starEmpty@2x.png"; sourceTree = "<group>"; };
 		316F8F6C16E3160600099571 /* retina_dust_@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "retina_dust_@2X.png"; sourceTree = "<group>"; };
 		316F8F6D16E3160700099571 /* retina_dust.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = retina_dust.png; sourceTree = "<group>"; };
+		318CBF991776AA4A006FC8DE /* UIImage+GJACoveredOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GJACoveredOverlay.h"; sourceTree = "<group>"; };
+		318CBF9A1776AA4A006FC8DE /* UIImage+GJACoveredOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+GJACoveredOverlay.m"; sourceTree = "<group>"; };
+		318CBF9D17773661006FC8DE /* UIView+Origami.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Origami.h"; sourceTree = "<group>"; };
+		318CBF9E17773661006FC8DE /* UIView+Origami.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Origami.m"; sourceTree = "<group>"; };
+		318CBFA317773704006FC8DE /* RWTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWTabBarController.h; sourceTree = "<group>"; };
+		318CBFA417773704006FC8DE /* RWTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWTabBarController.m; sourceTree = "<group>"; };
+		318CBFA617773CF1006FC8DE /* RWSegControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWSegControl.h; sourceTree = "<group>"; };
+		318CBFA717773CF1006FC8DE /* RWSegControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWSegControl.m; sourceTree = "<group>"; };
+		318CBFA917774609006FC8DE /* RWSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWSplitViewController.h; sourceTree = "<group>"; };
+		318CBFAA17774609006FC8DE /* RWSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWSplitViewController.m; sourceTree = "<group>"; };
+		318CBFAC17779AC1006FC8DE /* GaugeSiteMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GaugeSiteMapViewController.h; sourceTree = "<group>"; };
+		318CBFAD17779AC2006FC8DE /* GaugeSiteMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GaugeSiteMapViewController.m; sourceTree = "<group>"; };
+		318CBFB01777A115006FC8DE /* thermometer.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = thermometer.svg; sourceTree = "<group>"; };
+		318CBFB21777A56D006FC8DE /* ThermometerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThermometerView.h; sourceTree = "<group>"; };
+		318CBFB31777A56D006FC8DE /* ThermometerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThermometerView.m; sourceTree = "<group>"; };
+		318CBFB51777B41F006FC8DE /* UIColor+RWColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RWColors.h"; sourceTree = "<group>"; };
+		318CBFB61777B41F006FC8DE /* UIColor+RWColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RWColors.m"; sourceTree = "<group>"; };
 		319D146016C57B500074D8EA /* list-item-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-item-bg.png"; sourceTree = "<group>"; };
 		319D146116C57B500074D8EA /* list-item-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-item-bg@2x.png"; sourceTree = "<group>"; };
 		319D146416C57BEC0074D8EA /* menubar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menubar.png; sourceTree = "<group>"; };
@@ -329,6 +356,8 @@
 		319D149516C5C3880074D8EA /* 25-weather@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "25-weather@2x.png"; sourceTree = "<group>"; };
 		319D149816C5C6740074D8EA /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingView.h; sourceTree = "<group>"; };
 		319D149916C5C6740074D8EA /* LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingView.m; sourceTree = "<group>"; };
+		31A4B8CE177F49A30043E8DF /* SelectionArrowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionArrowView.h; sourceTree = "<group>"; };
+		31A4B8CF177F49A30043E8DF /* SelectionArrowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectionArrowView.m; sourceTree = "<group>"; };
 		31AD886616E2533600F75FA4 /* IPadMaindStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IPadMaindStoryboard.storyboard; sourceTree = "<group>"; };
 		31AD886816E2534200F75FA4 /* IpadParentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IpadParentViewController.h; sourceTree = "<group>"; };
 		31AD886916E2534200F75FA4 /* IpadParentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IpadParentViewController.m; sourceTree = "<group>"; };
@@ -487,6 +516,7 @@
 			isa = PBXGroup;
 			children = (
 				31041C6216C2D49100D92FE2 /* MainStoryboard.storyboard */,
+				318CBF9C17773661006FC8DE /* XYOrigami */,
 				31AD886616E2533600F75FA4 /* IPadMaindStoryboard.storyboard */,
 				312C0A6916C5D5B2004D6A9A /* Controller */,
 				319D147016C581AE0074D8EA /* View */,
@@ -506,6 +536,10 @@
 				31AEAF7516E1280B00445336 /* UtilMethods.h */,
 				31AEAF7616E1280B00445336 /* UtilMethods.m */,
 				31AEAF7C16E1378F00445336 /* MeasurementDescriptionProtocol.h */,
+				318CBF991776AA4A006FC8DE /* UIImage+GJACoveredOverlay.h */,
+				318CBF9A1776AA4A006FC8DE /* UIImage+GJACoveredOverlay.m */,
+				318CBFB51777B41F006FC8DE /* UIColor+RWColors.h */,
+				318CBFB61777B41F006FC8DE /* UIColor+RWColors.m */,
 			);
 			path = RiverWatcherAppV2;
 			sourceTree = "<group>";
@@ -543,6 +577,7 @@
 		31041C7816C2DB0E00D92FE2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				318CBFAF1777A104006FC8DE /* SVG */,
 				31D699AB177624F400BC3F3B /* 152-rolodex.png */,
 				31D699AC177624F400BC3F3B /* 152-rolodex@2x.png */,
 				31DF7CE41763B0980045FD74 /* mapColor.png */,
@@ -699,8 +734,31 @@
 				31472F3516D9713700761303 /* LineGraphViewController.m */,
 				3135356F16E3FE62001C015C /* IpadRecentValuesTableViewController.h */,
 				3135357016E3FE62001C015C /* IpadRecentValuesTableViewController.m */,
+				318CBFA317773704006FC8DE /* RWTabBarController.h */,
+				318CBFA417773704006FC8DE /* RWTabBarController.m */,
+				318CBFA917774609006FC8DE /* RWSplitViewController.h */,
+				318CBFAA17774609006FC8DE /* RWSplitViewController.m */,
+				318CBFAC17779AC1006FC8DE /* GaugeSiteMapViewController.h */,
+				318CBFAD17779AC2006FC8DE /* GaugeSiteMapViewController.m */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		318CBF9C17773661006FC8DE /* XYOrigami */ = {
+			isa = PBXGroup;
+			children = (
+				318CBF9D17773661006FC8DE /* UIView+Origami.h */,
+				318CBF9E17773661006FC8DE /* UIView+Origami.m */,
+			);
+			path = XYOrigami;
+			sourceTree = "<group>";
+		};
+		318CBFAF1777A104006FC8DE /* SVG */ = {
+			isa = PBXGroup;
+			children = (
+				318CBFB01777A115006FC8DE /* thermometer.svg */,
+			);
+			name = SVG;
 			sourceTree = "<group>";
 		};
 		319D145F16C57B420074D8EA /* OceanTheme */ = {
@@ -741,6 +799,12 @@
 				31E1A67016C73BBF00628B7D /* FavoriteTableViewCell.m */,
 				31AEAF8016E1414F00445336 /* MeasurementTableViewCell.h */,
 				31AEAF8116E1414F00445336 /* MeasurementTableViewCell.m */,
+				318CBFA617773CF1006FC8DE /* RWSegControl.h */,
+				318CBFA717773CF1006FC8DE /* RWSegControl.m */,
+				318CBFB21777A56D006FC8DE /* ThermometerView.h */,
+				318CBFB31777A56D006FC8DE /* ThermometerView.m */,
+				31A4B8CE177F49A30043E8DF /* SelectionArrowView.h */,
+				31A4B8CF177F49A30043E8DF /* SelectionArrowView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -951,6 +1015,7 @@
 				31DF7CE51763B0980045FD74 /* mapColor.png in Resources */,
 				31D699AD177624F400BC3F3B /* 152-rolodex.png in Resources */,
 				31D699AE177624F400BC3F3B /* 152-rolodex@2x.png in Resources */,
+				318CBFB11777A115006FC8DE /* thermometer.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1040,6 +1105,15 @@
 				31D699B1177654D600BC3F3B /* USGSMultipleSitesWebService.m in Sources */,
 				31D699B41776557F00BC3F3B /* USGSSingleSiteWebService.m in Sources */,
 				31D699B717767FB400BC3F3B /* MeasurementDownloadManager.m in Sources */,
+				318CBF9B1776AA4A006FC8DE /* UIImage+GJACoveredOverlay.m in Sources */,
+				318CBF9F17773661006FC8DE /* UIView+Origami.m in Sources */,
+				318CBFA517773704006FC8DE /* RWTabBarController.m in Sources */,
+				318CBFA817773CF1006FC8DE /* RWSegControl.m in Sources */,
+				318CBFAB17774609006FC8DE /* RWSplitViewController.m in Sources */,
+				318CBFAE17779AC4006FC8DE /* GaugeSiteMapViewController.m in Sources */,
+				318CBFB41777A56D006FC8DE /* ThermometerView.m in Sources */,
+				318CBFB71777B420006FC8DE /* UIColor+RWColors.m in Sources */,
+				31A4B8D0177F49A30043E8DF /* SelectionArrowView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

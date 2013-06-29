@@ -97,6 +97,8 @@ typedef enum {
 @property (strong,nonatomic) NSMutableArray* tableSections;
 @property (nonatomic) NSInteger numberOfWebservicesLoaded;
 @property (strong,nonatomic) NSDate* latestMeasurementDate;
+@property (strong,nonatomic) MeasurementDownloadManager* measurementDownloadManager;
+
 @end
 
 @implementation GaugeSiteIPhoneTableViewController
@@ -121,6 +123,7 @@ typedef enum {
     }
     
 }
+
 
 -(void)updateLatestMeasurements{
     
@@ -159,6 +162,14 @@ typedef enum {
         self.latestWebServiceState = WebServiceStateLoaded;
         
     }
+    
+}
+
+
+-(void)downloadGaugeSiteData{
+    
+    self.measurementDownloadManager = [[MeasurementDownloadManager alloc] init];
+    [self.measurementDownloadManager fetchDataForGaugeSite:_gaugeSite WithCompletion:nil];
     
 }
 
@@ -548,7 +559,7 @@ typedef enum {
    // cell.imageView.contentMode = UIViewContentModeScaleToFill;
     //cell.imageView.bounds = CGRectMake(0, 0, 32, 32);
 
-    cell.contentView.backgroundColor= [UIColor clearColor];
+    cell.contentView.backgroundColor= [UIColor whiteColor];
     cell.backgroundColor = [UIColor whiteColor];
     return cell;
 }

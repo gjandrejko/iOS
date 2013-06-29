@@ -8,6 +8,8 @@
 
 #import "MainMenuTableViewController.h"
 #import "IpadParentViewController.h"
+#import "RWSplitViewController.h"
 @interface IpadMainMenuTableViewController : MainMenuTableViewController
 @property (strong,nonatomic) IpadParentViewController* ipadParentViewController;
+@property (weak,nonatomic) RWSplitViewController* rwSplitViewController;
 @end

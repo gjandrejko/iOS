@@ -10,6 +10,8 @@
 #import "GaugeSite.h"
 @interface FavoritesManager : NSObject
 
+
+FOUNDATION_EXPORT NSString* const FavoritesManagerWasModifiedNotification;
 +(FavoritesManager*)sharedManager;
 
 -(NSArray*)favoriteGaugeSites;

@@ -7,6 +7,7 @@
 //
 
 #import "RiverWatcherAppDelegate.h"
+#import "UIColor+FlatUI.h"
 @implementation RiverWatcherAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -22,25 +23,16 @@
     
     [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
     
-    CGSize size = CGSizeMake(5, 5);
-    UIColor* color = [UIColor colorWithRed:0.075 green:0.145 blue:0.184 alpha:1];
-    
-    UIGraphicsBeginImageContext(size);
-    CGContextRef currentContext = UIGraphicsGetCurrentContext();
-    CGRect fillRect = CGRectMake(0,0,size.width,size.height);
-    CGContextSetFillColorWithColor(currentContext, color.CGColor);
-    CGContextFillRect(currentContext, fillRect);
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    image = [image resizableImageWithCapInsets:UIEdgeInsetsZero];
+    UIImage* image = [self imageWithColor:[UIColor toolBarColor]];
 
     
     UINavigationBar* navAppearance = [UINavigationBar appearance];
     
     [navAppearance setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
      [[UIToolbar appearance] setBackgroundImage:image forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-    [[UITabBar appearance] setBackgroundImage:image];
+    UIImage* tabBarimage = [self imageWithColor:[UIColor tabBarColor]];
+
+    [[UITabBar appearance] setBackgroundImage:tabBarimage];
     /*
     [navAppearance setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                            [UIColor whiteColor], UITextAttributeTextColor,
@@ -66,7 +58,23 @@
     
     return YES;
 }
-							
+
+-(UIImage*)imageWithColor:(UIColor*)color{
+    
+    CGSize size = CGSizeMake(5, 5);
+    
+    UIGraphicsBeginImageContext(size);
+    CGContextRef currentContext = UIGraphicsGetCurrentContext();
+    CGRect fillRect = CGRectMake(0,0,size.width,size.height);
+    CGContextSetFillColorWithColor(currentContext, color.CGColor);
+    CGContextFillRect(currentContext, fillRect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    image = [image resizableImageWithCapInsets:UIEdgeInsetsZero];
+    return image;
+    
+}
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
